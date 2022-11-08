@@ -24,10 +24,7 @@ class _MainPageState extends State<MainPage> {
           ),
           actions: <Widget>[
             IconButton(
-              // _________ name of log in page ______________________________________________________
-              onPressed: () => Navigator.pushNamed(
-                  context, "her put the name of login screen to back to it"),
-              // ___________________________________________________________________________________
+              onPressed: () => Navigator.pop(context, "login_screen"),
               icon: Icon(
                 Icons.app_registration,
                 color: Colors.white,

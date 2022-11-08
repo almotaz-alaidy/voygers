@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,6 +11,9 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   bool showPassword = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
+  TextEditingController _email = new TextEditingController();
+  TextEditingController _pass = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +59,7 @@ class _SignInState extends State<SignIn> {
                       scrollDirection: Axis.vertical,
                       child: Column(children: [
                         TextField(
+                          controller: _email,
                           decoration: InputDecoration(
                             label: Padding(
                               padding: EdgeInsets.only(left: 30),
@@ -66,6 +71,7 @@ class _SignInState extends State<SignIn> {
                           ),
                         ),
                         TextField(
+                          controller: _pass,
                           obscureText: showPassword,
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
@@ -112,8 +118,23 @@ class _SignInState extends State<SignIn> {
                                     backgroundColor: MaterialStatePropertyAll(
                                   Color.fromARGB(255, 42, 209, 16),
                                 )),
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "membership");
+                                onPressed: () async {
+                                  try {
+                                    UserCredential muUser =
+                                        await auth.signInWithEmailAndPassword(
+                                            email: _email.text,
+                                            password: _pass.text);
+                                    Navigator.pushNamed(context, "main_page");
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content:
+                                                Text("loged in sucessfuly")));
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content:
+                                                Text("something went wrong")));
+                                  }
                                 },
                                 child: Text(
                                   "Login",
