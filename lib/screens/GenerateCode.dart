@@ -2,8 +2,11 @@ import 'dart:math';
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'TripPage.dart';
 
 class GenerateCode extends StatefulWidget {
   const GenerateCode({super.key});
@@ -93,35 +96,35 @@ class _GenerateCodeState extends State<GenerateCode> {
                     "copy",
                     style: TextStyle(fontSize: 50),
                   )),
-              // TextButton.icon(
-              //     onPressed: () async {
-              //       try {
-              //         FirebaseFirestore db = FirebaseFirestore.instance;
+              TextButton.icon(
+                  onPressed: () async {
+                    try {
+                      FirebaseFirestore db = FirebaseFirestore.instance;
 
-              //         Map<String, dynamic> userInfo = {"code": generated_code};
-              //         db.collection("code").add(userInfo).then(
-              //             (DocumentReference doc) => print(
-              //                 'DocumentSnapshot added with ID: ${doc.id}'));
-              //         ScaffoldMessenger.of(context).showSnackBar(
-              //             SnackBar(content: Text("Code Generated")));
-              //       } catch (e) {
-              //         ScaffoldMessenger.of(context)
-              //             .showSnackBar(SnackBar(content: Text("Try again!")));
-              //       }
+                      Map<String, dynamic> userInfo = {"code": generated_code};
+                      db.collection("code").add(userInfo).then(
+                          (DocumentReference doc) => print(
+                              'DocumentSnapshot added with ID: ${doc.id}'));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Code Generated")));
+                    } catch (e) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text("Try again!")));
+                    }
 
-              //       // Navigator.push(context,
-              //       //     MaterialPageRoute(builder: (context) {
-              //       //   return TripPage();
-              //       // }));
-              //     },
-              //     icon: Icon(
-              //       Icons.done_sharp,
-              //       color: Colors.purple,
-              //     ),
-              //     label: Text(
-              //       "Done",
-              //       style: TextStyle(fontSize: 30),
-              //     ))
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return TripPage();
+                    }));
+                  },
+                  icon: Icon(
+                    Icons.done_sharp,
+                    color: Colors.purple,
+                  ),
+                  label: Text(
+                    "Done",
+                    style: TextStyle(fontSize: 30),
+                  ))
             ],
           ),
         ));

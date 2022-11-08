@@ -21,20 +21,23 @@ class _SeconedScreenState extends State<SeconedScreen> {
           children: [
             Padding(
               padding: EdgeInsets.only(right: 10, top: 150),
-              child: Text("OURE SERVICES", style: TextStyle(fontSize: 30)),
+              child: Text("OURE SERVICES",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white,
+                  )),
             ),
             SizedBox(
               height: 30,
             ),
             Padding(
               padding: EdgeInsets.only(right: 150),
-              child: Text(
-                "CREATE TRIP",
-                style: TextStyle(
+              child: Text("CREATE TRIP",
+                  style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
-                    color: Color.fromARGB(255, 57, 33, 235)),
-              ),
+                    color: Colors.white,
+                  )),
             ),
             SizedBox(
               height: 20,
@@ -44,9 +47,10 @@ class _SeconedScreenState extends State<SeconedScreen> {
               child: Text(
                 "JOIN TRIP",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Color.fromARGB(255, 57, 33, 235)),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
               ),
             ),
             SizedBox(
@@ -57,9 +61,10 @@ class _SeconedScreenState extends State<SeconedScreen> {
                 child: Text(
                   "UPLOED PHOTO",
                   style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Color.fromARGB(255, 57, 33, 235)),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.white,
+                  ),
                 )),
             SizedBox(
               height: 20,
@@ -69,9 +74,10 @@ class _SeconedScreenState extends State<SeconedScreen> {
               child: Text(
                 "UPLOED BILLS",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Color.fromARGB(255, 57, 33, 235)),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
               ),
             ),
             SizedBox(
@@ -82,9 +88,10 @@ class _SeconedScreenState extends State<SeconedScreen> {
               child: Text(
                 "KNOWING THE TRIP INFO",
                 style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    color: Color.fromARGB(255, 57, 33, 235)),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.white,
+                ),
               ),
             )
           ],

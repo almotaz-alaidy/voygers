@@ -16,13 +16,12 @@ class _FirstScreenState extends State<FirstScreen> {
         decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("images/6.jpg"), fit: BoxFit.fill)),
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           Container(
-            padding: const EdgeInsets.only(right: 200, top: 100),
             child: Text(
               " VOYGARES",
-              style: TextStyle(
-                  fontSize: 30, color: Color.fromARGB(255, 57, 33, 235)
+              style: TextStyle(fontSize: 40, color: Colors.white
                   // fontFamily: "Changa-VariableFont_wght"
                   ),
             ),
@@ -35,7 +34,10 @@ class _FirstScreenState extends State<FirstScreen> {
             child: Text(
               "Great choice to Organize your trips",
               style: TextStyle(
-                  fontSize: 25, fontFamily: "Changa-VariableFont_wght"),
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  fontFamily: "Changa-VariableFont_wght"),
             ),
           ),
           SizedBox(

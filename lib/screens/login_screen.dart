@@ -22,11 +22,14 @@ class _SignInState extends State<SignIn> {
         body: Stack(
           children: [
             Container(
+              decoration: BoxDecoration(
+                  // color: Color.fromARGB(255, 127, 236, 115),
+                  image: DecorationImage(
+                      image: AssetImage("images/10.jpg"), fit: BoxFit.fill)),
               height: 500,
-              color: Color.fromARGB(255, 42, 209, 16),
-              child: Lottie.asset(
-                "images/panda.json",
-              ),
+              // child: Lottie.asset(
+              //   "images/panda.json",
+              // ),
             ),
             Container(
               decoration: BoxDecoration(),
@@ -40,8 +43,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   Text(
                     "Voyager",
-                    style: TextStyle(
-                        fontSize: 30, color: Color.fromARGB(255, 17, 13, 13)),
+                    style: TextStyle(fontSize: 30, color: Colors.white),
                   ),
                   SizedBox(
                     height: 300,
@@ -75,16 +77,18 @@ class _SignInState extends State<SignIn> {
                           obscureText: showPassword,
                           decoration: InputDecoration(
                               suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      showPassword = !showPassword;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    showPassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                  )),
+                                onPressed: () {
+                                  setState(() {
+                                    showPassword = !showPassword;
+                                  });
+                                },
+                                icon: Icon(
+                                  showPassword
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                ),
+                                color: Color.fromARGB(191, 173, 122, 11),
+                              ),
                               enabledBorder: InputBorder.none,
                               label: Padding(
                                   padding: EdgeInsets.only(left: 30),
@@ -116,7 +120,7 @@ class _SignInState extends State<SignIn> {
                             child: ElevatedButton(
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(255, 42, 209, 16),
+                                  Color.fromARGB(191, 173, 122, 11),
                                 )),
                                 onPressed: () async {
                                   try {
@@ -155,7 +159,7 @@ class _SignInState extends State<SignIn> {
                                 child: Text(
                                   "signup",
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 42, 209, 16),
+                                      color: Color.fromARGB(191, 173, 122, 11),
                                       fontSize: 20),
                                 ),
                               ),

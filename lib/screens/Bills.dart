@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Bills extends StatefulWidget {
@@ -56,28 +57,28 @@ class _BillsState extends State<Bills> {
                   fillColor: Colors.white),
               keyboardType: TextInputType.number,
             ),
-            // ElevatedButton(
-            //   onPressed: () async {
-            //     try {
-            //       FirebaseFirestore db = FirebaseFirestore.instance;
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  FirebaseFirestore db = FirebaseFirestore.instance;
 
-            //       Map<String, dynamic> userInfo = {
-            //         "billName": bill_name.text,
-            //         "amount": amount.text
-            //       };
-            //       db.collection("Bills").add(userInfo).then(
-            //           (DocumentReference doc) =>
-            //               print('DocumentSnapshot added with ID: ${doc.id}'));
-            //       ScaffoldMessenger.of(context).showSnackBar(
-            //           SnackBar(content: Text("Bill Added succecfully")));
-            //     } catch (e) {
-            //       ScaffoldMessenger.of(context)
-            //           .showSnackBar(SnackBar(content: Text("Try again!")));
-            //     }
-            //   },
-            //   child: Text("Upload"),
-            //   style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
-            // )
+                  Map<String, dynamic> userInfo = {
+                    "billName": bill_name.text,
+                    "amount": amount.text
+                  };
+                  db.collection("Bills").add(userInfo).then(
+                      (DocumentReference doc) =>
+                          print('DocumentSnapshot added with ID: ${doc.id}'));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Bill Added succecfully")));
+                } catch (e) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Try again!")));
+                }
+              },
+              child: Text("Upload"),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+            )
           ],
         ),
       ),

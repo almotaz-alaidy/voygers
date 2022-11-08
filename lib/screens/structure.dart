@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../compononet/catagory/catagoryList.dart';
@@ -10,6 +12,10 @@ class StructureScreen extends StatefulWidget {
 }
 
 class _StructureScreenState extends State<StructureScreen> {
+  final currentUser = FirebaseAuth.instance;
+  String email = "";
+  String phoneNum = "";
+  String name = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,48 +42,40 @@ class _StructureScreenState extends State<StructureScreen> {
         backgroundColor: Colors.blue,
         child: Stack(
           children: [
-            // StreamBuilder<QuerySnapshot>(
-            //   stream: FirebaseFirestore.instance
-            //       .collection("users")
-            //       .where("uid", isEqualTo: currentUser.currentUser!.uid)
-            //       .snapshots(),
-            //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-            //     if (snapshot.hasData) {
-            //       return ListView.builder(
-            //         itemCount: snapshot.data!.docs.length,
-            //         itemBuilder: (context, index) {
-            //           QueryDocumentSnapshot x = snapshot.data!.docs[index];
-            //           return Container(
-            //               child: DrawerHeader(
-            //             child: Column(children: [
-            //               Image.network(
-            //                 "https://flyclipart.com/thumb2/purple-camera-clip-art-594601.png",
-            //                 width: 50,
-            //                 height: 50,
-            //               ),
-            //               Text(x['Email']),
-            //               Text(x['Name']),
-            //               Text(x['phone'])
-            //             ]),
-            //           ));
-            //         },
-            //       );
-            //     }
-            //     return Center(
-            //       child: CircularProgressIndicator(),
-            //     );
-            //   },
-            // ),
-            // DrawerHeader(
-            //     child: Column(
-            //   children: [
-
-            //     Text(name),
-            //     Text(email),
-            //     Text(phoneNum)
-            //   ],
-            // )),
-
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .where("uid", isEqualTo: currentUser.currentUser!.uid)
+                    .snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        QueryDocumentSnapshot x = snapshot.data!.docs[index];
+                        return Container(
+                            child: DrawerHeader(
+                          child: Column(children: [
+                            Text(x['Email']),
+                            Text(x['Name']),
+                            Text(x['phone'])
+                          ]),
+                        ));
+                      },
+                    );
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ),
+            DrawerHeader(
+                child: Column(
+              children: [Text(name), Text(email), Text(phoneNum)],
+            )),
             Positioned(
               top: 250,
               child: TextButton.icon(
@@ -116,30 +114,28 @@ class _StructureScreenState extends State<StructureScreen> {
               top: 350,
               child: TextButton.icon(
                 onPressed: () {
-                  // setState(() {
-                  //   Navigator.pop(context);
-                  //   showDialog(
-                  //       context: context,
-                  //       builder: (context) {
-                  //         return AlertDialog(
-                  //           title: Text("Are you Sure you want to end trip?"),
-                  //           content: Row(children: [
-                  //             TextButton(
-                  //               onPressed: () {
-                  //                 read_data();
-                  //               },
-                  //               child: Text("Yes"),
-                  //             ),
-                  //             TextButton(
-                  //               onPressed: () {
-                  //                 Navigator.pop(context);
-                  //               },
-                  //               child: Text("No"),
-                  //             )
-                  //           ]),
-                  //         );
-                  //       });
-                  // });
+                  setState(() {
+                    Navigator.pop(context);
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text("Are you Sure you want to end trip?"),
+                            content: Row(children: [
+                              TextButton(
+                                onPressed: () {},
+                                child: Text("Yes"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text("No"),
+                              )
+                            ]),
+                          );
+                        });
+                  });
                 },
                 icon: Icon(
                   Icons.close,
@@ -155,27 +151,6 @@ class _StructureScreenState extends State<StructureScreen> {
             SizedBox(
               height: 100,
             ),
-            // Positioned(
-            //   top: 600,
-            //   child: TextButton.icon(
-            //     onPressed: () {
-            //       setState(() {
-            //         Navigator.push(context,
-            //             MaterialPageRoute(builder: (context) {
-            //           return MainPage();
-            //         }));
-            //       });
-            //     },
-            //     icon: Icon(
-            //       Icons.exit_to_app,
-            //       color: Colors.purple,
-            //     ),
-            //     label: Text(
-            //       "Exit",
-            //       style: TextStyle(color: Color.fromARGB(255, 245, 206, 252)),
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
@@ -192,31 +167,32 @@ class _StructureScreenState extends State<StructureScreen> {
                 children: [
                   Row(
                     children: [
+                      // _______________her will appeare the wether __________________________________________________________________________________________
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
-                          // Text(
-                          //   "voygers",
-                          //   style: TextStyle(
-                          //     fontSize: 28,
-                          //     fontWeight: FontWeight.bold,
+                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          // children: const [
+                          //   Text(
+                          //     "voygers",
+                          //     style: TextStyle(
+                          //       fontSize: 28,
+                          //       fontWeight: FontWeight.bold,
+                          //     ),
                           //   ),
-                          // ),
-                          SizedBox(
-                            height: 10.0,
+                          //   SizedBox(
+                          //     height: 10.0,
+                          //   ),
+                          //   Text(
+                          //     "lets organize oure tripe ",
+                          //     style: TextStyle(
+                          //       color: Colors.black54,
+                          //       wordSpacing: 2.5,
+                          //       fontSize: 16,
+                          //       fontWeight: FontWeight.w500,
+                          //     ),
+                          //   ),
+                          // ],
                           ),
-                          Text(
-                            "lets organize oure tripe ",
-                            style: TextStyle(
-                              color: Colors.black54,
-                              wordSpacing: 2.5,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
+                      // const Spacer(),
                       Column(
                         children: [
                           Container(
@@ -231,6 +207,7 @@ class _StructureScreenState extends State<StructureScreen> {
                               fit: BoxFit.cover,
                             ),
                           ),
+                          // ________________________________________________________________________________________________________________________________
                         ],
                       ),
                     ],
@@ -238,13 +215,9 @@ class _StructureScreenState extends State<StructureScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  //sorting
-                  // const Sorting(),
                   const SizedBox(
                     height: 20,
                   ),
-                  //category list
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -257,13 +230,9 @@ class _StructureScreenState extends State<StructureScreen> {
                       ),
                     ],
                   ),
-
-                  //now we create model of our images and colors which we will use in our app
                   const SizedBox(
                     height: 20,
                   ),
-                  //we can not use gridview inside column
-                  //use shrinkwrap and physical scroll
                   const CategoryList(),
                   const SizedBox(
                     height: 20,
