@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "893946047140",
+    "project_id": "voygers-9ec9b",
+    "storage_bucket": "voygers-9ec9b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893946047140:android:86ffb6ff458240317ad431",
+        "android_client_info": {
+          "package_name": "com.example.voygares"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893946047140-v0pfr7ngslvnrtsdijk4fna84qlbhdgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBithTlxBrRIdVb17ENdMG5diBJU-a6Xy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893946047140-v0pfr7ngslvnrtsdijk4fna84qlbhdgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893946047140-j298illbv8kdpf83lfcqs2cc0bp6ttrs.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.voygares"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
