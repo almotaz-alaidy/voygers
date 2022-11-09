@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/customtextfeild.dart';
 
 class JoinTrip extends StatefulWidget {
   const JoinTrip({super.key});
@@ -8,11 +9,12 @@ class JoinTrip extends StatefulWidget {
 }
 
 class _JoinTripState extends State<JoinTrip> {
+  TextEditingController _code = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 29, 101, 118),
+        backgroundColor: Color.fromARGB(255, 7, 231, 7),
         title: Text(
           "joining the trip ",
           style: TextStyle(
@@ -22,18 +24,10 @@ class _JoinTripState extends State<JoinTrip> {
         ),
       ),
       body: Container(
-        color: Color.fromARGB(200, 29, 102, 118),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              decoration: InputDecoration(
-                  hintText: 'Code',
-                  icon: Icon(Icons.trip_origin_rounded),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                  fillColor: Colors.white),
-            ),
+            Textfeild(controller: _code, text: "Enter Your code"),
             SizedBox(
               height: 30,
             ),
@@ -43,7 +37,7 @@ class _JoinTripState extends State<JoinTrip> {
               },
               child: Text("Join"),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 29, 101, 118),
+                backgroundColor: Color.fromARGB(255, 7, 231, 7),
               ),
             )
           ],

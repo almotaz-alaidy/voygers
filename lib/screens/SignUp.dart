@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/customtextfeild.dart';
 
 class SigupScreen extends StatefulWidget {
   const SigupScreen({super.key});
@@ -11,7 +12,7 @@ class SigupScreen extends StatefulWidget {
 }
 
 class _SigupScreenState extends State<SigupScreen> {
-  bool showPassword = true;
+  bool showPassword = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _email = new TextEditingController();
   TextEditingController _pass = new TextEditingController();
@@ -25,42 +26,47 @@ class _SigupScreenState extends State<SigupScreen> {
         body: Stack(
           children: [
             Container(
-              decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 4, 143, 4),
-                  image: DecorationImage(
-                      image: AssetImage("images/11.jpg"), fit: BoxFit.fill)),
-              height: 500,
-              // child: Lottie.asset(
-              //   "images/earkickwelcomeanimation.json",
-              // ),
+              width: MediaQuery.of(context).size.width,
+              color: Color.fromARGB(255, 7, 231, 7),
+              height: 300,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 70,
+                  ),
+                  Text(
+                    "Voyager",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(color: Colors.white),
+                  ),
+                  SizedBox(height: 30),
+                  Text(
+                    "Registration page",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 50,
             ),
             Container(
               decoration: BoxDecoration(),
-              width: double.infinity,
-              height: double.infinity,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 100),
-                  ),
-                  // Text(
-                  //   "Voyager",
-                  //   style: TextStyle(
-                  //       fontSize: 30, color: Color.fromARGB(255, 17, 13, 13)),
-                  // ),
                   SizedBox(
-                    height: 280,
-                  ),
-                  // Text(
-                  //   "Registration page",
-                  //   style: TextStyle(fontSize: 20),
-                  // ),
-                  SizedBox(
-                    height: 20,
+                    height: 200,
                   ),
                   Container(
-                    height: 450,
+                    height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -69,25 +75,24 @@ class _SigupScreenState extends State<SigupScreen> {
                       ),
                     ),
                     child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
                       child: Column(children: [
-                        TextField(
-                          controller: _email,
-                          decoration: InputDecoration(
-                            label: Padding(
-                              padding: EdgeInsets.only(left: 30),
-                              child: Text(
-                                "Email or mobile number",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
+                        SizedBox(
+                          height: 30,
                         ),
-                        TextField(
-                          controller: _pass,
-                          obscureText: showPassword,
-                          decoration: InputDecoration(
-                              suffixIcon: IconButton(
+                        Textfeild(controller: _email, text: "Enter Your Email"),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextField(
+                            controller: _pass,
+                            obscureText: showPassword,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                ),
+                                suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
                                       showPassword = !showPassword;
@@ -97,45 +102,30 @@ class _SigupScreenState extends State<SigupScreen> {
                                     showPassword
                                         ? Icons.visibility_off
                                         : Icons.visibility,
-                                  )),
-                              enabledBorder: InputBorder.none,
-                              label: Padding(
-                                  padding: EdgeInsets.only(left: 30),
-                                  child: Text(
-                                    "Password",
-                                    style: TextStyle(color: Colors.black),
-                                  ))),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        TextField(
-                          controller: _name,
-                          decoration: InputDecoration(
-                            label: Padding(
-                              padding: EdgeInsets.only(left: 30),
-                              child: Text(
-                                "name",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                label: Padding(
+                                    padding: EdgeInsets.only(left: 30),
+                                    child: Text(
+                                      "Password",
+                                      style: TextStyle(color: Colors.black),
+                                    ))),
                           ),
                         ),
                         SizedBox(
                           height: 20,
                         ),
-                        TextField(
-                          controller: _mobile,
-                          decoration: InputDecoration(
-                            label: Padding(
-                              padding: EdgeInsets.only(left: 30),
-                              child: Text(
-                                "mobile number",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
+                        Textfeild(controller: _name, text: "Name"),
+                        SizedBox(
+                          height: 20,
                         ),
+                        Textfeild(
+                            controller: _mobile,
+                            text: "Enter Your Mobile Number"),
                         Container(
                             width: 200,
                             decoration: BoxDecoration(
@@ -185,7 +175,7 @@ class _SigupScreenState extends State<SigupScreen> {
                                 },
                                 child: Text(
                                   "SignUp",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ))),
                         Padding(
                           padding: const EdgeInsets.only(left: 50),

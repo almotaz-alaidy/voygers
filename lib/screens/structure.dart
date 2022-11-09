@@ -24,22 +24,22 @@ class _StructureScreenState extends State<StructureScreen> {
         title: Text(
           "voygers",
           style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0,
-        // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(144, 7, 211, 20),
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "MainPage"),
             icon: Icon(
               Icons.app_registration,
-              color: Color.fromARGB(255, 9, 9, 9),
+              color: Colors.white,
             ),
           )
         ],
       ),
       drawer: Drawer(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         child: Stack(
           children: [
             Padding(
@@ -82,10 +82,7 @@ class _StructureScreenState extends State<StructureScreen> {
                 onPressed: () {
                   Navigator.pushNamed(context, "history");
                 },
-                icon: Icon(
-                  Icons.history,
-                  // color: Colors.purple,
-                ),
+                icon: Icon(Icons.history, color: Colors.white),
                 label: Text(
                   "Old trips",
                   style: TextStyle(
@@ -101,7 +98,7 @@ class _StructureScreenState extends State<StructureScreen> {
                 },
                 icon: Icon(
                   Icons.comment,
-                  // color: Colors.purple,
+                  color: Colors.white,
                 ),
                 label: Text(
                   "Comment On trip",
@@ -139,7 +136,7 @@ class _StructureScreenState extends State<StructureScreen> {
                 },
                 icon: Icon(
                   Icons.close,
-                  // color: Colors.purple,
+                  color: Colors.white,
                 ),
                 label: Text(
                   "End trip",
@@ -157,7 +154,6 @@ class _StructureScreenState extends State<StructureScreen> {
       body: SafeArea(
         child: ListView(
           children: [
-            // const CustomeAppBar(),
             const SizedBox(
               height: 20,
             ),

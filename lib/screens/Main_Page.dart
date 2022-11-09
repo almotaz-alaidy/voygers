@@ -14,11 +14,11 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 29, 101, 118),
+          backgroundColor: Color.fromARGB(255, 7, 231, 7),
           title: Text(
             "Lets Go! Voyager",
             style: TextStyle(
-              // fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.bold,
               fontSize: 25,
             ),
           ),
@@ -34,32 +34,42 @@ class _MainPageState extends State<MainPage> {
         ),
         body: Container(
           width: double.infinity,
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("images/8.jpg"), fit: BoxFit.fill)),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "create_trip");
-                  },
-                  icon: Icon(Icons.create, color: Colors.white),
-                  label: Text(
-                    "Create a trip",
-                    style: TextStyle(
-                      fontSize: 50,
+              Container(),
+              SizedBox(
+                height: 300,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Wrap(
+                  direction: Axis.vertical,
+                  children: [
+                    MaterialButton(
+                      splashColor: Color.fromARGB(255, 7, 231, 7),
+                      color: Colors.green,
+                      onPressed: () {
+                        Navigator.pushNamed(context, "create_trip");
+                      },
+                      child: Text(
+                        "Create a Trip",
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
                     ),
-                  )),
-              TextButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "join_trip");
-                  },
-                  icon: Icon(Icons.join_full, color: Colors.white),
-                  label: Text(
-                    "Join a trip",
-                    style: TextStyle(fontSize: 50),
-                  ))
+                    MaterialButton(
+                      splashColor: Color.fromARGB(255, 7, 231, 7),
+                      color: Colors.green,
+                      onPressed: () {
+                        Navigator.pushNamed(context, "join_trip");
+                      },
+                      child: Text(
+                        "Join a Trip",
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ));

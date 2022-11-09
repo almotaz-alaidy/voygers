@@ -1,48 +1,48 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class FirstScreen extends StatefulWidget {
-  const FirstScreen({super.key});
+// class FirstScreen extends StatefulWidget {
+//   const FirstScreen({super.key});
 
-  @override
-  State<FirstScreen> createState() => _FirstScreenState();
-}
+//   @override
+//   State<FirstScreen> createState() => _FirstScreenState();
+// }
 
-class _FirstScreenState extends State<FirstScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("images/6.jpg"), fit: BoxFit.fill)),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Container(
-            child: Text(
-              " VOYGARES",
-              style: TextStyle(fontSize: 40, color: Colors.white
+// class _FirstScreenState extends State<FirstScreen> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Container(
+//         width: double.infinity,
+//         decoration: BoxDecoration(
+//             image: DecorationImage(
+//                 image: AssetImage("images/6.jpg"), fit: BoxFit.fill)),
+//         child:
+//             Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+//           Container(
+//             child: Text(
+//               " VOYGARES",
+//               style: TextStyle(fontSize: 40, color: Colors.white
                   // fontFamily: "Changa-VariableFont_wght"
-                  ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Text(
-              "Great choice to Organize your trips",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  fontFamily: "Changa-VariableFont_wght"),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
+//                   ),
+//             ),
+//           ),
+//           SizedBox(
+//             height: 10,
+//           ),
+//           Container(
+//             padding: const EdgeInsets.symmetric(horizontal: 20),
+//             child: Text(
+//               "Great choice to Organize your trips",
+//               style: TextStyle(
+//                   color: Colors.white,
+//                   fontWeight: FontWeight.bold,
+//                   fontSize: 30,
+//                   fontFamily: "Changa-VariableFont_wght"),
+//             ),
+//           ),
+//           SizedBox(
+//             height: 50,
+//           ),
           // Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 20),
           //   child: Text(
@@ -52,11 +52,11 @@ class _FirstScreenState extends State<FirstScreen> {
           //     ),
           //   ),
           // ),
-          SizedBox(
-            height: 40,
-          ),
-        ]),
-      ),
-    );
-  }
-}
+//           SizedBox(
+//             height: 40,
+//           ),
+//         ]),
+//       ),
+//     );
+//   }
+// }

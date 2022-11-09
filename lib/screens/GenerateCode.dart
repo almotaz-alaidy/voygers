@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'TripPage.dart';
+import 'bottom_appbar.dart';
 
 class GenerateCode extends StatefulWidget {
   const GenerateCode({super.key});
@@ -21,7 +21,7 @@ class _GenerateCodeState extends State<GenerateCode> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          // backgroundColor: Color.fromARGB(255, 245, 153, 183),
+          backgroundColor: Color.fromARGB(255, 7, 231, 7),
           title: Text(
             "LET THE FUN SATRT",
             style: TextStyle(
@@ -31,36 +31,8 @@ class _GenerateCodeState extends State<GenerateCode> {
             ),
           ),
         ),
-        // drawer: Drawer(
-        // backgroundColor: Color.fromARGB(255, 247, 145, 179),
-        // child: TextButton.icon(
-        //   onPressed: () {
-        // setState(() {
-        //   Navigator.push(context, MaterialPageRoute(builder: (context) {
-        //     return MainPage();
-        //   }));
-        // });
-        //     },
-        //     icon: Icon(
-        //       Icons.exit_to_app,
-        //       color: Colors.purple,
-        //     ),
-        //     label: Text(
-        //       "Back",
-        //       style: TextStyle(color: Color.fromARGB(255, 245, 206, 252)),
-        //     ),
-        //   ),
-        // ),
         body: Container(
           width: 600,
-          // decoration: BoxDecoration(
-          //     gradient: SweepGradient(colors: [
-          //   Color.fromARGB(255, 162, 0, 187),
-          //   Color.fromARGB(255, 230, 141, 171),
-          //   Colors.purple,
-          //   Color.fromARGB(255, 230, 141, 171),
-          //   Color.fromARGB(255, 167, 0, 193),
-          // ])),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -76,11 +48,14 @@ class _GenerateCodeState extends State<GenerateCode> {
                   },
                   icon: Icon(
                     Icons.generating_tokens,
-                    // color: Colors.purple,
+                    color: Colors.green,
                   ),
                   label: Text(
                     "Generate",
-                    style: TextStyle(fontSize: 50),
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.green,
+                    ),
                   )),
               TextButton.icon(
                   onPressed: () {
@@ -90,11 +65,14 @@ class _GenerateCodeState extends State<GenerateCode> {
                   },
                   icon: Icon(
                     Icons.copy,
-                    // color: Colors.purple,
+                    color: Colors.green,
                   ),
                   label: Text(
                     "copy",
-                    style: TextStyle(fontSize: 50),
+                    style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.green,
+                    ),
                   )),
               TextButton.icon(
                   onPressed: () async {
@@ -119,11 +97,11 @@ class _GenerateCodeState extends State<GenerateCode> {
                   },
                   icon: Icon(
                     Icons.done_sharp,
-                    color: Colors.purple,
+                    color: Colors.green,
                   ),
                   label: Text(
                     "Done",
-                    style: TextStyle(fontSize: 30),
+                    style: TextStyle(fontSize: 30, color: Colors.green),
                   ))
             ],
           ),
