@@ -16,30 +16,30 @@ class Product {
 List<Product> products = [
   Product(
     id: 1,
-    title: "trip details ",
+    title: "Trip Details ",
     image: "images/1.png",
-    color: const Color(0xFF71b8ff),
+    color: Color.fromARGB(144, 7, 211, 20),
     courses: 16,
   ),
   Product(
     id: 2,
     title: "Participants",
     image: "images/2.jpg",
-    color: const Color(0xFF71b8ff),
+    color: Color.fromARGB(144, 7, 211, 20),
     courses: 22,
   ),
   Product(
     id: 3,
     title: "UploadImage",
     image: "images/3.png",
-    color: const Color(0xFF71b8ff),
+    color: Color.fromARGB(144, 7, 211, 20),
     courses: 15,
   ),
   Product(
     id: 4,
     title: "Bills",
     image: "images/4.jpg",
-    color: const Color(0xFF71b8ff),
+    color: Color.fromARGB(144, 7, 211, 20),
     courses: 15,
   ),
 ];

@@ -15,7 +15,7 @@ class _TripCreationState extends State<TripCreation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 29, 101, 118),
+        backgroundColor: Color.fromARGB(255, 7, 231, 7),
         title: Text(
           "trip information",
           style: TextStyle(
@@ -26,7 +26,6 @@ class _TripCreationState extends State<TripCreation> {
         ),
       ),
       body: Container(
-        color: Color.fromARGB(200, 29, 102, 118),
         width: double.infinity,
         height: double.infinity,
         // decoration: BoxDecoration(
@@ -97,10 +96,10 @@ class _TripCreationState extends State<TripCreation> {
                     //         ScaffoldMessenger.of(context).showSnackBar(
                     //             SnackBar(content: Text("Try again!")));
                     //       }
-                    //       // Navigator.push(context,
-                    //       //     MaterialPageRoute(builder: (context) {
-                    //       //   return GenerateCode();
-                    //       // }));
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (context) {
+                    //   return GenerateCode();
+                    // }));
                     //       setState(() {
                     //         trip_cap.clear();
                     //         trip_dis.clear();

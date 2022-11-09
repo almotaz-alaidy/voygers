@@ -29,8 +29,8 @@ class _TripPageState extends State<TripPage> {
           const TabItem(icon: Icons.people, title: 'profile'),
           const TabItem(icon: Icons.share, title: 'share')
         ],
-        backgroundColor: Color.fromARGB(255, 197, 197, 197),
-        activeColor: Colors.blue,
+        backgroundColor: Color.fromARGB(144, 7, 211, 20),
+        activeColor: Color.fromARGB(255, 247, 249, 247),
         initialActiveIndex: 0,
         onTap: (int i) {
           setState(() {

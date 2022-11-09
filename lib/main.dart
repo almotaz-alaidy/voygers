@@ -2,12 +2,13 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:voygares/firebase_options.dart';
+import 'package:voygares/screens/welcom.dart';
 import 'screens/GenerateCode.dart';
 import 'screens/History.dart';
 import 'screens/Main_Page.dart';
 import 'screens/SignUp.dart';
 import 'screens/TripComment.dart';
-import 'screens/TripPage.dart';
+import 'screens/bottom_appbar.dart';
 import 'screens/intro page.dart';
 import 'screens/join_Trip.dart';
 import 'screens/login_screen.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           )
         ],
       ),
-      nextScreen: IntroPage(),
+      nextScreen: WelcomeScreen(),
       splashTransition: SplashTransition.fadeTransition,
     );
   }

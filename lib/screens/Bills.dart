@@ -22,7 +22,7 @@ class _BillsState extends State<Bills> {
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         elevation: 0,
-        // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(144, 7, 211, 20),
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/customtextfeild.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -19,83 +20,87 @@ class _SignInState extends State<SignIn> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                  // color: Color.fromARGB(255, 127, 236, 115),
-                  image: DecorationImage(
-                      image: AssetImage("images/10.jpg"), fit: BoxFit.fill)),
-              height: 500,
-              // child: Lottie.asset(
-              //   "images/panda.json",
-              // ),
-            ),
-            Container(
-              decoration: BoxDecoration(),
-              width: double.infinity,
-              height: double.infinity,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 100),
-                  ),
-                  Text(
-                    "Voyager",
-                    style: TextStyle(fontSize: 30, color: Colors.white),
-                  ),
-                  SizedBox(
-                    height: 300,
-                  ),
-                  Container(
-                    height: 450,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Container(
+                color: Color.fromARGB(255, 33, 235, 10),
+                height: 500,
+              ),
+              Container(
+                decoration: BoxDecoration(),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                    ),
+                    Text(
+                      "Voyager",
+                      style: TextStyle(fontSize: 30, color: Colors.white),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("images/bus.png"),
+                            fit: BoxFit.contain),
                       ),
                     ),
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: Column(children: [
-                        TextField(
-                          controller: _email,
-                          decoration: InputDecoration(
-                            label: Padding(
-                              padding: EdgeInsets.only(left: 30),
-                              child: Text(
-                                "Email or mobile number",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            ),
-                          ),
+                    Container(
+                      height: 380,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(50),
+                          topRight: Radius.circular(50),
                         ),
-                        TextField(
-                          controller: _pass,
-                          obscureText: showPassword,
-                          decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    showPassword = !showPassword;
-                                  });
-                                },
-                                icon: Icon(
-                                  showPassword
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
+                      ),
+                      child: Column(children: [
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Textfeild(controller: _email, text: "Enter Your Email"),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: TextField(
+                            controller: _pass,
+                            obscureText: showPassword,
+                            decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
                                 ),
-                                color: Color.fromARGB(191, 173, 122, 11),
-                              ),
-                              enabledBorder: InputBorder.none,
-                              label: Padding(
-                                  padding: EdgeInsets.only(left: 30),
-                                  child: Text(
-                                    "Password",
-                                    style: TextStyle(color: Colors.black),
-                                  ))),
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      showPassword = !showPassword;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    showPassword
+                                        ? Icons.visibility_off
+                                        : Icons.visibility,
+                                  ),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                label: Padding(
+                                    padding: EdgeInsets.only(left: 30),
+                                    child: Text(
+                                      "Password",
+                                      style: TextStyle(color: Colors.black),
+                                    ))),
+                          ),
                         ),
                         TextButton(
                           onPressed: () {},
@@ -103,49 +108,53 @@ class _SignInState extends State<SignIn> {
                             padding: const EdgeInsets.only(left: 250),
                             child: Text(
                               "Forgot password?",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(color: Colors.green),
                             ),
                           ),
                         ),
                         Container(
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(50),
-                                bottomRight: Radius.circular(50),
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
-                              ),
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(50),
+                              bottomRight: Radius.circular(50),
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
                             ),
-                            child: ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(191, 173, 122, 11),
-                                )),
-                                onPressed: () async {
-                                  try {
-                                    UserCredential muUser =
-                                        await auth.signInWithEmailAndPassword(
-                                            email: _email.text,
-                                            password: _pass.text);
-                                    Navigator.pushNamed(context, "main_page");
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text("loged in sucessfuly")));
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text("something went wrong")));
-                                  }
-                                },
-                                child: Text(
-                                  "Login",
-                                  style: TextStyle(color: Colors.black),
-                                ))),
+                          ),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                              Color.fromARGB(255, 33, 235, 10),
+                            )),
+                            onPressed: () async {
+                              try {
+                                UserCredential muUser =
+                                    await auth.signInWithEmailAndPassword(
+                                        email: _email.text,
+                                        password: _pass.text);
+                                Navigator.pushNamed(context, "main_page");
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("loged in sucessfuly"),
+                                  ),
+                                );
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("something went wrong"),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              "Login",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 50),
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           child: Row(
                             children: [
                               Text(
@@ -157,26 +166,22 @@ class _SignInState extends State<SignIn> {
                                   Navigator.pushNamed(context, "signUp");
                                 },
                                 child: Text(
-                                  "signup",
+                                  "Sign up",
                                   style: TextStyle(
-                                      color: Color.fromARGB(191, 173, 122, 11),
+                                      color: Color.fromARGB(255, 33, 235, 10),
                                       fontSize: 20),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 20),
-                        Text(
-                          "Give yourself the right to have fun",
-                        ),
                       ]),
                     ),
-                  )
-                ]),
+                  ]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
