@@ -9,7 +9,6 @@ import 'screens/Main_Page.dart';
 import 'screens/SignUp.dart';
 import 'screens/TripComment.dart';
 import 'screens/bottom_appbar.dart';
-import 'screens/intro page.dart';
 import 'screens/join_Trip.dart';
 import 'screens/login_screen.dart';
 import 'screens/tripCreation.dart';

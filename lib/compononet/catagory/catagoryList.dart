@@ -10,7 +10,7 @@ import 'catagoryCard.dart';
 List pages = [
   TripDetails(),
   Participants(),
-  UploadImage(),
+  Uplode_screen(),
   Bills(),
 ];
 
