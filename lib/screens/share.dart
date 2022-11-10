@@ -1,53 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../wedget/url.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:voygares/wedget/urll.dart';
 
-class Share extends StatefulWidget {
-  const Share({super.key});
+class ShareCode extends StatefulWidget {
+  const ShareCode({super.key});
 
   @override
-  State<Share> createState() => _ShareState();
+  State<ShareCode> createState() => _ShareCodeState();
 }
 
-class _ShareState extends State<Share> {
+class _ShareCodeState extends State<ShareCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(144, 7, 211, 20),
-        ),
-        body: Container(
-          width: 600,
-          // decoration: BoxDecoration(
-          //     gradient: SweepGradient(colors: [
-          //   Color.fromARGB(255, 162, 0, 187),
-          //   Color.fromARGB(255, 230, 141, 171),
-          //   Colors.purple,
-          //   Color.fromARGB(255, 230, 141, 171),
-          //   Color.fromARGB(255, 167, 0, 193),
-          // ])),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "share your trip code",
-                style: TextStyle(
-                    // color: Colors.white,
-                    fontSize: 40),
-              ),
-              URlClass(
-                  myfunction: LancherURLf,
-                  linkIcon: Ionicons.logo_facebook,
-                  linkExp: "share your trip code",
-                  linkTitle: "FaceBook"),
-              URlClass(
-                  myfunction: LancherURLI,
-                  linkIcon: Ionicons.logo_instagram,
-                  linkExp: "share your trip code",
-                  linkTitle: "Instagram"),
-            ],
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+      ),
+      body: Column(
+        children: [
+          SizedBox(
+            height: 10,
           ),
-        ));
+          Contact_widget(
+            title: "Maps",
+            subTitle: "Our Location",
+            icon: Icon(
+              Ionicons.location,
+              color: Colors.white,
+            ),
+            url:
+                'https://www.google.jo/maps/@32.6687618,36.002274,12z?hl=en&authuser=0',
+            col: Colors.green,
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Contact_widget(
+              title: "instgram",
+              subTitle: "follow us",
+              icon: Icon(
+                Ionicons.logo_instagram,
+                color: Colors.white,
+              ),
+              url: 'https://www.instagram.com/',
+              col: Colors.green),
+          SizedBox(
+            height: 10,
+          ),
+          Contact_widget(
+            title: "facebook",
+            subTitle: "follow us",
+            icon: Icon(
+              Icons.facebook,
+              color: Colors.white,
+            ),
+            url: 'https://web.facebook.com/home.php',
+            col: Colors.green,
+          )
+        ],
+      ),
+    );
   }
 }

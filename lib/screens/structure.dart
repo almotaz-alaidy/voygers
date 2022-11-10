@@ -84,7 +84,7 @@ class _StructureScreenState extends State<StructureScreen> {
                 },
                 icon: Icon(Icons.history, color: Colors.white),
                 label: Text(
-                  "Old trips",
+                  "Old Trips",
                   style: TextStyle(
                       color: Color.fromARGB(255, 245, 206, 252), fontSize: 25),
                 ),
@@ -117,17 +117,27 @@ class _StructureScreenState extends State<StructureScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Are you Sure you want to end trip?"),
+                            backgroundColor: Colors.green,
+                            title: Text(
+                              "Are you Sure you want to end trip?",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             content: Row(children: [
                               TextButton(
                                 onPressed: () {},
-                                child: Text("Yes"),
+                                child: Text(
+                                  "Yes",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Text("No"),
+                                child: Text(
+                                  "No",
+                                  style: TextStyle(color: Colors.white),
+                                ),
                               )
                             ]),
                           );

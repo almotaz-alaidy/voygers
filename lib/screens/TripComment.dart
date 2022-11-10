@@ -19,24 +19,27 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
         title: Text(
           "share your comment",
           style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0,
-        // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
             icon: Icon(
               Icons.app_registration,
-              color: Color.fromARGB(255, 9, 9, 9),
             ),
           )
         ],
       ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 30,
+            ),
             TextField(
               controller: comment_sub,
               decoration: InputDecoration(
@@ -45,6 +48,9 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50)),
                   fillColor: Colors.white),
+            ),
+            SizedBox(
+              height: 30,
             ),
             TextField(
               controller: comment,
@@ -55,6 +61,9 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
                       borderRadius: BorderRadius.circular(50)),
                   fillColor: Colors.white),
               maxLines: 7,
+            ),
+            SizedBox(
+              height: 30,
             ),
             ElevatedButton(
               onPressed: () {},
@@ -77,9 +86,7 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
               //   }
               // },
               child: Text("Upload Comment"),
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: Colors.purple
-                  ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             )
           ],
         ),

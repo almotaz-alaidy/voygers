@@ -14,14 +14,11 @@ class TripPage extends StatefulWidget {
 
 class _TripPageState extends State<TripPage> {
   // *@dfas
-  List page = [StructureScreen(), Profile(), Share()];
+  List page = [StructureScreen(), Profile(), ShareCode()];
   int _selectedPage = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //bottom bar
-      // now we will use bottom bar package
-
       body: page[_selectedPage],
       bottomNavigationBar: ConvexAppBar(
         items: [
