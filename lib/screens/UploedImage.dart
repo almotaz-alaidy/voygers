@@ -342,3 +342,20 @@
 //     );
 //   }
 // }
+import 'package:flutter/material.dart';
+
+class Uplode_screen extends StatefulWidget {
+  const Uplode_screen({super.key});
+
+  @override
+  State<Uplode_screen> createState() => _Uplode_screenState();
+}
+
+class _Uplode_screenState extends State<Uplode_screen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(),
+    );
+  }
+}
