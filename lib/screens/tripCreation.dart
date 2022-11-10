@@ -15,12 +15,11 @@ class _TripCreationState extends State<TripCreation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 7, 231, 7),
+        backgroundColor: Colors.green,
         title: Text(
-          "trip information",
+          "Trip Information",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            // color: Colors.purple,
             fontSize: 25,
           ),
         ),
@@ -28,11 +27,6 @@ class _TripCreationState extends State<TripCreation> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        // decoration: BoxDecoration(
-
-        // image: DecorationImage(
-        //     image: AssetImage("images/9.jpg"), fit: BoxFit.fill)
-        // ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -50,10 +44,11 @@ class _TripCreationState extends State<TripCreation> {
             TextField(
               controller: trip_cap,
               decoration: InputDecoration(
-                  hintText: 'Cpacity',
+                  hintText: 'Capacity',
                   icon: Icon(Icons.people),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                   fillColor: Colors.white),
               keyboardType: TextInputType.number,
             ),
@@ -63,7 +58,8 @@ class _TripCreationState extends State<TripCreation> {
                   hintText: 'Discription',
                   icon: Icon(Icons.comment),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
+                    borderRadius: BorderRadius.circular(50),
+                  ),
                   fillColor: Colors.white),
               maxLines: 7,
             ),
@@ -75,6 +71,8 @@ class _TripCreationState extends State<TripCreation> {
                   width: 40,
                 ),
                 ElevatedButton(
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.green),
                     onPressed: () =>
                         Navigator.pushNamed(context, "generate_code"),
                     //() async {

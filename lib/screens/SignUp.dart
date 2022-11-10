@@ -27,7 +27,7 @@ class _SigupScreenState extends State<SigupScreen> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              color: Color.fromARGB(255, 7, 231, 7),
+              color: Colors.green,
               height: 300,
               child: Column(
                 children: [
@@ -104,6 +104,9 @@ class _SigupScreenState extends State<SigupScreen> {
                                         : Icons.visibility,
                                   ),
                                 ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
+                                ),
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green),
                                   borderRadius: BorderRadius.circular(30),
@@ -137,10 +140,8 @@ class _SigupScreenState extends State<SigupScreen> {
                               ),
                             ),
                             child: ElevatedButton(
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStatePropertyAll(
-                                  Color.fromARGB(255, 42, 209, 16),
-                                )),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green),
                                 onPressed: () async {
                                   try {
                                     FirebaseFirestore db =
@@ -192,8 +193,7 @@ class _SigupScreenState extends State<SigupScreen> {
                                 child: Text(
                                   "Log in",
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 42, 209, 16),
-                                      fontSize: 20),
+                                      color: Colors.green, fontSize: 20),
                                 ),
                               ),
                             ],

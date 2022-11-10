@@ -16,15 +16,15 @@ class _TripDetailsState extends State<TripDetails> {
         title: Text(
           "voygers",
           style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color.fromARGB(144, 7, 211, 20),
+        backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
             icon: Icon(
               Icons.app_registration,
-              color: Color.fromARGB(255, 9, 9, 9),
+              color: Colors.white,
             ),
           )
         ],

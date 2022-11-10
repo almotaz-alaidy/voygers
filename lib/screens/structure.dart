@@ -27,7 +27,7 @@ class _StructureScreenState extends State<StructureScreen> {
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0,
-        backgroundColor: Color.fromARGB(144, 7, 211, 20),
+        backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "MainPage"),

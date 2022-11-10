@@ -24,7 +24,7 @@ class _SignInState extends State<SignIn> {
           child: Stack(
             children: [
               Container(
-                color: Color.fromARGB(255, 33, 235, 10),
+                color: Colors.green,
                 height: 500,
               ),
               Container(
@@ -85,6 +85,7 @@ class _SignInState extends State<SignIn> {
                                     });
                                   },
                                   icon: Icon(
+                                    color: Colors.green,
                                     showPassword
                                         ? Icons.visibility_off
                                         : Icons.visibility,
@@ -93,6 +94,9 @@ class _SignInState extends State<SignIn> {
                                 border: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green),
                                   borderRadius: BorderRadius.circular(30),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.green),
                                 ),
                                 label: Padding(
                                     padding: EdgeInsets.only(left: 30),
@@ -123,10 +127,8 @@ class _SignInState extends State<SignIn> {
                             ),
                           ),
                           child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                              Color.fromARGB(255, 33, 235, 10),
-                            )),
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green),
                             onPressed: () async {
                               try {
                                 UserCredential muUser =
@@ -168,8 +170,7 @@ class _SignInState extends State<SignIn> {
                                 child: Text(
                                   "Sign up",
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 33, 235, 10),
-                                      fontSize: 20),
+                                      color: Colors.green, fontSize: 20),
                                 ),
                               ),
                             ],
