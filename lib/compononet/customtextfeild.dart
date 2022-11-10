@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-class Textfeild extends StatelessWidget {
-  Textfeild({required this.controller, required this.text});
+class customTextfeild extends StatelessWidget {
+  customTextfeild({required this.controller, required this.text});
   TextEditingController controller = TextEditingController();
   String? text;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
-      child: TextField(
+      child: TextFormField(
+        validator: (data) {
+          if (data == null || data.trim().isEmpty) {
+            return "Required field";
+          }
+        },
         cursorColor: Colors.green,
         enabled: true,
         controller: controller,
