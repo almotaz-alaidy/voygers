@@ -4,7 +4,7 @@ import 'dart:typed_data';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class ImageApi {
-  static UploadTask? uploadFile(String destination1, File image) {
+  static UploadTask? uploadimage(String destination1, File image) {
     try {
       final ref = FirebaseStorage.instance.ref(destination1);
 
