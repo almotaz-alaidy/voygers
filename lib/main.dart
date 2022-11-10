@@ -23,7 +23,6 @@ Future<void> main() async {
       "create_trip": (context) => TripCreation(),
       "join_trip": (context) => JoinTrip(),
       "trip_page": (context) => TripPage(),
-      "generate_code": (context) => GenerateCode(),
       "history": (context) => History(),
       "Trip_Comment": (context) => Comment_on_trip(),
       "login_screen": (context) => SignIn(),
