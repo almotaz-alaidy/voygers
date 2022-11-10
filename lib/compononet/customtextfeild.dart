@@ -16,6 +16,9 @@ class Textfeild extends StatelessWidget {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.green),
           ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.green),
+          ),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(30),

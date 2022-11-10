@@ -14,7 +14,7 @@ class _JoinTripState extends State<JoinTrip> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 7, 231, 7),
+        backgroundColor: Colors.green,
         title: Text(
           "joining the trip ",
           style: TextStyle(
@@ -37,7 +37,7 @@ class _JoinTripState extends State<JoinTrip> {
               },
               child: Text("Join"),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 7, 231, 7),
+                backgroundColor: Colors.green,
               ),
             )
           ],

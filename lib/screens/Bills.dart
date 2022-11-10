@@ -19,16 +19,16 @@ class _BillsState extends State<Bills> {
         title: Text(
           "voygers",
           style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0,
-        backgroundColor: Color.fromARGB(144, 7, 211, 20),
+        backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
             icon: Icon(
               Icons.app_registration,
-              color: Color.fromARGB(255, 9, 9, 9),
+              color: Colors.white,
             ),
           )
         ],
@@ -36,25 +36,59 @@ class _BillsState extends State<Bills> {
       body: Container(
         width: 600,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            SizedBox(
+              height: 50,
+            ),
             TextField(
               controller: bill_name,
               decoration: InputDecoration(
-                  hintText: 'Bill name',
-                  icon: Icon(Icons.trip_origin_rounded),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                  fillColor: Colors.white),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green),
+                ),
+                icon: Icon(
+                  Icons.trip_origin_rounded,
+                  color: Colors.green,
+                ),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
+                fillColor: Colors.white,
+                label: Padding(
+                  padding: EdgeInsets.only(left: 30),
+                  child: Text(
+                    "Bill Name",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30,
             ),
             TextField(
               controller: amount,
               decoration: InputDecoration(
-                  hintText: 'Amount',
-                  icon: Icon(Icons.people),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                  fillColor: Colors.white),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.green),
+                ),
+                icon: Icon(
+                  Icons.people,
+                  color: Colors.green,
+                ),
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
+                fillColor: Colors.white,
+                label: Padding(
+                  padding: EdgeInsets.only(left: 30),
+                  child: Text(
+                    "Amount",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                ),
+              ),
               keyboardType: TextInputType.number,
             ),
             ElevatedButton(
@@ -77,7 +111,7 @@ class _BillsState extends State<Bills> {
                 }
               },
               child: Text("Upload"),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             )
           ],
         ),

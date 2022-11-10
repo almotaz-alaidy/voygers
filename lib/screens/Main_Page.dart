@@ -14,7 +14,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 7, 231, 7),
+          backgroundColor: Colors.green,
           title: Text(
             "Lets Go! Voyager",
             style: TextStyle(
@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
                   direction: Axis.vertical,
                   children: [
                     MaterialButton(
-                      splashColor: Color.fromARGB(255, 7, 231, 7),
+                      splashColor: Colors.white,
                       color: Colors.green,
                       onPressed: () {
                         Navigator.pushNamed(context, "create_trip");
@@ -57,7 +57,7 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     MaterialButton(
-                      splashColor: Color.fromARGB(255, 7, 231, 7),
+                      splashColor: Colors.white,
                       color: Colors.green,
                       onPressed: () {
                         Navigator.pushNamed(context, "join_trip");

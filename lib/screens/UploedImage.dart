@@ -49,7 +49,7 @@ class _UploadImageState extends State<UploadImage> {
         title: Text(
           "voygers",
           style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0,
         backgroundColor: Color.fromARGB(144, 7, 211, 20),
@@ -58,7 +58,7 @@ class _UploadImageState extends State<UploadImage> {
             onPressed: () => Navigator.pop(context, "trip_page"),
             icon: Icon(
               Icons.app_registration,
-              color: Color.fromARGB(255, 9, 9, 9),
+              color: Colors.white,
             ),
           )
         ],
@@ -108,9 +108,7 @@ class _UploadImageState extends State<UploadImage> {
             ElevatedButton(
               onPressed: () {},
               child: Text("Upload"),
-              style: ElevatedButton.styleFrom(
-                  // backgroundColor: Colors.purple
-                  ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             )
           ],
         ),
