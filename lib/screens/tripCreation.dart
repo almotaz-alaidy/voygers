@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/show_dialog.dart';
+import 'package:voygares/screens/structure.dart';
 
 class TripCreation extends StatefulWidget {
   const TripCreation({super.key});
@@ -28,8 +31,10 @@ class _TripCreationState extends State<TripCreation> {
         width: double.infinity,
         height: double.infinity,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const SizedBox(
+              height: 30,
+            ),
             TextField(
               controller: trip_name,
               decoration: InputDecoration(
@@ -38,8 +43,10 @@ class _TripCreationState extends State<TripCreation> {
                 icon: Icon(Icons.trip_origin_rounded),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
-                // fillColor: Colors.white
               ),
+            ),
+            const SizedBox(
+              height: 30,
             ),
             TextField(
               controller: trip_cap,
@@ -52,6 +59,9 @@ class _TripCreationState extends State<TripCreation> {
                   fillColor: Colors.white),
               keyboardType: TextInputType.number,
             ),
+            const SizedBox(
+              height: 30,
+            ),
             TextField(
               controller: trip_dis,
               decoration: InputDecoration(
@@ -61,7 +71,10 @@ class _TripCreationState extends State<TripCreation> {
                     borderRadius: BorderRadius.circular(50),
                   ),
                   fillColor: Colors.white),
-              maxLines: 7,
+              maxLines: 4,
+            ),
+            const SizedBox(
+              height: 30,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,37 +86,41 @@ class _TripCreationState extends State<TripCreation> {
                 ElevatedButton(
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    onPressed: () =>
-                        Navigator.pushNamed(context, "generate_code"),
-                    //() async {
-                    //       try {
-                    //         FirebaseFirestore db = FirebaseFirestore.instance;
+                    onPressed: () async {
+                      // try {
+                      //   FirebaseFirestore db = FirebaseFirestore.instance;
 
-                    //         Map<String, dynamic> userInfo = {
-                    //           "tripName": trip_name.text,
-                    //           "cap": trip_cap.text,
-                    //           "dis": trip_dis.text,
-                    //         };
+                      //   Map<String, dynamic> userInfo = {
+                      //     "tripName": trip_name.text,
+                      //     "cap": trip_cap.text,
+                      //     "dis": trip_dis.text,
+                      //   };
 
-                    //         db.collection("trips").add(userInfo).then(
-                    //             (DocumentReference doc) => print(
-                    //                 'DocumentSnapshot added with ID: ${doc.id}'));
-                    //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    //             content: Text("trip created succecfully")));
-                    //       } catch (e) {
-                    //         ScaffoldMessenger.of(context).showSnackBar(
-                    //             SnackBar(content: Text("Try again!")));
-                    //       }
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) {
-                    //   return GenerateCode();
-                    // }));
-                    //       setState(() {
-                    //         trip_cap.clear();
-                    //         trip_dis.clear();
-                    //         trip_name.clear();
-                    //       });
-                    //     },
+                      //   db.collection("trips").add(userInfo).then(
+                      //       (DocumentReference doc) => print(
+                      //           'DocumentSnapshot added with ID: ${doc.id}'));
+                      //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      //       content: Text("trip created succecfully")));
+                      // } catch (e) {
+                      //   ScaffoldMessenger.of(context).showSnackBar(
+                      //       SnackBar(content: Text("Try again!")));
+                      // }
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return GenerateMyCode(generated_code: "");
+                        },
+                      );
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) {
+                      //   return StructureScreen();
+                      // }));
+                      // setState(() {
+                      //   trip_cap.clear();
+                      //   trip_dis.clear();
+                      //   trip_name.clear();
+                      // });
+                    },
                     child: Text("Generate Code"))
               ],
             )
