@@ -14,18 +14,19 @@ class _HistoryState extends State<History> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "past trip",
+          "Trip log",
           style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0,
-        // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
             icon: Icon(
               Icons.app_registration,
-              color: Color.fromARGB(255, 9, 9, 9),
             ),
           )
         ],
