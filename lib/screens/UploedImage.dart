@@ -38,25 +38,29 @@ class _Uplode_screenState extends State<Uplode_screen> {
     if (file == null) return;
 
     final fileName = basename(file!.path);
-    final destination = 'files/$fileName';
+    final destination = 'video/$fileName';
 
     task2 = FirebaseApi.uploadFile(destination, file!);
     setState(() {});
 
     if (task2 == null) return;
 
-    final snapshot = await task2!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
+    final sssss = await task2!.whenComplete(() {});
+    final urlDownload = await sssss.ref.getDownloadURL();
 
     print('Download-Link: $urlDownload');
     final ref = FirebaseStorage.instance.ref().child('video').child('.mp4');
     await ref.putFile(file!);
     url = await ref.getDownloadURL();
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
+    print('Download-Link: $urlDownload');
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
     FirebaseFirestore db = FirebaseFirestore.instance;
-    Map<String, dynamic> imageInfo = {
+    Map<String, dynamic> videoInfo = {
       "video": url,
     };
-    db.collection("file").add(imageInfo).then((DocumentReference doc) =>
+    db.collection("video").add(videoInfo).then((DocumentReference doc) =>
         print('DocumentSnapshot added with ID: ${doc.id}'));
   }
 
@@ -85,7 +89,10 @@ class _Uplode_screenState extends State<Uplode_screen> {
   Future selectImage() async {
     final imagePath = await FilePicker.platform.pickFiles(allowMultiple: false);
 
-    if (imagePath == null) return;
+    if (imagePath == null)
+      return Container(
+        child: Text("please select"),
+      );
     final myImagePath = imagePath.files.single.path!;
 
     setState(() => myImage = File(myImagePath));
@@ -93,12 +100,12 @@ class _Uplode_screenState extends State<Uplode_screen> {
 
   // _______________________________________________________________________________________________
   Future uploadimage() async {
-    if (myImage == null) return;
+    if (myImage == null) return Text("no image selected");
 
     final imageName = basename(myImage!.path);
     final destination1 = 'images/$imageName';
 
-    task1 = ImageApi.uploadFile(destination1, myImage!);
+    task1 = ImageApi.uploadimage(destination1, myImage!);
     setState(() {});
 
     if (task1 == null) return;
@@ -110,15 +117,15 @@ class _Uplode_screenState extends State<Uplode_screen> {
     print('Download-Link: $urlDownload');
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
 
-    final ref = FirebaseStorage.instance.ref().child('image').child('.jpg');
+    final ref =
+        FirebaseStorage.instance.ref().child('images').child('$imageName');
     await ref.putFile(myImage!);
     url = await ref.getDownloadURL();
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> imageInfo = {
       "image": url,
     };
-    db.collection("images").add(imageInfo).then((DocumentReference doc) =>
-        print('DocumentSnapshot added with ID: ${doc.id}'));
+    db.collection("images").add(imageInfo);
   }
 
   // _______________________________________________________________________________________________________
@@ -128,7 +135,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
   @override
   Widget build(BuildContext context) {
     final fileName = file != null ? basename(file!.path) : '';
-    final imageName = myImage != null ? basename(file!.path) : '';
+    final imageName = myImage != null ? basename(myImage!.path) : '';
 
     return Scaffold(
       appBar: AppBar(),
