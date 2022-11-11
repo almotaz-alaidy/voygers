@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 class SigupScreen extends StatefulWidget {
   const SigupScreen({super.key});
@@ -12,13 +14,17 @@ class SigupScreen extends StatefulWidget {
 }
 
 class _SigupScreenState extends State<SigupScreen> {
+  DateTime datetime = DateTime(1970);
+  int age = 1;
+  String? gender = "male";
   bool showPassword = false;
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _email = new TextEditingController();
   TextEditingController _pass = new TextEditingController();
   TextEditingController _name = new TextEditingController();
   TextEditingController _mobile = new TextEditingController();
-
+  GlobalKey<FormState> mykey = GlobalKey();
+  String? phonenumber;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,20 +81,28 @@ class _SigupScreenState extends State<SigupScreen> {
                       ),
                     ),
                     child: SingleChildScrollView(
-                      child: Column(children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Textfeild(controller: _email, text: "Enter Your Email"),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                            controller: _pass,
-                            obscureText: showPassword,
-                            decoration: InputDecoration(
+                      child: Form(
+                        key: mykey,
+                        child: Column(children: [
+                          SizedBox(
+                            height: 30,
+                          ),
+                          customTextfeild(
+                              controller: _email, text: "Enter Your Email"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: TextFormField(
+                              validator: (data) {
+                                if (data == null || data.trim().isEmpty) {
+                                  return "Required field";
+                                }
+                              },
+                              controller: _pass,
+                              obscureText: showPassword,
+                              decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(color: Colors.green),
                                 ),
@@ -112,95 +126,164 @@ class _SigupScreenState extends State<SigupScreen> {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 label: Padding(
-                                    padding: EdgeInsets.only(left: 30),
-                                    child: Text(
-                                      "Password",
-                                      style: TextStyle(color: Colors.black),
-                                    ))),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Textfeild(controller: _name, text: "Name"),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Textfeild(
-                            controller: _mobile,
-                            text: "Enter Your Mobile Number"),
-                        Container(
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(50),
-                                bottomRight: Radius.circular(50),
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
-                              ),
-                            ),
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green),
-                                onPressed: () async {
-                                  try {
-                                    FirebaseFirestore db =
-                                        FirebaseFirestore.instance;
-
-                                    var authobj = FirebaseAuth.instance;
-                                    UserCredential myVoyager = await authobj
-                                        .createUserWithEmailAndPassword(
-                                            email: _email.text,
-                                            password: _pass.text);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text("You Became a Voyager!")));
-                                    Map<String, dynamic> userInfo = {
-                                      "Name": _name.text,
-                                      "phone": _mobile.text,
-                                      "Email": _email.text,
-                                      "Password": _pass.text,
-                                      "uid": authobj.currentUser!.uid,
-                                      // "picture": image,
-                                    };
-                                    db.collection("users").add(userInfo).then(
-                                        (DocumentReference doc) => print(
-                                            'DocumentSnapshot added with ID: ${doc.id}'));
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content:
-                                                Text("something went wrong")));
-                                  }
-                                },
-                                child: Text(
-                                  "SignUp",
-                                  style: TextStyle(color: Colors.white),
-                                ))),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 50),
-                          child: Row(
-                            children: [
-                              Text(
-                                "have an account? Lets",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, "login_screen");
-                                },
-                                child: Text(
-                                  "Log in",
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 20),
+                                  padding: EdgeInsets.only(left: 30),
+                                  child: Text(
+                                    "Password",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
                                 ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 20),
-                      ]),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          customTextfeild(controller: _name, text: "Name"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          ElevatedButton(
+                            onPressed: (() async {
+                              DateTime? dateTime = await showDatePicker(
+                                context: context,
+                                initialDate: datetime,
+                                firstDate: DateTime(1970),
+                                lastDate: DateTime(2003),
+                              );
+                              if (dateTime == null)
+                                return;
+                              else {
+                                setState(() {
+                                  datetime = dateTime;
+                                });
+                              }
+                            }),
+                            child: Text("dataofbirth"),
+                          ),
+                          // customTextfeild(
+                          //     controller: _mobile,
+                          //     text: "Enter Your Mobile Number"),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  2,
+                                ),
+                                color: Colors.blue),
+                            child: InternationalPhoneNumberInput(
+                              onInputChanged: (value) {
+                                phonenumber = value.toString();
+                              },
+                              inputDecoration: InputDecoration(
+                                hintText: "Phone Number",
+                                contentPadding: EdgeInsets.all(6),
+                              ),
+                            ),
+                          ),
+                          RadioListTile(
+                            title: Text("female"),
+                            value: "female",
+                            groupValue: gender,
+                            onChanged: (val) {
+                              setState(() {
+                                gender = val!;
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          RadioListTile(
+                            title: Text("male"),
+                            value: "male",
+                            groupValue: gender,
+                            onChanged: (val) {
+                              setState(() {
+                                gender = val!;
+                              });
+                            },
+                          ),
+                          Container(
+                              width: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50),
+                                ),
+                              ),
+                              child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.green),
+                                  onPressed: () async {
+                                    if (mykey.currentState!.validate()) {
+                                      try {
+                                        FirebaseFirestore db =
+                                            FirebaseFirestore.instance;
+
+                                        var authobj = FirebaseAuth.instance;
+                                        UserCredential myVoyager = await authobj
+                                            .createUserWithEmailAndPassword(
+                                                email: _email.text,
+                                                password: _pass.text);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content: Text(
+                                                    "You Became a Voyager!")));
+                                        Map<String, dynamic> userInfo = {
+                                          "Name": _name.text,
+                                          "phone": phonenumber.toString(),
+                                          "Email": _email.text,
+                                          "Password": _pass.text,
+                                          "uid": authobj.currentUser!.uid,
+                                          ////////////////////
+                                          "age": datetime.toString(),
+                                          "gender": gender
+
+                                          // "picture": image,
+                                        };
+                                        db.collection("users").add(userInfo).then(
+                                            (DocumentReference doc) => print(
+                                                'DocumentSnapshot added with ID: ${doc.id}'));
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content:
+                                                Text("something went wrong"),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: Text(
+                                    "SignUp",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 50),
+                            child: Row(
+                              children: [
+                                Text(
+                                  "have an account? Lets",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context, "login_screen");
+                                  },
+                                  child: Text(
+                                    "Log in",
+                                    style: TextStyle(
+                                        color: Colors.green, fontSize: 20),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                        ]),
+                      ),
                     ),
                   )
                 ]),

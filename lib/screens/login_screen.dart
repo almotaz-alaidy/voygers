@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
+import 'package:voygares/screens/forgetpas.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -11,6 +13,25 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  GlobalKey<FormState> mykey = GlobalKey();
   bool showPassword = true;
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _email = new TextEditingController();
@@ -61,122 +82,151 @@ class _SignInState extends State<SignIn> {
                           topRight: Radius.circular(50),
                         ),
                       ),
-                      child: Column(children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Textfeild(controller: _email, text: "Enter Your Email"),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: TextField(
-                            controller: _pass,
-                            obscureText: showPassword,
-                            decoration: InputDecoration(
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      showPassword = !showPassword;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    color: Colors.green,
-                                    showPassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                  ),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green),
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green),
-                                ),
-                                label: Padding(
-                                    padding: EdgeInsets.only(left: 30),
-                                    child: Text(
-                                      "Password",
-                                      style: TextStyle(color: Colors.black),
-                                    ))),
+                      child: Form(
+                        key: mykey,
+                        child: Column(children: [
+                          SizedBox(
+                            height: 30,
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () {},
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 250),
-                            child: Text(
-                              "Forgot password?",
-                              style: TextStyle(color: Colors.green),
+                          customTextfeild(
+                              controller: _email, text: "Enter Your Email"),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: TextFormField(
+                              validator: (data) {
+                                if (data == null || data.trim().isEmpty) {
+                                  return "Required field";
+                                }
+                              },
+                              controller: _pass,
+                              obscureText: showPassword,
+                              decoration: InputDecoration(
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.green),
+                                  ),
+                                  suffixIcon: IconButton(
+                                    onPressed: () {
+                                      setState(() {
+                                        showPassword = !showPassword;
+                                      });
+                                    },
+                                    icon: Icon(
+                                      color: Colors.green,
+                                      showPassword
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.green),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.green),
+                                  ),
+                                  label: Padding(
+                                      padding: EdgeInsets.only(left: 30),
+                                      child: Text(
+                                        "Password",
+                                        style: TextStyle(color: Colors.black),
+                                      ))),
                             ),
                           ),
-                        ),
-                        Container(
-                          width: 200,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(50),
-                              bottomRight: Radius.circular(50),
-                              topLeft: Radius.circular(50),
-                              topRight: Radius.circular(50),
-                            ),
-                          ),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green),
-                            onPressed: () async {
-                              try {
-                                UserCredential muUser =
-                                    await auth.signInWithEmailAndPassword(
-                                        email: _email.text,
-                                        password: _pass.text);
-                                Navigator.pushNamed(context, "main_page");
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("loged in sucessfuly"),
-                                  ),
-                                );
-                              } catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text("something went wrong"),
-                                  ),
-                                );
-                              }
-                            },
-                            child: Text(
-                              "Login",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
-                          child: Row(
-                            children: [
-                              Text(
-                                " Not have an account? Lets",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, "signUp");
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return Forgotpassword();
                                 },
-                                child: Text(
-                                  "Sign up",
-                                  style: TextStyle(
-                                      color: Colors.green, fontSize: 20),
-                                ),
+                              ));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 250),
+                              child: Text(
+                                "Forgot password?",
+                                style: TextStyle(color: Colors.green),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ]),
+                          Container(
+                            width: 200,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(50),
+                                bottomRight: Radius.circular(50),
+                                topLeft: Radius.circular(50),
+                                topRight: Radius.circular(50),
+                              ),
+                            ),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.green),
+                              onPressed: () async {
+                                if (mykey.currentState!.validate()) {
+                                  try {
+                                    UserCredential muUser =
+                                        await auth.signInWithEmailAndPassword(
+                                            email: _email.text,
+                                            password: _pass.text);
+                                    Navigator.pushNamed(context, "main_page");
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("loged in sucessfuly"),
+                                      ),
+                                    );
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("something went wrong"),
+                                      ),
+                                    );
+                                  }
+                                }
+                              },
+                              child: Text(
+                                "Login",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              UserCredential myGoogle =
+                                  await signInWithGoogle();
+                              Navigator.pushNamed(context, "main_page");
+                            },
+                            child: Text("Sign in with Google"),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 50),
+                            child: Row(
+                              children: [
+                                Text(
+                                  " Not have an account? Lets",
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, "signUp");
+                                  },
+                                  child: Text(
+                                    "Sign up",
+                                    style: TextStyle(
+                                        color: Colors.green, fontSize: 20),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
+                      ),
                     ),
                   ]),
                 ),

@@ -49,6 +49,9 @@ dependencies:
   video_player: ^2.4.7
   file_picker: ^5.2.2
   firebase_storage: ^11.0.3
+  date_time_picker: ^2.1.0
+  intl_phone_number_input: ^0.7.1
+  google_sign_in: ^5.4.2
   
 
 dev_dependencies:

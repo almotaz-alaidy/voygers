@@ -27,7 +27,7 @@ class _JoinTripState extends State<JoinTrip> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Textfeild(controller: _code, text: "Enter Your code"),
+            customTextfeild(controller: _code, text: "Enter Your code"),
             SizedBox(
               height: 30,
             ),
