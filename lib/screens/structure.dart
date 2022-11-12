@@ -1,6 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:voygares/wedget/advice.dart';
 
 import '../compononet/catagory/catagoryList.dart';
 
@@ -16,6 +20,8 @@ class _StructureScreenState extends State<StructureScreen> {
   String email = "";
   String phoneNum = "";
   String name = "";
+  int i = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +36,9 @@ class _StructureScreenState extends State<StructureScreen> {
         backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
-            onPressed: () => Navigator.pop(context, "MainPage"),
+            onPressed: () => Navigator.pop(
+              context,
+            ),
             icon: Icon(
               Icons.app_registration,
               color: Colors.white,
@@ -162,91 +170,70 @@ class _StructureScreenState extends State<StructureScreen> {
         ),
       ),
       body: SafeArea(
-        child: ListView(
-          children: [
-            const SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      // _______________her will appeare the wether __________________________________________________________________________________________
-                      Column(
-                          // crossAxisAlignment: CrossAxisAlignment.start,
-                          // children: const [
-                          //   Text(
-                          //     "voygers",
-                          //     style: TextStyle(
-                          //       fontSize: 28,
-                          //       fontWeight: FontWeight.bold,
-                          //     ),
-                          //   ),
-                          //   SizedBox(
-                          //     height: 10.0,
-                          //   ),
-                          //   Text(
-                          //     "lets organize oure tripe ",
-                          //     style: TextStyle(
-                          //       color: Colors.black54,
-                          //       wordSpacing: 2.5,
-                          //       fontSize: 16,
-                          //       fontWeight: FontWeight.w500,
-                          //     ),
-                          //   ),
-                          // ],
-                          ),
-                      // const Spacer(),
-                      Column(
-                        children: [
-                          Container(
-                            height: 70,
-                            width: 70,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(15.0)),
-                            child: Image(
-                              image: NetworkImage(
-                                  "https://static.toiimg.com/photo/msid-86829375/86829375.jpg"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          // ________________________________________________________________________________________________________________________________
-                        ],
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Services",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const CategoryList(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 50, bottom: 30),
+          child: ListView(
+            children: [
+              // ____________________________________________________________________________________________________
+              CarouselSlider.builder(
+                itemCount: 4,
+                itemBuilder: (BuildContext context, i, int pageViewIndex) {
+                  if (i == 0) {
+                    return Advice(advice: "almotaz");
+                  } else if (i == 1) {
+                    return Advice(advice: "mohammad");
+                  } else if (i == 2) {
+                    return Advice(advice: "mo3aya");
+                  } else
+                    return Advice(advice: "malak");
+                },
+                options: CarouselOptions(
+                  height: 150,
+                  aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 10),
+                  autoPlayAnimationDuration: const Duration(seconds: 5),
+                  autoPlayCurve: Curves.easeIn,
+                  enlargeCenterPage: true,
+                  scrollDirection: Axis.horizontal,
+                ),
               ),
-            )
-          ],
+              SizedBox(
+                height: 30,
+              ),
+              //  ____________________________________________________________________________________________________________________
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Services",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const CategoryList(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

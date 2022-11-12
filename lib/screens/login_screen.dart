@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:voygares/screens/forgetpas.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,20 +13,16 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
         await googleUser?.authentication;
 
-    // Create a new credential
     final credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
 
-    // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
@@ -73,8 +68,11 @@ class _SignInState extends State<SignIn> {
                             fit: BoxFit.contain),
                       ),
                     ),
+                    SizedBox(
+                      height: 50,
+                    ),
                     Container(
-                      height: 380,
+                      height: 400,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -84,148 +82,176 @@ class _SignInState extends State<SignIn> {
                       ),
                       child: Form(
                         key: mykey,
-                        child: Column(children: [
-                          SizedBox(
-                            height: 30,
-                          ),
-                          customTextfeild(
-                              controller: _email, text: "Enter Your Email"),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: TextFormField(
-                              validator: (data) {
-                                if (data == null || data.trim().isEmpty) {
-                                  return "Required field";
-                                }
-                              },
-                              controller: _pass,
-                              obscureText: showPassword,
-                              decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
-                                  ),
-                                  suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        showPassword = !showPassword;
-                                      });
-                                    },
-                                    icon: Icon(
-                                      color: Colors.green,
-                                      showPassword
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                    ),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.green),
-                                  ),
-                                  label: Padding(
-                                      padding: EdgeInsets.only(left: 30),
-                                      child: Text(
-                                        "Password",
-                                        style: TextStyle(color: Colors.black),
-                                      ))),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
+                          child: Column(children: [
+                            SizedBox(
+                              height: 30,
                             ),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(
-                                builder: (context) {
-                                  return Forgotpassword();
+                            customTextfeild(
+                                controller: _email, text: "Enter Your Email"),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: TextFormField(
+                                validator: (data) {
+                                  if (data == null || data.trim().isEmpty) {
+                                    return "Required field";
+                                  }
                                 },
-                              ));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 250),
-                              child: Text(
-                                "Forgot password?",
-                                style: TextStyle(color: Colors.green),
+                                controller: _pass,
+                                obscureText: showPassword,
+                                decoration: InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.green),
+                                    ),
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          showPassword = !showPassword;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        color: Colors.green,
+                                        showPassword
+                                            ? Icons.visibility_off
+                                            : Icons.visibility,
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.green),
+                                      borderRadius: BorderRadius.circular(30),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide:
+                                          BorderSide(color: Colors.green),
+                                    ),
+                                    label: Padding(
+                                        padding: EdgeInsets.only(left: 30),
+                                        child: Text(
+                                          "Password",
+                                          style: TextStyle(color: Colors.black),
+                                        ))),
                               ),
                             ),
-                          ),
-                          Container(
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(50),
-                                bottomRight: Radius.circular(50),
-                                topLeft: Radius.circular(50),
-                                topRight: Radius.circular(50),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(
+                                  builder: (context) {
+                                    return Forgotpassword();
+                                  },
+                                ));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 250),
+                                child: Text(
+                                  "Forgot password?",
+                                  style: TextStyle(color: Colors.green),
+                                ),
                               ),
                             ),
-                            child: ElevatedButton(
+                            Container(
+                              width: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                  topLeft: Radius.circular(50),
+                                  topRight: Radius.circular(50),
+                                ),
+                              ),
+                              child: ElevatedButton.icon(
+                                icon: Image.asset(
+                                  "images/data-protection.png",
+                                  width: 40,
+                                  height: 40,
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green),
+                                onPressed: () async {
+                                  if (mykey.currentState!.validate()) {
+                                    try {
+                                      UserCredential muUser =
+                                          await auth.signInWithEmailAndPassword(
+                                              email: _email.text,
+                                              password: _pass.text);
+                                      Navigator.pushNamed(context, "main_page");
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text("loged in sucessfuly"),
+                                        ),
+                                      );
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text("something went wrong"),
+                                        ),
+                                      );
+                                    }
+                                  }
+                                },
+                                label: Text(
+                                  "Login",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "__________________OR__________________",
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ElevatedButton.icon(
+                              icon: Image.asset(
+                                "images/google.png",
+                                width: 25,
+                                height: 25,
+                              ),
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.green),
                               onPressed: () async {
-                                if (mykey.currentState!.validate()) {
-                                  try {
-                                    UserCredential muUser =
-                                        await auth.signInWithEmailAndPassword(
-                                            email: _email.text,
-                                            password: _pass.text);
-                                    Navigator.pushNamed(context, "main_page");
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text("loged in sucessfuly"),
-                                      ),
-                                    );
-                                  } catch (e) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text("something went wrong"),
-                                      ),
-                                    );
-                                  }
-                                }
+                                UserCredential myGoogle =
+                                    await signInWithGoogle();
+                                Navigator.pushNamed(context, "main_page");
                               },
-                              child: Text(
-                                "Login",
-                                style: TextStyle(color: Colors.white),
+                              label: Text("Login with Google"),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 50),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    " Not have an account? Lets",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, "signUp");
+                                    },
+                                    child: Text(
+                                      "Sign up",
+                                      style: TextStyle(
+                                          color: Colors.green, fontSize: 20),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              UserCredential myGoogle =
-                                  await signInWithGoogle();
-                              Navigator.pushNamed(context, "main_page");
-                            },
-                            child: Text("Sign in with Google"),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50),
-                            child: Row(
-                              children: [
-                                Text(
-                                  " Not have an account? Lets",
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, "signUp");
-                                  },
-                                  child: Text(
-                                    "Sign up",
-                                    style: TextStyle(
-                                        color: Colors.green, fontSize: 20),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ]),
+                          ]),
+                        ),
                       ),
                     ),
                   ]),

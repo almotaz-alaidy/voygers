@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:voygares/screens/login_screen.dart';
 
 class Forgotpassword extends StatefulWidget {
@@ -11,13 +13,7 @@ class Forgotpassword extends StatefulWidget {
 
 class _ForgotpasswordState extends State<Forgotpassword> {
   TextEditingController emailController = TextEditingController();
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    // TODO: implement dispose
-    super.dispose();
-  }
+  GlobalKey<FormState> myGlobalKey = GlobalKey();
 
   Future passwordReset() async {
     try {
@@ -47,50 +43,72 @@ class _ForgotpasswordState extends State<Forgotpassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: Text("Enter your email in the field"),
-          ),
-          SizedBox(
-            height: 100,
-          ),
-          TextField(
-            controller: emailController,
-            decoration: InputDecoration(
-              hintText: "Enter your email",
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 46, 19, 19)),
-                borderRadius: BorderRadius.circular(12),
+      appBar: AppBar(
+        title: Text("Rest Password"),
+        backgroundColor: Colors.green,
+      ),
+      body: Form(
+        key: myGlobalKey,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 200,
+                width: 200,
+                child: Lottie.asset("images/panda.json"),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color.fromARGB(255, 17, 2, 2)),
-                borderRadius: BorderRadius.circular(12),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Text(
+                  "Enter Your Email To Reset Password",
+                  style: Theme.of(context).textTheme.headline5,
+                ),
               ),
-            ),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          MaterialButton(
-            color: Colors.amber,
-            onPressed: passwordReset,
-            child: Text("Reset Password"),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(context, MaterialPageRoute(
-                builder: (context) {
-                  return SignIn();
+              SizedBox(
+                height: 50,
+              ),
+              customTextfeild(
+                  controller: emailController, text: "Enter Your Email"),
+              SizedBox(
+                height: 50,
+              ),
+              ElevatedButton.icon(
+                icon: Image.asset(
+                  "images/rotate.png",
+                  width: 25,
+                  height: 25,
+                  color: Colors.white,
+                ),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                onPressed: () {
+                  if (myGlobalKey.currentState!.validate()) {
+                    try {
+                      passwordReset();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Your password is reset")));
+                      // Navigator.pushReplacement(context, MaterialPageRoute(
+                      //   builder: (context) {
+                      //     return SignIn();
+                      //   },
+                      // ));
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Somthing wrong ")));
+                    }
+                  }
                 },
-              ));
-            },
-            child: Text("back"),
-          )
-        ],
+                label: Text(
+                  "Reset Password",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
 }
+//  

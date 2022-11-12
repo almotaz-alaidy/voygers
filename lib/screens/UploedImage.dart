@@ -129,7 +129,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
   }
 
   // _______________________________________________________________________________________________________
-  CollectionReference studentRef =
+  CollectionReference userImage =
       FirebaseFirestore.instance.collection("images");
 
   @override
@@ -138,8 +138,25 @@ class _Uplode_screenState extends State<Uplode_screen> {
     final imageName = myImage != null ? basename(myImage!.path) : '';
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => Navigator.pop(context, "login_screen"),
+            icon: Icon(
+              Icons.app_registration,
+              color: Colors.white,
+            ),
+          )
+        ],
+        backgroundColor: Colors.green,
+        title: Text("image"),
+      ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        child: Image(
+          image: AssetImage("images/upload.png"),
+          color: Colors.green,
+        ),
         onPressed: () {
           showDialog(
             context: context,
@@ -190,39 +207,39 @@ class _Uplode_screenState extends State<Uplode_screen> {
           );
         },
       ),
-      body: Container(
-        child: Container(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: studentRef.snapshots(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                return ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return Divider(
-                      height: 20,
-                    );
-                  },
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    QueryDocumentSnapshot x = snapshot.data!.docs[index];
-                    return Container(
-                      child: Column(children: [
-                        Container(
-                            height: 200,
-                            child: Image(
-                              image: NetworkImage(x['image']),
-                              fit: BoxFit.fill,
-                            ))
-                      ]),
-                    );
-                  },
-                );
-              }
-              return Center(
-                child: Container(),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 50),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: userImage.snapshots(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return ListView.separated(
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 20,
+                  );
+                },
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  QueryDocumentSnapshot x = snapshot.data!.docs[index];
+                  return Container(
+                    child: Column(children: [
+                      Container(
+                          height: 300,
+                          width: double.infinity,
+                          child: Image(
+                            image: NetworkImage(x['image']),
+                            fit: BoxFit.fill,
+                          ))
+                    ]),
+                  );
+                },
               );
-            },
-          ),
+            }
+            return Center(
+              child: Container(),
+            );
+          },
         ),
       ),
     );

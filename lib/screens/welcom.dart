@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:voygares/compononet/constant.dart';
 import 'package:voygares/screens/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -12,19 +11,52 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
-                flex: 3,
+              flex: 3,
+              child: Container(
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                    color: Colors.green,
+                    borderRadius:
+                        BorderRadius.only(bottomRight: Radius.circular(100))),
                 child: Container(
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      color: Colors.green,
-                      borderRadius:
-                          BorderRadius.only(bottomRight: Radius.circular(100))),
-                  // child: Column(
-                  //   children: [
-                  //     Expanded(child: Image.asset("images/welcome.jpg"))
-                  //   ],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "WELCOME ",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "TO",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "PLEASURE",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  //  Image(
+                  //   image: AssetImage("images/travel_main.gif"),
                   // ),
-                )),
+                ),
+              ),
+            ),
             Expanded(
                 flex: 2,
                 child: Container(
