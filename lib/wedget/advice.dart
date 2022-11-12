@@ -7,7 +7,12 @@ class Advice extends StatelessWidget {
   Advice({required this.i});
 
   int i = 0;
-  List<String> advices = ["fun", " good", "Nice", "try"];
+  List<String> advices = [
+    "Adventure is out there",
+    "Live your life by a compass, not a clock",
+    "Take only memories, leave only footprints",
+    "The journey, not the arrival, matters"
+  ];
 
   @override
   Widget build(BuildContext context) {
