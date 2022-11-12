@@ -177,15 +177,8 @@ class _StructureScreenState extends State<StructureScreen> {
               // ____________________________________________________________________________________________________
               CarouselSlider.builder(
                 itemCount: 4,
-                itemBuilder: (BuildContext context, i, int pageViewIndex) {
-                  if (i == 0) {
-                    return Advice(advice: "almotaz");
-                  } else if (i == 1) {
-                    return Advice(advice: "mohammad");
-                  } else if (i == 2) {
-                    return Advice(advice: "mo3aya");
-                  } else
-                    return Advice(advice: "malak");
+                itemBuilder: (BuildContext context, index, int pageViewIndex) {
+                  return Advice(i: index);
                 },
                 options: CarouselOptions(
                   height: 150,

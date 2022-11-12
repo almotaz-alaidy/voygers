@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:voygares/compononet/show_dialog.dart';
+import 'package:voygares/screens/structure.dart';
 import 'package:voygares/wedget/regulartextfeid.dart';
 
 import '../compononet/ads.dart';
@@ -300,14 +302,16 @@ class _CreateTripState extends State<CreateTrip> {
                               'DocumentSnapshot added with ID: ${doc.id}'));
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("trip created succecfully")));
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return GenerateMyCode(generated_code: "");
+                        },
+                      );
                     } catch (e) {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text("Try again!")));
                     }
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return GenerateCode();
-                    }));
                   },
                   child: Text("Generate Code"),
                   style: ElevatedButton.styleFrom(
