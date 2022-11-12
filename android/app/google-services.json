@@ -7,7 +7,51 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:893946047140:android:86ffb6ff458240317ad431",
+        "mobilesdk_app_id": "1:893946047140:android:d3edbd115c1174057ad431",
+        "android_client_info": {
+          "package_name": "com.example.trip"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893946047140-bt3d8tf15bbn8m8uvrjeu9tbs2879q8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.trip",
+            "certificate_hash": "e02fff733889bd3e6d1ea9e486fa7daa15665798"
+          }
+        },
+        {
+          "client_id": "893946047140-v0pfr7ngslvnrtsdijk4fna84qlbhdgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBithTlxBrRIdVb17ENdMG5diBJU-a6Xy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893946047140-v0pfr7ngslvnrtsdijk4fna84qlbhdgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893946047140-bnnf2fdlu62mhuo3hhj34gra1d1m7gaa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.voygars"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893946047140:android:18e67030abc4fd397ad431",
         "android_client_info": {
           "package_name": "com.example.voygares"
         }
@@ -31,10 +75,46 @@
               "client_type": 3
             },
             {
-              "client_id": "893946047140-j298illbv8kdpf83lfcqs2cc0bp6ttrs.apps.googleusercontent.com",
+              "client_id": "893946047140-bnnf2fdlu62mhuo3hhj34gra1d1m7gaa.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.voygares"
+                "bundle_id": "com.example.voygars"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:893946047140:android:1e82b17e2d79ca0d7ad431",
+        "android_client_info": {
+          "package_name": "com.example.voygars"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "893946047140-v0pfr7ngslvnrtsdijk4fna84qlbhdgt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBithTlxBrRIdVb17ENdMG5diBJU-a6Xy8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "893946047140-v0pfr7ngslvnrtsdijk4fna84qlbhdgt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "893946047140-bnnf2fdlu62mhuo3hhj34gra1d1m7gaa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.voygars"
               }
             }
           ]

@@ -36,6 +36,7 @@ class _BillsState extends State<Bills> {
       body: Container(
         width: 600,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 50,

@@ -22,11 +22,27 @@ class _JoinTripState extends State<JoinTrip> {
             fontSize: 20,
           ),
         ),
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(
+              Icons.app_registration,
+              color: Colors.white,
+            ),
+          )
+        ],
       ),
       body: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Container(
+              height: 200,
+              width: 300,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("images/jointrip.gif"))),
+            ),
             customTextfeild(controller: _code, text: "Enter Your code"),
             SizedBox(
               height: 30,
