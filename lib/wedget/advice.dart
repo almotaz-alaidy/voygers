@@ -4,9 +4,10 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
 // ignore: must_be_immutable
 class Advice extends StatelessWidget {
-  Advice({required this.advice});
+  Advice({required this.i});
 
-  String? advice;
+  int i = 0;
+  List<String> advices = ["fun", " good", "Nice", "try"];
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class Advice extends StatelessWidget {
             children: [
               FittedBox(
                 child: Text(
-                  'Advice',
+                  "${advices[i]}",
                   style: GoogleFonts.amiri(
                     textStyle: const TextStyle(
                       fontSize: 30.0,
@@ -45,18 +46,18 @@ class Advice extends StatelessWidget {
                   maxLines: 1,
                 ),
               ),
-              Text(
-                '$advice',
-                style: GoogleFonts.amiri(
-                  textStyle: const TextStyle(
-                    fontSize: 20.0,
-                    // fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+              // Text(
+              //   '$advice',
+              //   style: GoogleFonts.amiri(
+              //     textStyle: const TextStyle(
+              //       fontSize: 20.0,
+              //       // fontWeight: FontWeight.bold,
+              //       color: Colors.white,
+              //     ),
+              //   ),
+              //   maxLines: 2,
+              //   overflow: TextOverflow.ellipsis,
+              // ),
             ],
           ),
         ),

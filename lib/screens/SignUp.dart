@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
 class SigupScreen extends StatefulWidget {
   const SigupScreen({super.key});
@@ -22,7 +23,11 @@ class _SigupScreenState extends State<SigupScreen> {
   GlobalKey<FormState> mykey = GlobalKey();
   List MyItems = ["Female", "Male"];
   String Gender = "Male";
-  String? phonenumber;
+  String phonenumber = "00";
+  TextEditingController _phone = TextEditingController();
+  String Code = "+962";
+  final countryPicker = const FlCountryCodePicker();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -168,22 +173,41 @@ class _SigupScreenState extends State<SigupScreen> {
                           SizedBox(
                             height: 20,
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  2,
-                                ),
-                                color: Colors.green),
-                            child: InternationalPhoneNumberInput(
-                              onInputChanged: (value) {
-                                phonenumber = value.toString();
-                              },
-                              inputDecoration: InputDecoration(
-                                hintText: "Phone Number",
-                                contentPadding: EdgeInsets.all(6),
-                              ),
+                          TextField(
+                            controller: _phone,
+                            decoration: InputDecoration(
+                              prefix: TextButton(
+                                  onPressed: () async {
+                                    final code = await countryPicker.showPicker(
+                                        context: context);
+
+                                    if (code != null) {
+                                      print(code.dialCode);
+                                      Code = code.dialCode.toString();
+                                      phonenumber = Code + _phone.text;
+                                      print(phonenumber);
+                                    }
+                                    ;
+                                  },
+                                  child: Text(Code)),
                             ),
                           ),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(
+                          //         2,
+                          //       ),
+                          //       color: Colors.green),
+                          //   child: InternationalPhoneNumberInput(
+                          //     onInputChanged: (value) {
+                          //       phonenumber = value.toString();
+                          //     },
+                          //     inputDecoration: InputDecoration(
+                          //       hintText: "Phone Number",
+                          //       contentPadding: EdgeInsets.all(6),
+                          //     ),
+                          //   ),
+                          // ),
                           Padding(
                             padding: const EdgeInsets.only(
                                 left: 30, right: 30, top: 20, bottom: 20),
@@ -252,7 +276,7 @@ class _SigupScreenState extends State<SigupScreen> {
                                                     "You Became a Voyager!")));
                                         Map<String, dynamic> userInfo = {
                                           "Name": _name.text,
-                                          "phone": phonenumber.toString(),
+                                          "phone": phonenumber,
                                           "Email": _email.text,
                                           "Password": _pass.text,
                                           "uid": authobj.currentUser!.uid,
