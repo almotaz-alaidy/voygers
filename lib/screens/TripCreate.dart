@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:voygares/compononet/show_dialog.dart';
+import 'package:voygares/screens/google_maps.dart';
 import 'package:voygares/screens/structure.dart';
 import 'package:voygares/wedget/regulartextfeid.dart';
 
@@ -197,7 +198,13 @@ class _CreateTripState extends State<CreateTrip> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Google_Maps(),
+                        ));
+                  },
                   icon: Image.asset(
                     "images/location.png",
                     color: Colors.green,

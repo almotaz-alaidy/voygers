@@ -200,6 +200,7 @@ class _MainPageState extends State<MainPage> {
                         ElevatedButton.icon(
                           icon: Image.asset(
                             "images/bus3.png",
+                            color: Colors.white,
                             width: 30,
                             height: 30,
                           ),
@@ -227,6 +228,7 @@ class _MainPageState extends State<MainPage> {
                                 backgroundColor: Colors.green),
                             icon: Image.asset(
                               "images/united.png",
+                              color: Colors.white,
                               width: 30,
                               height: 30,
                             ),
