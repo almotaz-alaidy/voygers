@@ -110,7 +110,7 @@ class _CreateTripState extends State<CreateTrip> {
               height: 20,
             ),
             ListTile(
-              trailing: Image(
+              leading: Image(
                 image: AssetImage("images/public-relations.png"),
                 color: Colors.green,
                 height: 25,
@@ -118,7 +118,7 @@ class _CreateTripState extends State<CreateTrip> {
               ),
               title: Text("Show trip"),
               subtitle: Text("Public / Private"),
-              leading: Switch(
+              trailing: Switch(
                   activeColor: Colors.green,
                   value: _public,
                   onChanged: ((value) {
@@ -131,7 +131,7 @@ class _CreateTripState extends State<CreateTrip> {
               height: 20,
             ),
             ListTile(
-              trailing: Image(
+              leading: Image(
                 color: Colors.green,
                 image: AssetImage("images/female only.png"),
                 height: 25,
@@ -139,7 +139,7 @@ class _CreateTripState extends State<CreateTrip> {
               ),
               title: Text("Gender Allowed"),
               subtitle: Text("Females only"),
-              leading: Switch(
+              trailing: Switch(
                   activeColor: Colors.green,
                   value: only_females,
                   onChanged: ((value) {
@@ -219,7 +219,12 @@ class _CreateTripState extends State<CreateTrip> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                title: Text('Needed tools for the trip'),
+                                backgroundColor: Colors.green,
+                                title: Image.asset(
+                                  "images/tools.png",
+                                  width: 30,
+                                  height: 30,
+                                ),
                                 content: Container(
                                   width: double.maxFinite,
                                   child: ListView.builder(
@@ -242,8 +247,13 @@ class _CreateTripState extends State<CreateTrip> {
                                                   needed_tools.clear();
                                                 });
                                               },
-                                              child: Text("Upload")),
-                                          ElevatedButton(
+                                              child: Text(
+                                                "Upload",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20),
+                                              )),
+                                          TextButton(
                                               onPressed: () {
                                                 try {
                                                   FirebaseFirestore db =
@@ -273,7 +283,12 @@ class _CreateTripState extends State<CreateTrip> {
                                                               "Try again!")));
                                                 }
                                               },
-                                              child: Text("Done"))
+                                              child: Text(
+                                                "Done",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 30),
+                                              ))
                                         ],
                                       );
                                     }),

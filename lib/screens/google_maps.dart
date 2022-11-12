@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:geolocator/geolocator.dart';
@@ -12,26 +13,29 @@ class Google_Maps extends StatefulWidget {
 }
 
 class _Google_MapsState extends State<Google_Maps> {
-  // List<Marker> my_list = [
-  //   Marker(
-  //     markerId: MarkerId("1"),
-  //     position: LatLng(32.637843, 35.940253),
-  //   ),
-  //   Marker(
-  //     markerId: MarkerId("2"),
-  //     position: LatLng(31.869301, 35.842089),
-  //   )
-  // ];
-  // List<Polyline> myPolyline = [
-  //   Polyline(
-  //     polylineId: PolylineId("_kPolyline"),
-  //     points: [
-  //       LatLng(32.637843, 35.940253),
-  //       LatLng(31.869301, 35.842089),
-  //     ],
-  //     width: 5,
-  //   )
-  // ];
+  var alt;
+  var long;
+  var _trip_location;
+  List<Marker> my_list = [
+    Marker(
+        markerId: MarkerId("1"),
+        position: LatLng(32.637843, 35.940253),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen)),
+    Marker(
+        markerId: MarkerId("2"),
+        position: LatLng(31.869301, 35.842089),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen))
+  ];
+  List<Polyline> myPolyline = [
+    Polyline(
+      polylineId: PolylineId("_kPolyline"),
+      points: [
+        LatLng(32.637843, 35.940253),
+        LatLng(31.869301, 35.842089),
+      ],
+      width: 5,
+    )
+  ];
   @override
   void initState() {
     super.initState();
@@ -46,15 +50,48 @@ class _Google_MapsState extends State<Google_Maps> {
       appBar: AppBar(
         title: Text("Google Maps"),
         backgroundColor: Colors.green,
+        actions: [
+          TextButton(
+            onPressed: () {
+              try {
+                FirebaseFirestore db = FirebaseFirestore.instance;
+
+                Map<String, dynamic> location = {
+                  "lat": alt,
+                  "long": long,
+                };
+
+                db.collection("loc").add(location).then(
+                    (DocumentReference doc) =>
+                        print('DocumentSnapshot added with ID: ${doc.id}'));
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("location saved succecfully")));
+              } catch (e) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text("Try again!")));
+              }
+            },
+            child: Image.asset(
+              "images/location.png",
+              color: Colors.white,
+            ),
+          )
+        ],
       ),
       body: GoogleMap(
-        // onTap: (argument) {
-        //   setState(() {
-        //     my_list.add(Marker(markerId: MarkerId("3"), position: (argument)));
-        //   });
-        // },
-        mapType: MapType.satellite,
-
+        markers: my_list.toSet(),
+        onTap: (argument) {
+          setState(() {
+            _trip_location = argument;
+            my_list.add(Marker(
+                markerId: MarkerId("3"),
+                position: (argument),
+                icon: BitmapDescriptor.defaultMarkerWithHue(
+                    BitmapDescriptor.hueGreen)));
+          });
+          alt = argument.latitude;
+          long = argument.longitude;
+        },
         initialCameraPosition: CameraPosition(
           target: LatLng(31.897863, 35.868265),
           zoom: 15,
