@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
@@ -19,6 +20,7 @@ class _MainPageState extends State<MainPage> {
 
   CollectionReference userDb = FirebaseFirestore.instance.collection("users");
   String? logic;
+  FirebaseAuth myUser = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -212,32 +214,27 @@ class _MainPageState extends State<MainPage> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               backgroundColor: Colors.green),
-                          onPressed: () {
-                            // userDb.get().then((value) {
-                            //   value.docs.forEach((element) {
-                            //     element["trip_id"];
-                            //     logic = element["trip_id"].toString();
-                            //   });
-                            // });
-                            // print(
-                            //     "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                          onPressed: () async {
+                            // _________________________________________logic test to make sure thate the  user cretae just one trip _________
+                            print(
+                                "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
-                            // print(logic);
-
-                            // print(
-                            //     "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-                            userDb
-                                .where("trip_id", isEqualTo: null)
+                            FirebaseFirestore.instance
+                                .collection("users")
+                                .where("uid",
+                                    isEqualTo: currentUser.currentUser!.uid)
                                 .get()
                                 .then((value) => value.docs.forEach((element) {
                                       print(element["trip_id"].toString());
                                       logic = element["trip_id"].toString();
                                     }));
+                            print(
+                                "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
-                            // _______________________________________________________
-                            print("finale  value of logic variable : $logic");
-                            if (logic == null) {
+                            print("value of logic variable: $logic");
+                            // ____________________________________________________________________________________________________________________
+
+                            if (logic == "null") {
                               Navigator.pushReplacement(context,
                                   MaterialPageRoute(
                                 builder: (context) {
