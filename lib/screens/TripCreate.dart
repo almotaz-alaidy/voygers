@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,10 +11,9 @@ import 'package:voygares/wedget/regulartextfeid.dart';
 import '../model/imag.dart';
 import 'package:path/path.dart';
 
-import 'SignUp.dart';
-
 late String tripDoc;
 late String docFortools;
+final currentUser = FirebaseAuth.instance;
 
 class CreateTrip extends StatefulWidget {
   const CreateTrip({super.key});
@@ -29,6 +29,7 @@ class _CreateTripState extends State<CreateTrip> {
   File? image;
   UploadTask? task3;
   String? imageUrl;
+  String? tripId;
 
   Future _pickImage1() async {
     try {
@@ -64,10 +65,13 @@ class _CreateTripState extends State<CreateTrip> {
 
     final snapshot = await task3!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
+
+    // test for url______________________________________________________________________________________
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
 
     print('Download-Link: $urlDownload');
     print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+    // __________________________________________________________________________________________________
 
     final ref =
         FirebaseStorage.instance.ref().child('adsImage').child('$imageName');
@@ -75,22 +79,6 @@ class _CreateTripState extends State<CreateTrip> {
     imageUrl = await ref.getDownloadURL();
   }
 
-  // Future Test() async {
-  //   await FirebaseFirestore.instance.collection("trips").get().then((value) {
-  //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  //     print(value);
-  //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  //   });
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   Test;
-  // }
-
-  // _____________________________________________________________________________________________________________________________________
   @override
   void initState() {
     // TODO: implement initState
@@ -415,14 +403,6 @@ class _CreateTripState extends State<CreateTrip> {
 
                       tripUdate.doc(tripDoc).update(trip_info);
 
-                      // db
-                      //     .collection("trips")
-                      //     .add(trip_info)
-                      //     .then((DocumentReference doc) {
-                      //   tripDoc = doc.id.toString();
-                      // }
-
-                      // );
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("trip created succecfully")));
                       showDialog(
@@ -435,22 +415,22 @@ class _CreateTripState extends State<CreateTrip> {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text("Try again!")));
                     }
+                    // __________________________add trip-id to users collection _____________________________________________________
                     CollectionReference db3 =
                         await FirebaseFirestore.instance.collection("users");
                     Map<String, dynamic> mytripdoc = {"trip_id": tripDoc};
-                    db3.doc(userdoc).update(mytripdoc);
-                    //---------------------------------------------
+                    db3.doc("F2i7k5dhfnI68eiSYLuK").update(mytripdoc);
+                    // ________________________________________________________________________________________________________________
+
+                    // __________________________add trip-id to tools per trip collection _____________________________________________________
+
                     CollectionReference db4 = await FirebaseFirestore.instance
                         .collection("tools per trip");
                     Map<String, dynamic> mytripdoc2 = {"trip_id": tripDoc};
                     db4.doc(docFortools).update(mytripdoc2);
-                    print(
-                        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                    print(tripDoc);
-                    print(
-                        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                    // __________________________________________________________________________________________________________________
+                    // __________________________add trip-id to tools per loc collection _____________________________________________________
 
-                    //-------------------------------------------------------
                     CollectionReference db5 =
                         await FirebaseFirestore.instance.collection("loc");
                     Map<String, dynamic> mytripdoc3 = {"trip_id": tripDoc};

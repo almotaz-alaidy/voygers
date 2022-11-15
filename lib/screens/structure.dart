@@ -174,7 +174,7 @@ class _StructureScreenState extends State<StructureScreen> {
           padding: const EdgeInsets.only(top: 50, bottom: 30),
           child: ListView(
             children: [
-              // ____________________________________________________________________________________________________
+              // ____________________________________CarouselSlider________________________________________________________________
               CarouselSlider.builder(
                 itemCount: 4,
                 itemBuilder: (BuildContext context, index, int pageViewIndex) {
