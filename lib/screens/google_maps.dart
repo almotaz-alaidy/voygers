@@ -5,6 +5,8 @@ import 'package:geolocator/geolocator.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+late String docForloc;
+
 class Google_Maps extends StatefulWidget {
   const Google_Maps({super.key});
 
@@ -61,9 +63,12 @@ class _Google_MapsState extends State<Google_Maps> {
                   "long": long,
                 };
 
-                db.collection("loc").add(location).then(
-                    (DocumentReference doc) =>
-                        print('DocumentSnapshot added with ID: ${doc.id}'));
+                db
+                    .collection("loc")
+                    .add(location)
+                    .then((DocumentReference doc) {
+                  docForloc = doc.id.toString();
+                });
                 ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("location saved succecfully")));
               } catch (e) {

@@ -5,6 +5,8 @@ import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
+String? userdoc;
+
 class SigupScreen extends StatefulWidget {
   const SigupScreen({super.key});
 
@@ -281,11 +283,15 @@ class _SigupScreenState extends State<SigupScreen> {
                                           "Password": _pass.text,
                                           "uid": authobj.currentUser!.uid,
                                           "age": datetime.toString(),
-                                          "gender": Gender
+                                          "gender": Gender,
+                                          "trip_id": null
                                         };
-                                        db.collection("users").add(userInfo).then(
-                                            (DocumentReference doc) => print(
-                                                'DocumentSnapshot added with ID: ${doc.id}'));
+                                        db
+                                            .collection("users")
+                                            .add(userInfo)
+                                            .then((DocumentReference doc) {
+                                          userdoc = doc.id.toString();
+                                        });
                                       } catch (e) {
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(

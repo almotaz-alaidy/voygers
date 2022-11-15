@@ -1,16 +1,19 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:voygares/compononet/show_dialog.dart';
 import 'package:voygares/screens/google_maps.dart';
-import 'package:voygares/screens/structure.dart';
 import 'package:voygares/wedget/regulartextfeid.dart';
+import '../model/imag.dart';
+import 'package:path/path.dart';
 
-import '../compononet/ads.dart';
-import 'GenerateCode.dart';
+import 'SignUp.dart';
+
+late String tripDoc;
+late String docFortools;
 
 class CreateTrip extends StatefulWidget {
   const CreateTrip({super.key});
@@ -24,6 +27,9 @@ class _CreateTripState extends State<CreateTrip> {
   bool _public = false;
   bool only_females = false;
   File? image;
+  UploadTask? task3;
+  String? imageUrl;
+
   Future _pickImage1() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -44,6 +50,69 @@ class _CreateTripState extends State<CreateTrip> {
   TextEditingController trip_disc = TextEditingController();
   TextEditingController trip_tools = TextEditingController();
   TextEditingController needed_tools = TextEditingController();
+  // _________________________________________________________________
+  Future uploadimage() async {
+    if (image == null) return Text("no image selected");
+
+    final imageName = basename(image!.path);
+    final destination1 = 'adsImage/$imageName';
+
+    task3 = ImageApi.uploadimage(destination1, image!);
+    setState(() {});
+
+    if (image == null) return;
+
+    final snapshot = await task3!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
+    print('Download-Link: $urlDownload');
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
+    final ref =
+        FirebaseStorage.instance.ref().child('adsImage').child('$imageName');
+    await ref.putFile(image!);
+    imageUrl = await ref.getDownloadURL();
+  }
+
+  // Future Test() async {
+  //   await FirebaseFirestore.instance.collection("trips").get().then((value) {
+  //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  //     print(value);
+  //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   Test;
+  // }
+
+  // _____________________________________________________________________________________________________________________________________
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore db = FirebaseFirestore.instance;
+
+    Map<String, dynamic> trip_info = {
+      "tripName": "",
+      "cap": "",
+      "cost": "",
+      "disc": "",
+      "privacy": "",
+      "date": "",
+      "only females": "",
+      "adsImage": "",
+    };
+
+    db.collection("trips").add(trip_info).then((DocumentReference doc) {
+      tripDoc = doc.id.toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,9 +121,9 @@ class _CreateTripState extends State<CreateTrip> {
         backgroundColor: Colors.green,
         actions: <Widget>[
           IconButton(
-            onPressed: () => Navigator.pop(
-              context,
-            ),
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, "main_page");
+            },
             icon: Icon(
               Icons.app_registration,
               color: Colors.white,
@@ -149,26 +218,43 @@ class _CreateTripState extends State<CreateTrip> {
                   })),
             ),
             ListTile(
-              title: Text("Upload Image"),
-              subtitle: Text("choose image to make your ADS putty"),
-              trailing: IconButton(
-                icon: image != null
-                    ? Image.file(
-                        image!,
-                        width: 200,
-                        height: 200,
-                      )
-                    : Image.asset(
-                        "images/upload.png",
-                        color: Colors.green,
-                      ),
-                onPressed: () {
-                  setState(() {
-                    _pickImage1();
-                  });
-                },
-              ),
-            ),
+                title: Text("Upload Image"),
+                subtitle: Text("choose image to make your ADS putty"),
+                trailing: TextButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Row(
+                              children: [
+                                IconButton(
+                                  icon: image != null
+                                      ? Image.file(
+                                          image!,
+                                          width: 200,
+                                          height: 200,
+                                        )
+                                      : Image.asset(
+                                          "images/upload.png",
+                                          color: Colors.green,
+                                        ),
+                                  onPressed: () {
+                                    _pickImage1();
+                                  },
+                                ),
+                                IconButton(
+                                    onPressed: () {
+                                      uploadimage();
+                                    },
+                                    icon: Icon(Icons.update_disabled)),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Text("image"))),
             ListTile(
               title: Text("Trip Date"),
               subtitle: Text(_date.toString()),
@@ -269,9 +355,15 @@ class _CreateTripState extends State<CreateTrip> {
                                                           "tools per trip")
                                                       .add(tools)
                                                       .then((DocumentReference
-                                                              doc) =>
-                                                          print(
-                                                              'DocumentSnapshot added with ID: ${doc.id}'));
+                                                          doc) {
+                                                    docFortools =
+                                                        doc.id.toString();
+                                                    print(
+                                                        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                                                    print(docFortools);
+                                                    print(
+                                                        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                                                  });
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(SnackBar(
                                                           content: Text(
@@ -305,9 +397,10 @@ class _CreateTripState extends State<CreateTrip> {
                       height: 30,
                     )),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     try {
-                      FirebaseFirestore db = FirebaseFirestore.instance;
+                      CollectionReference tripUdate =
+                          FirebaseFirestore.instance.collection("trips");
 
                       Map<String, dynamic> trip_info = {
                         "tripName": trip_name.text,
@@ -316,12 +409,20 @@ class _CreateTripState extends State<CreateTrip> {
                         "disc": trip_disc.text,
                         "privacy": _public.toString(),
                         "date": _date.toString(),
-                        "only females": only_females.toString()
+                        "only females": only_females.toString(),
+                        "adsImage": imageUrl.toString(),
                       };
 
-                      db.collection("trips").add(trip_info).then(
-                          (DocumentReference doc) => print(
-                              'DocumentSnapshot added with ID: ${doc.id}'));
+                      tripUdate.doc(tripDoc).update(trip_info);
+
+                      // db
+                      //     .collection("trips")
+                      //     .add(trip_info)
+                      //     .then((DocumentReference doc) {
+                      //   tripDoc = doc.id.toString();
+                      // }
+
+                      // );
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("trip created succecfully")));
                       showDialog(
@@ -334,6 +435,26 @@ class _CreateTripState extends State<CreateTrip> {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text("Try again!")));
                     }
+                    CollectionReference db3 =
+                        await FirebaseFirestore.instance.collection("users");
+                    Map<String, dynamic> mytripdoc = {"trip_id": tripDoc};
+                    db3.doc(userdoc).update(mytripdoc);
+                    //---------------------------------------------
+                    CollectionReference db4 = await FirebaseFirestore.instance
+                        .collection("tools per trip");
+                    Map<String, dynamic> mytripdoc2 = {"trip_id": tripDoc};
+                    db4.doc(docFortools).update(mytripdoc2);
+                    print(
+                        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                    print(tripDoc);
+                    print(
+                        "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                    //-------------------------------------------------------
+                    CollectionReference db5 =
+                        await FirebaseFirestore.instance.collection("loc");
+                    Map<String, dynamic> mytripdoc3 = {"trip_id": tripDoc};
+                    db5.doc(docForloc).update(mytripdoc3);
                   },
                   child: Text("Generate Code"),
                   style: ElevatedButton.styleFrom(

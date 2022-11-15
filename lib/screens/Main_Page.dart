@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:lottie/lottie.dart';
 
+import 'TripCreate.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -13,9 +15,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final CollectionReference trip =
-      FirebaseFirestore.instance.collection("trips");
+  CollectionReference trip = FirebaseFirestore.instance.collection("trips");
 
+  CollectionReference userDb = FirebaseFirestore.instance.collection("users");
+  String? logic;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,11 +73,6 @@ class _MainPageState extends State<MainPage> {
                                 padding: const EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
                                   color: Colors.green,
-                                  // image: const DecorationImage(
-                                  //   fit: BoxFit.cover,
-                                  //   image: NetworkImage(
-                                  //       "https://img.freepik.com/free-vector/black-wallpaper-with-motion-lines-background_1017-30151.jpg"),
-                                  // ),
                                   border: GradientBoxBorder(
                                     gradient: LinearGradient(
                                       colors: [
@@ -87,72 +85,78 @@ class _MainPageState extends State<MainPage> {
                                   borderRadius: BorderRadius.circular(32.0),
                                 ),
                                 child: Center(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      FittedBox(
-                                        child: Text(
-                                          trip_info[i]['tripName'],
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Image(
+                                            image: NetworkImage(
+                                                "${trip_info[i]['adsImage']} ),")),
+                                        FittedBox(
+                                          child: Text(
+                                            trip_info[i]['tripName'],
+                                            style: GoogleFonts.amiri(
+                                              textStyle: const TextStyle(
+                                                fontSize: 30.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            maxLines: 1,
+                                          ),
+                                        ),
+                                        Text(
+                                          trip_info[i]['disc'],
                                           style: GoogleFonts.amiri(
                                             textStyle: const TextStyle(
-                                              fontSize: 30.0,
-                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.0,
+                                              // fontWeight: FontWeight.bold,
                                               color: Colors.white,
                                             ),
                                           ),
-                                          maxLines: 1,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                      ),
-                                      Text(
-                                        trip_info[i]['disc'],
-                                        style: GoogleFonts.amiri(
-                                          textStyle: const TextStyle(
-                                            fontSize: 20.0,
-                                            // fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                        Text(
+                                          "Capacity: ${trip_info[i]['cap']}",
+                                          style: GoogleFonts.amiri(
+                                            textStyle: const TextStyle(
+                                              fontSize: 25.0,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        "Capacity: ${trip_info[i]['cap']}",
-                                        style: GoogleFonts.amiri(
-                                          textStyle: const TextStyle(
-                                            fontSize: 25.0,
-                                            // fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                        Text(
+                                          "Date: ${trip_info[i]['date']}",
+                                          style: GoogleFonts.amiri(
+                                            textStyle: const TextStyle(
+                                              fontSize: 15.0,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        "Date: ${trip_info[i]['date']}",
-                                        style: GoogleFonts.amiri(
-                                          textStyle: const TextStyle(
-                                            fontSize: 15.0,
-                                            // fontWeight: FontWeight.bold,
-                                            color: Colors.white,
+                                        Text(
+                                          " ${trip_info[i]['cost']} JOD",
+                                          style: GoogleFonts.amiri(
+                                            textStyle: const TextStyle(
+                                              fontSize: 15.0,
+                                              // fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
                                           ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      Text(
-                                        " ${trip_info[i]['cost']} JOD",
-                                        style: GoogleFonts.amiri(
-                                          textStyle: const TextStyle(
-                                            fontSize: 15.0,
-                                            // fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -164,7 +168,7 @@ class _MainPageState extends State<MainPage> {
                               return Container(
                                 color: Colors.black,
                                 width: 1,
-                                child: Text(""),
+                                child: Lottie.asset("images/panda.json"),
                               );
                           },
                           options: CarouselOptions(
@@ -209,7 +213,43 @@ class _MainPageState extends State<MainPage> {
                                   borderRadius: BorderRadius.circular(20)),
                               backgroundColor: Colors.green),
                           onPressed: () {
-                            Navigator.pushNamed(context, "create_trip");
+                            // userDb.get().then((value) {
+                            //   value.docs.forEach((element) {
+                            //     element["trip_id"];
+                            //     logic = element["trip_id"].toString();
+                            //   });
+                            // });
+                            // print(
+                            //     "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                            // print(logic);
+
+                            // print(
+                            //     "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                            userDb
+                                .where("trip_id", isEqualTo: null)
+                                .get()
+                                .then((value) => value.docs.forEach((element) {
+                                      print(element["trip_id"].toString());
+                                      logic = element["trip_id"].toString();
+                                    }));
+
+                            // _______________________________________________________
+                            print("finale  value of logic variable : $logic");
+                            if (logic == null) {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(
+                                builder: (context) {
+                                  return CreateTrip();
+                                },
+                              ));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text(
+                                          "you have already created trip")));
+                            }
                           },
                           label: Text(
                             "Create a Trip",

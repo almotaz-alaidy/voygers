@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:voygares/screens/bottom_appbar.dart';
 
+import '../screens/TripCreate.dart';
+
 class GenerateMyCode extends StatefulWidget {
   GenerateMyCode({required this.generated_code});
   String generated_code = "";
@@ -80,7 +82,8 @@ class _GenerateMyCodeState extends State<GenerateMyCode> {
                   FirebaseFirestore db = FirebaseFirestore.instance;
 
                   Map<String, dynamic> userInfo = {
-                    "code": widget.generated_code
+                    "code": widget.generated_code,
+                    "trip_id": tripDoc,
                   };
                   db.collection("code").add(userInfo).then(
                         (DocumentReference doc) =>
