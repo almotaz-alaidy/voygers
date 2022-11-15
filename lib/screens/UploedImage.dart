@@ -8,6 +8,9 @@ import '../model/api.dart';
 import '../model/imag.dart';
 import '../wedget/button.dart';
 
+late String docForvideo;
+late String docForimage;
+
 class Uplode_screen extends StatefulWidget {
   @override
   _Uplode_screenState createState() => _Uplode_screenState();
@@ -60,8 +63,9 @@ class _Uplode_screenState extends State<Uplode_screen> {
     Map<String, dynamic> videoInfo = {
       "video": url,
     };
-    db.collection("video").add(videoInfo).then((DocumentReference doc) =>
-        print('DocumentSnapshot added with ID: ${doc.id}'));
+    db.collection("video").add(videoInfo).then((DocumentReference doc) {
+      docForvideo = doc.id.toString();
+    });
   }
 
   // ___________________________________________________________________________________________________________
@@ -125,7 +129,9 @@ class _Uplode_screenState extends State<Uplode_screen> {
     Map<String, dynamic> imageInfo = {
       "image": url,
     };
-    db.collection("images").add(imageInfo);
+    db.collection("images").add(imageInfo).then((DocumentReference doc) {
+      docForimage = doc.id.toString();
+    });
   }
 
   // _______________________________________________________________________________________________________
