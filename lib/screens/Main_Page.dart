@@ -8,6 +8,10 @@ import 'package:lottie/lottie.dart';
 
 import 'TripCreate.dart';
 
+String? userDocName;
+
+final firebaseUser = FirebaseAuth.instance.currentUser;
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -16,11 +20,32 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  String? uidUser;
+
   CollectionReference trip = FirebaseFirestore.instance.collection("trips");
 
   CollectionReference userDb = FirebaseFirestore.instance.collection("users");
   String? logic;
   FirebaseAuth myUser = FirebaseAuth.instance;
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+    FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: currentUser.currentUser!.uid)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              print(element["trip_id"].toString());
+              logic = element["trip_id"].toString();
+            }));
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+    print("value of logic variable: $logic");
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -269,8 +294,51 @@ class _MainPageState extends State<MainPage> {
                               width: 30,
                               height: 30,
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, "join_trip");
+                            onPressed: () async {
+                              print(
+                                  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                              FirebaseFirestore.instance
+                                  .collection("users")
+                                  .where("uid",
+                                      isEqualTo: currentUser.currentUser!.uid)
+                                  .get()
+                                  .then((value) =>
+                                      value.docs.forEach((element) {
+                                        print(element["trip_id"].toString());
+                                        logic = element["trip_id"].toString();
+                                      }));
+                              print(
+                                  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+                              print("value of logic variable: $logic");
+                              // ____________________________________________________________________________________________________________________
+
+                              if (logic == "null") {
+                                Navigator.pushNamed(context, "join_trip");
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            "you have already joined trip")));
+                              }
+
+                              // CollectionReference userRef = FirebaseFirestore
+                              //     .instance
+                              //     .collection("users");
+                              // userRef
+                              //     .where("uid",
+                              //         isEqualTo: myUser.currentUser!.uid)
+                              //     .get()
+                              //     .then((QuerySnapshot snapshot) {
+                              //   snapshot.docs.forEach((DocumentSnapshot doc) {
+                              //     print(doc.id);
+                              //     userDocName = doc.id;
+                              //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                              //     print(userDocName);
+                              //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                              //   });
+                              // });
                             },
                             label: Text(
                               "Join a Trip",

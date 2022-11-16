@@ -17,7 +17,7 @@ List<Product> products = [
   Product(
     id: 1,
     title: "Trip Details ",
-    image: "images/trip details.jpg",
+    image: "images/voyage.png",
     color: Colors.green,
     courses: 16,
   ),

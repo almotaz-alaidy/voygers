@@ -2,8 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:voygares/wedget/advice.dart';
 
 import '../compononet/catagory/catagoryList.dart';
