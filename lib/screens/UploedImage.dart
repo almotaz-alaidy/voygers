@@ -7,6 +7,7 @@ import 'package:path/path.dart';
 import '../model/api.dart';
 import '../model/imag.dart';
 import '../wedget/button.dart';
+import 'TripCreate.dart';
 
 late String docForvideo;
 late String docForimage;
@@ -62,6 +63,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> videoInfo = {
       "video": url,
+      "trip_id": tripDoc,
     };
     db.collection("video").add(videoInfo).then((DocumentReference doc) {
       docForvideo = doc.id.toString();
@@ -128,6 +130,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> imageInfo = {
       "image": url,
+      "trip_id": tripDoc,
     };
     db.collection("images").add(imageInfo).then((DocumentReference doc) {
       docForimage = doc.id.toString();

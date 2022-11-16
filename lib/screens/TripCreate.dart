@@ -11,6 +11,9 @@ import 'package:voygares/wedget/regulartextfeid.dart';
 import '../model/imag.dart';
 import 'package:path/path.dart';
 
+FirebaseAuth myUser = FirebaseAuth.instance;
+String? userDocName;
+
 late String tripDoc;
 late String docFortools;
 final currentUser = FirebaseAuth.instance;
@@ -51,6 +54,8 @@ class _CreateTripState extends State<CreateTrip> {
   TextEditingController trip_disc = TextEditingController();
   TextEditingController trip_tools = TextEditingController();
   TextEditingController needed_tools = TextEditingController();
+
+  String? uidUser;
   // _________________________________________________________________
   Future uploadimage() async {
     if (image == null) return Text("no image selected");
@@ -98,6 +103,20 @@ class _CreateTripState extends State<CreateTrip> {
 
     db.collection("trips").add(trip_info).then((DocumentReference doc) {
       tripDoc = doc.id.toString();
+    });
+    CollectionReference userRef =
+        FirebaseFirestore.instance.collection("users");
+    userRef
+        .where("uid", isEqualTo: myUser.currentUser!.uid)
+        .get()
+        .then((QuerySnapshot snapshot) {
+      snapshot.docs.forEach((DocumentSnapshot doc) {
+        print(doc.id);
+        userDocName = doc.id;
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        print(userDocName);
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+      });
     });
   }
 
@@ -400,6 +419,20 @@ class _CreateTripState extends State<CreateTrip> {
                         "only females": only_females.toString(),
                         "adsImage": imageUrl.toString(),
                       };
+                      CollectionReference userRef =
+                          FirebaseFirestore.instance.collection("users");
+                      userRef
+                          .where("uid", isEqualTo: myUser.currentUser!.uid)
+                          .get()
+                          .then((QuerySnapshot snapshot) {
+                        snapshot.docs.forEach((DocumentSnapshot doc) {
+                          print(doc.id);
+                          userDocName = doc.id;
+                          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                          print(userDocName);
+                          print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                        });
+                      });
 
                       tripUdate.doc(tripDoc).update(trip_info);
 
@@ -416,10 +449,16 @@ class _CreateTripState extends State<CreateTrip> {
                           .showSnackBar(SnackBar(content: Text("Try again!")));
                     }
                     // __________________________add trip-id to users collection _____________________________________________________
+
                     CollectionReference db3 =
                         await FirebaseFirestore.instance.collection("users");
-                    Map<String, dynamic> mytripdoc = {"trip_id": tripDoc};
-                    db3.doc("F2i7k5dhfnI68eiSYLuK").update(mytripdoc);
+                    Map<String, dynamic> mytripdoc = {
+                      "trip_id": tripDoc,
+                      "creator": "1",
+                    };
+
+                    db3.doc(userDocName).update(mytripdoc);
+
                     // ________________________________________________________________________________________________________________
 
                     // __________________________add trip-id to tools per trip collection _____________________________________________________

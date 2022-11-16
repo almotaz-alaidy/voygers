@@ -292,6 +292,7 @@ class _SigupScreenState extends State<SigupScreen> {
                                             .then((DocumentReference doc) {
                                           // _________to make globale variable have the value of user document _______________________________
                                           userdoc = doc.id.toString();
+
                                           // ____________________________________________________________________________________
                                         });
                                       } catch (e) {
