@@ -284,7 +284,8 @@ class _SigupScreenState extends State<SigupScreen> {
                                           "uid": authobj.currentUser!.uid,
                                           "age": datetime.toString(),
                                           "gender": Gender,
-                                          "trip_id": null
+                                          "trip_id": null,
+                                          "profile image": null
                                         };
                                         db
                                             .collection("users")

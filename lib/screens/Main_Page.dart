@@ -7,6 +7,7 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:lottie/lottie.dart';
 
 import 'TripCreate.dart';
+import 'bottom_appbar.dart';
 
 String? userDocName;
 
@@ -317,6 +318,12 @@ class _MainPageState extends State<MainPage> {
                               if (logic == "null") {
                                 Navigator.pushNamed(context, "join_trip");
                               } else {
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(
+                                  builder: (context) {
+                                    return TripPage();
+                                  },
+                                ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                         content: Text(
