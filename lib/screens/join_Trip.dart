@@ -4,6 +4,8 @@ import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:voygares/screens/TripCreate.dart';
 import 'package:voygares/screens/structure.dart';
 
+import 'bottom_appbar.dart';
+
 class JoinTrip extends StatefulWidget {
   const JoinTrip({super.key});
 
@@ -143,7 +145,7 @@ class _JoinTripState extends State<JoinTrip> {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => StructureScreen(),
+                                  builder: (context) => TripPage(),
                                 ));
                           }
                         }));
