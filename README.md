@@ -19,7 +19,7 @@ Voygares is an application that helps you create ,advertise ,organize ,and join 
 
 **Client:** Flutter![logo](https://docs.flutter.dev/assets/images/docs/catalog-widget-placeholder.png)
 
-**Server:** Vs code ![logo](https://docs.flutter.dev/assets/images/docs/catalog-widget-placeholder.png)
+**Server:** Vs code ![logo]([https://docs.flutter.dev/assets/images/docs/catalog-widget-placeholder.png](https://code.visualstudio.com/assets/apple-touch-icon.png))
 
 
 
