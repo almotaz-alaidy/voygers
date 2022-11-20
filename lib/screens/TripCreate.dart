@@ -34,6 +34,42 @@ class _CreateTripState extends State<CreateTrip> {
   String? imageUrl;
   String? tripId;
 
+  // ______________________________________________participant function __________________________________________
+  List info = [];
+
+  dynamic name;
+  String? email;
+  GetThePar() {
+    CollectionReference userRef1 =
+        FirebaseFirestore.instance.collection("users");
+    userRef1
+        .where("uid", isEqualTo: myUser.currentUser!.uid)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        email = element["Email"];
+        name = element["Name"];
+
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        print(email);
+        print(name);
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+      });
+    });
+    Map<String, dynamic> UserNameEmail = {name: email};
+    CollectionReference parti =
+        FirebaseFirestore.instance.collection("participants");
+
+    Map<String, dynamic> PartiField = {
+      "trip_id": tripDoc,
+      "info": UserNameEmail
+    };
+    parti.add(PartiField).then((DocumentReference doc) {
+      // tripDoc = doc.id.toString();
+    });
+  }
+  // _____________________________________________________________________________________________________________________
+
   Future _pickImage1() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -459,7 +495,10 @@ class _CreateTripState extends State<CreateTrip> {
 
                     db3.doc(userDocName).update(mytripdoc);
 
-                    // ________________________________________________________________________________________________________________
+                    // _____________________________________partcipant _________________________________________________________________
+                    GetThePar();
+
+                    // _________________________________________________________________________________________________________________
 
                     // __________________________add trip-id to tools per trip collection _____________________________________________________
 

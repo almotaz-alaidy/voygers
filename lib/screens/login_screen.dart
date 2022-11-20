@@ -6,6 +6,9 @@ import 'package:voygares/screens/forgetpas.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 DocumentReference? doc;
+CollectionReference UsersRef = FirebaseFirestore.instance.collection("users");
+String? userField;
+FirebaseAuth auth = FirebaseAuth.instance;
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -34,6 +37,16 @@ class _SignInState extends State<SignIn> {
   FirebaseAuth auth = FirebaseAuth.instance;
   TextEditingController _email = new TextEditingController();
   TextEditingController _pass = new TextEditingController();
+  readFeildFromUsers() {
+    UsersRef.where("uid", isEqualTo: auth.currentUser!.uid).get().then((value) {
+      value.docs.forEach((element) {
+        userField = element["trip_id"];
+        print("@@@@@@@@@@@@@@@@@@@@@@@");
+        print("the value of current user trip id is :   $userField");
+        print("@@@@@@@@@@@@@@@@@@@@@@@");
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +193,9 @@ class _SignInState extends State<SignIn> {
                                 onPressed: () async {
                                   if (mykey.currentState!.validate()) {
                                     try {
+                                      // ________________________________________________________________________
+                                      readFeildFromUsers();
+
                                       UserCredential muUser =
                                           await auth.signInWithEmailAndPassword(
                                               email: _email.text,
