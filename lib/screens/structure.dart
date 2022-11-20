@@ -2,6 +2,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:lottie/lottie.dart';
 import 'package:voygares/wedget/advice.dart';
 
 import '../compononet/catagory/catagoryList.dart';
@@ -19,6 +22,8 @@ class _StructureScreenState extends State<StructureScreen> {
   String phoneNum = "";
   String name = "";
   int i = 0;
+  CollectionReference commentDb =
+      FirebaseFirestore.instance.collection("comments");
 
   @override
   Widget build(BuildContext context) {
@@ -173,26 +178,124 @@ class _StructureScreenState extends State<StructureScreen> {
           child: ListView(
             children: [
               // ____________________________________CarouselSlider________________________________________________________________
-              CarouselSlider.builder(
-                itemCount: 4,
-                itemBuilder: (BuildContext context, index, int pageViewIndex) {
-                  return Advice(i: index);
+              StreamBuilder(
+                stream: commentDb
+                    .where("trip_id", isEqualTo: userTripId)
+                    .snapshots(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  if (snapshot.hasData) {
+                    List commentInfo = snapshot.data!.docs;
+                    return CarouselSlider.builder(
+                      itemCount: commentInfo.length,
+                      itemBuilder:
+                          (BuildContext context, i, int pageViewIndex) {
+                        if (commentInfo.isEmpty) {
+                          return Lottie.asset("images/panda.json",
+                              height: 500, width: 500);
+                        } else {
+                          return Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              border: GradientBoxBorder(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.white,
+                                    Colors.white.withOpacity(0.1),
+                                  ],
+                                ),
+                                width: 4.0,
+                              ),
+                              borderRadius: BorderRadius.circular(32.0),
+                            ),
+                            child: Center(
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    FittedBox(
+                                      child: Text(
+                                        commentInfo[i]['subject'],
+                                        style: GoogleFonts.amiri(
+                                          textStyle: const TextStyle(
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                    Text(
+                                      commentInfo[i]['comment'],
+                                      style: GoogleFonts.amiri(
+                                        textStyle: const TextStyle(
+                                          fontSize: 20.0,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      options: CarouselOptions(
+                        height: 150,
+                        aspectRatio: 16 / 9,
+                        viewportFraction: 0.8,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 3),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                    );
+                  }
+                  return Lottie.asset("images/panda.json");
                 },
-                options: CarouselOptions(
-                  height: 150,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 10),
-                  autoPlayAnimationDuration: const Duration(seconds: 5),
-                  autoPlayCurve: Curves.easeIn,
-                  enlargeCenterPage: true,
-                  scrollDirection: Axis.horizontal,
-                ),
               ),
+
+              // CarouselSlider.builder(
+              //   itemCount: 4,
+              //   itemBuilder: (BuildContext context, index, int pageViewIndex) {
+              //     return Advice(i: index);
+              //   },
+              //   options: CarouselOptions(
+              //     height: 150,
+              //     aspectRatio: 16 / 9,
+              //     viewportFraction: 0.8,
+              //     initialPage: 0,
+              //     enableInfiniteScroll: true,
+              //     reverse: false,
+              //     autoPlay: true,
+              //     autoPlayInterval: const Duration(seconds: 10),
+              //     autoPlayAnimationDuration: const Duration(seconds: 5),
+              //     autoPlayCurve: Curves.easeIn,
+              //     enlargeCenterPage: true,
+              //     scrollDirection: Axis.horizontal,
+              //   ),
+              // ),
               SizedBox(
                 height: 30,
               ),

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/screens/login_screen.dart';
 
 class Comment_on_trip extends StatefulWidget {
   const Comment_on_trip({super.key});
@@ -10,6 +12,24 @@ class Comment_on_trip extends StatefulWidget {
 class _Comment_on_tripState extends State<Comment_on_trip> {
   TextEditingController comment = TextEditingController();
   TextEditingController comment_sub = TextEditingController();
+  readFeildFromUsers() {
+    UsersRef.where("uid", isEqualTo: auth.currentUser!.uid).get().then((value) {
+      value.docs.forEach((element) {
+        userField = element["trip_id"];
+        print("@@@@@@@@@@@@@@@@@@@@@@@");
+        print(userField);
+        print("@@@@@@@@@@@@@@@@@@@@@@@");
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    readFeildFromUsers();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,25 +86,25 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
               height: 30,
             ),
             ElevatedButton(
-              onPressed: () {},
-              //  () async {
-              //   try {
-              //     FirebaseFirestore db = FirebaseFirestore.instance;
+              onPressed: () {
+                try {
+                  FirebaseFirestore commDb = FirebaseFirestore.instance;
 
-              //     Map<String, dynamic> userInfo = {
-              //       "subject": comment_sub.text,
-              //       "comment": comment.text
-              //     };
-              //     db.collection("Comment").add(userInfo).then(
-              //         (DocumentReference doc) =>
-              //             print('DocumentSnapshot added with ID: ${doc.id}'));
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(content: Text("comment added succecfully")));
-              //   } catch (e) {
-              //     ScaffoldMessenger.of(context)
-              //         .showSnackBar(SnackBar(content: Text("Try again!")));
-              //   }
-              // },
+                  Map<String, dynamic> userInfo = {
+                    "subject": comment_sub.text,
+                    "comment": comment.text,
+                    "trip_id": userField,
+                  };
+                  commDb.collection("comments").add(userInfo).then(
+                      (DocumentReference doc) =>
+                          print('DocumentSnapshot added with ID: ${doc.id}'));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("comment added succecfully")));
+                } catch (e) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Try again!")));
+                }
+              },
               child: Text("Upload Comment"),
               style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
             )

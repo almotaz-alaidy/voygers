@@ -1,19 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 
+import '../compononet/catagory/catagoryList.dart';
+
 // ignore: must_be_immutable
-class Advice extends StatelessWidget {
+class Advice extends StatefulWidget {
   Advice({required this.i});
-
   int i = 0;
-  List<String> advices = [
-    "Adventure is out there",
-    "Live your life by a compass, not a clock",
-    "Take only memories, leave only footprints",
-    "The journey, not the arrival, matters"
-  ];
 
+  @override
+  State<Advice> createState() => _AdviceState();
+}
+
+class _AdviceState extends State<Advice> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,38 +34,83 @@ class Advice extends StatelessWidget {
         borderRadius: BorderRadius.circular(32.0),
       ),
       child: Center(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              FittedBox(
-                child: Text(
-                  "${advices[i]}",
-                  style: GoogleFonts.amiri(
-                    textStyle: const TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  maxLines: 1,
-                ),
-              ),
-              // Text(
-              //   '$advice',
-              //   style: GoogleFonts.amiri(
-              //     textStyle: const TextStyle(
-              //       fontSize: 20.0,
-              //       // fontWeight: FontWeight.bold,
-              //       color: Colors.white,
+        // child: FittedBox(
+        //   child: Text(
+        //     "ssssss ${[widget.i]}",
+        //     style: GoogleFonts.amiri(
+        //       textStyle: const TextStyle(
+        //         fontSize: 30.0,
+        //         fontWeight: FontWeight.bold,
+        //         color: Colors.white,
+        //       ),
+        //     ),
+        //     maxLines: 1,
+        //   ),
+        // ),
+        child: StreamBuilder<QuerySnapshot>(
+          stream: FirebaseFirestore.instance
+              .collection("comments")
+              .where("trip_id", isEqualTo: userTripId)
+              .snapshots(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index) {
+                  QueryDocumentSnapshot x = snapshot.data!.docs[index];
+                  return Column(
+                    children: [
+                      Text("ss"),
+                      FittedBox(
+                        child: Text(
+                          "${x['subject']}",
+                          style: GoogleFonts.amiri(
+                            textStyle: const TextStyle(
+                              fontSize: 30.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                          maxLines: 1,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              );
+
+              // FittedBox(
+              //   child: Text(
+              //     "${advices[widget.i]}",
+              //     style: GoogleFonts.amiri(
+              //       textStyle: const TextStyle(
+              //         fontSize: 30.0,
+              //         fontWeight: FontWeight.bold,
+              //         color: Colors.white,
+              //       ),
               //     ),
+              //     maxLines: 1,
               //   ),
-              //   maxLines: 2,
-              //   overflow: TextOverflow.ellipsis,
-              // ),
-            ],
-          ),
+              // );
+
+              // ListView.builder(
+              //   itemCount: snapshot.data!.docs.length,
+              //   itemBuilder: (context, index) {
+              //     QueryDocumentSnapshot x = snapshot.data!.docs[index];
+              //     return Container(
+              //         child: DrawerHeader(
+              //       child: Column(children: [
+              //         Text(x['participants name '].toString()),
+              //         Text(x['participants emails'].toString()),
+              //       ]),
+              //     ));
+              //   },
+              // );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );
