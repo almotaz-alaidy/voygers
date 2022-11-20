@@ -2,8 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:voygares/screens/home_screen.dart';
 import 'package:voygares/screens/share.dart';
 
+import '../utils/binding/HomeBinding.dart';
 import 'structure.dart';
 import 'mtProfile.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -19,7 +22,11 @@ class TripPage extends StatefulWidget {
 
 class _TripPageState extends State<TripPage> {
   // *@dfas
-  List page = [StructureScreen(), Profile(), ShareCode()];
+  List page = [
+    StructureScreen(),
+    Profile(),
+    ShareCode(),
+  ];
   int _selectedPage = 0;
   final currentUser = FirebaseAuth.instance;
   bool showSpinner = false;
@@ -37,7 +44,8 @@ class _TripPageState extends State<TripPage> {
         items: [
           const TabItem(icon: Icons.home, title: 'Home'),
           const TabItem(icon: Icons.people, title: 'profile'),
-          const TabItem(icon: Icons.share, title: 'share')
+          const TabItem(icon: Icons.share, title: 'share'),
+          // const TabItem(icon: Icons.person, title: 'wether'),
         ],
         backgroundColor: Colors.green,
         activeColor: Color.fromARGB(255, 247, 249, 247),

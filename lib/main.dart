@@ -1,9 +1,12 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:voygares/firebase_options.dart';
 import 'package:voygares/screens/TripCreate.dart';
+import 'package:voygares/screens/home_screen.dart';
 import 'package:voygares/screens/welcom.dart';
+import 'package:voygares/utils/binding/HomeBinding.dart';
 import 'screens/History.dart';
 import 'screens/Main_Page.dart';
 import 'screens/SignUp.dart';
@@ -59,3 +62,23 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// void main() {
+//   runApp(WeatherApp());
+// }
+
+// class WeatherApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetMaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       initialRoute: '/',
+//       getPages: [
+//         GetPage(
+//           name: '/',
+//           page: () => HomeScreen(),
+//           binding: HomeBinding(),
+//         )
+//       ],
+//     );
+//   }
+// }

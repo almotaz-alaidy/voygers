@@ -2,9 +2,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:lottie/lottie.dart';
+import 'package:voygares/screens/home_screen.dart';
+import 'package:voygares/utils/binding/HomeBinding.dart';
 
 import 'TripCreate.dart';
 import 'bottom_appbar.dart';
@@ -18,6 +23,16 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
+}
+
+void getpa() {
+  GetPage(
+    name: '/',
+    page: () {
+      return Container();
+    },
+    binding: HomeBinding(),
+  );
 }
 
 class _MainPageState extends State<MainPage> {
@@ -356,6 +371,9 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ],
                     ),
+                  ),
+                  SizedBox(
+                    height: 7,
                   ),
                 ],
               ),
