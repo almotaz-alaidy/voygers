@@ -149,287 +149,261 @@ class _ProfileState extends State<Profile> {
             .where("uid", isEqualTo: auth.currentUser!.uid)
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.green,
-              ),
-              body: ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (context, index) {
-                    QueryDocumentSnapshot x = snapshot.data!.docs[index];
-                    return Container(
-                        height: 600,
-                        child: DrawerHeader(
-                            child: SingleChildScrollView(
-                                scrollDirection: Axis.vertical,
-                                child: Column(children: [
-                                  Stack(
-                                    children: [
-                                      Container(
-                                        margin: EdgeInsets.symmetric(
-                                            vertical: 30, horizontal: 30),
-                                        child: CircleAvatar(
-                                          radius: 71,
-                                          backgroundColor: Colors.green,
+          if (snapshot.hasData) {
+            return Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.green,
+                ),
+                body: ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      QueryDocumentSnapshot x = snapshot.data!.docs[index];
+                      return Container(
+                          height: 600,
+                          child: DrawerHeader(
+                              child: SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: Column(children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: 30, horizontal: 30),
                                           child: CircleAvatar(
-                                            radius: 65,
+                                            radius: 71,
                                             backgroundColor: Colors.green,
-                                            backgroundImage: logic1 == null
-                                                ? null
-                                                : NetworkImage(
-                                                    "${x['profile image']}"),
+                                            child: CircleAvatar(
+                                              radius: 65,
+                                              backgroundColor: Colors.green,
+                                              backgroundImage: logic1 == null
+                                                  ? null
+                                                  : NetworkImage(
+                                                      "${x['profile image']}"),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Positioned(
-                                          top: 120,
-                                          left: 110,
-                                          child: RawMaterialButton(
-                                            elevation: 10,
-                                            fillColor: Colors.green,
-                                            child: Icon(Icons.add_a_photo),
-                                            padding: EdgeInsets.all(15.0),
-                                            shape: CircleBorder(),
-                                            onPressed: () {
-                                              showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Text(
-                                                        'Choose option',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w600,
+                                        Positioned(
+                                            top: 120,
+                                            left: 110,
+                                            child: RawMaterialButton(
+                                              elevation: 10,
+                                              fillColor: Colors.green,
+                                              child: Icon(Icons.add_a_photo),
+                                              padding: EdgeInsets.all(15.0),
+                                              shape: CircleBorder(),
+                                              onPressed: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (BuildContext context) {
+                                                      return AlertDialog(
+                                                        title: Text(
+                                                          'Choose option',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      content:
-                                                          SingleChildScrollView(
-                                                        child: ListBody(
-                                                          children: [
-                                                            InkWell(
-                                                              onTap:
-                                                                  SelectProfileImage,
-                                                              splashColor:
-                                                                  Colors.green,
-                                                              child: Row(
-                                                                children: [
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .image,
-                                                                      color: Colors
-                                                                          .green,
+                                                        content:
+                                                            SingleChildScrollView(
+                                                          child: ListBody(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap:
+                                                                    SelectProfileImage,
+                                                                splashColor:
+                                                                    Colors
+                                                                        .green,
+                                                                child: Row(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .image,
+                                                                        color: Colors
+                                                                            .green,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    'choose image ',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  )
-                                                                ],
+                                                                    Text(
+                                                                      'choose image ',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            18,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                            InkWell(
-                                                              onTap:
-                                                                  uploedProfileImage,
-                                                              splashColor:
-                                                                  Colors.green,
-                                                              child: Row(
-                                                                children: [
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.all(
-                                                                            8.0),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .upload,
-                                                                      color: Colors
-                                                                          .green,
+                                                              InkWell(
+                                                                onTap:
+                                                                    uploedProfileImage,
+                                                                splashColor:
+                                                                    Colors
+                                                                        .green,
+                                                                child: Row(
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .upload,
+                                                                        color: Colors
+                                                                            .green,
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  Text(
-                                                                    'uoloed image',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontSize:
-                                                                          18,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                                  )
-                                                                ],
+                                                                    Text(
+                                                                      'uoloed image',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontSize:
+                                                                            18,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  });
-                                            },
-                                          ))
-                                    ],
-                                  ),
-                                  // _______________________________________________________________________________________________
-                                  // GestureDetector(
-                                  //   onTap: () {
-                                  //     showDialog(
-                                  //       context: context,
-                                  //       builder: (BuildContext context) {
-                                  //         return AlertDialog(
-                                  //           actions: [
-                                  //             TextButton.icon(
-                                  //               onPressed: () {
-                                  //                 print("object");
-                                  //               },
-                                  //               icon: Icon(Icons.camera),
-                                  //               label: Text("camera"),
-                                  //             ),
-                                  //             TextButton.icon(
-                                  //                 onPressed: () {},
-                                  //                 icon: Icon(Icons
-                                  //                     .browse_gallery_outlined),
-                                  //                 label: Text("gallery")),
-                                  //             SizedBox(
-                                  //               width: 10,
-                                  //             ),
-                                  //           ],
-                                  //           title: Text("Add image"),
-                                  //         );
-                                  //       },
-                                  //     );
-                                  //   },
-                                  //   child: CircleAvatar(
-                                  //     radius: 100,
-                                  //     backgroundImage:
-                                  //         AssetImage("images/3.png"),
-                                  //   ),
-                                  // ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
+                                                      );
+                                                    });
+                                              },
+                                            ))
+                                      ],
+                                    ),
 
-                                  /// list tile name
-                                  ListTile(
-                                    leading: Icon(Icons.person),
-                                    title: Text("${x['Name']}"),
-                                    trailing: IconButton(
-                                      icon: Icon(Icons.edit),
-                                      onPressed: () {
-                                        nameControllertoEdit.value =
-                                            TextEditingValue(
-                                                text: "${x['Name']}");
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text("Edit Name"),
-                                              actions: [
-                                                Container(
-                                                  child: TextFormField(
-                                                    controller:
-                                                        nameControllertoEdit,
-                                                    decoration: InputDecoration(
-                                                        // counterText: x["Name"],
-                                                        //  hintText: "${x['Name']}",
-                                                        ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 6,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Center(
-                                                      child: ElevatedButton(
-                                                        onPressed: updatename,
-                                                        child: Text("Edit"),
-                                                      ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+
+                                    /// list tile name
+                                    ListTile(
+                                      leading: Icon(Icons.person),
+                                      title: Text("${x['Name']}"),
+                                      trailing: IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: () {
+                                          nameControllertoEdit.value =
+                                              TextEditingValue(
+                                                  text: "${x['Name']}");
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text("Edit Name"),
+                                                actions: [
+                                                  Container(
+                                                    child: TextFormField(
+                                                      controller:
+                                                          nameControllertoEdit,
+                                                      decoration: InputDecoration(
+                                                          // counterText: x["Name"],
+                                                          //  hintText: "${x['Name']}",
+                                                          ),
                                                     ),
-                                                  ],
-                                                )
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-
-                                  ListTile(
-                                    leading: Icon(Icons.person),
-                                    title: Text("${x['Email']}"),
-                                  ),
-
-                                  SizedBox(
-                                    height: 6,
-                                  ),
-
-                                  ListTile(
-                                    leading: Icon(Icons.person),
-                                    title: Text("${x['phone']}"),
-                                    trailing: IconButton(
-                                      icon: Icon(Icons.edit),
-                                      onPressed: () {
-                                        phoneControllertoEdit.value =
-                                            TextEditingValue(
-                                                text: "${x['phone']}");
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text("Edit phone"),
-                                              actions: [
-                                                Container(
-                                                  child: TextFormField(
-                                                    controller:
-                                                        phoneControllertoEdit,
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  height: 6,
-                                                ),
-                                                Center(
-                                                  child: ElevatedButton(
-                                                    onPressed: () {
-                                                      updatephone();
-                                                    },
-                                                    child: Text("Edit phone"),
+                                                  SizedBox(
+                                                    height: 6,
                                                   ),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: [
+                                                      Center(
+                                                        child: ElevatedButton(
+                                                          onPressed: updatename,
+                                                          child: Text("Edit"),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 6,
-                                  ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
 
-                                  ListTile(
-                                    leading: Icon(Icons.mail),
-                                    title: Text("${x['gender']}"),
-                                  )
-                                ]))));
-                  }));
+                                    ListTile(
+                                      leading: Icon(Icons.person),
+                                      title: Text("${x['Email']}"),
+                                    ),
+
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+
+                                    ListTile(
+                                      leading: Icon(Icons.person),
+                                      title: Text("${x['phone']}"),
+                                      trailing: IconButton(
+                                        icon: Icon(Icons.edit),
+                                        onPressed: () {
+                                          phoneControllertoEdit.value =
+                                              TextEditingValue(
+                                                  text: "${x['phone']}");
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text("Edit phone"),
+                                                actions: [
+                                                  Container(
+                                                    child: TextFormField(
+                                                      controller:
+                                                          phoneControllertoEdit,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 6,
+                                                  ),
+                                                  Center(
+                                                    child: ElevatedButton(
+                                                      onPressed: () {
+                                                        updatephone();
+                                                      },
+                                                      child: Text("Edit phone"),
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+
+                                    ListTile(
+                                      leading: Icon(Icons.mail),
+                                      title: Text("${x['gender']}"),
+                                    )
+                                  ]))));
+                    }));
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         });
   }
 }

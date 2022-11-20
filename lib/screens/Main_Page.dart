@@ -6,8 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:lottie/lottie.dart';
 
+import '../compononet/catagory/catagoryList.dart';
 import 'TripCreate.dart';
 import 'bottom_appbar.dart';
+
+String? logic;
 
 String? userDocName;
 
@@ -26,8 +29,20 @@ class _MainPageState extends State<MainPage> {
   CollectionReference trip = FirebaseFirestore.instance.collection("trips");
 
   CollectionReference userDb = FirebaseFirestore.instance.collection("users");
-  String? logic;
   FirebaseAuth myUser = FirebaseAuth.instance;
+  GetCurrentTripid() {
+    FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: currentUser.currentUser!.uid)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              userTripId = element["trip_id"].toString();
+              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+              print("value of current user trip-id variable: $userTripId");
+              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            }));
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -313,6 +328,7 @@ class _MainPageState extends State<MainPage> {
                                   "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
                               print("value of logic variable: $logic");
+                              GetCurrentTripid();
                               // ____________________________________________________________________________________________________________________
 
                               if (logic == "null") {

@@ -17,15 +17,19 @@ class _JoinTripState extends State<JoinTrip> {
   String? logic;
   String? joinUser;
   String? myTripId;
-  String? varable;
+  // String? varable;
+  List names = [];
+  List emails = [];
   // _______________________________participants______________________________________________________________________
   List info = [];
+  CollectionReference userRef1 = FirebaseFirestore.instance.collection("users");
+  CollectionReference partRef =
+      FirebaseFirestore.instance.collection("participants");
 
   dynamic name;
   String? email;
+  String? partDocument;
   GetThePar() {
-    CollectionReference userRef1 =
-        FirebaseFirestore.instance.collection("users");
     userRef1
         .where("uid", isEqualTo: myUser.currentUser!.uid)
         .get()
@@ -35,6 +39,15 @@ class _JoinTripState extends State<JoinTrip> {
         name = element["Name"];
       });
     });
+    partRef.where("trip_id", isEqualTo: myTripId).get().then(
+        (QuerySnapshot snapshot) =>
+            snapshot.docs.forEach((DocumentSnapshot doc) {
+              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+              partDocument = doc.id.toString();
+              print(partDocument);
+              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            }));
   }
 
   // ___________________________________________________________________________________________________________________
@@ -48,13 +61,9 @@ class _JoinTripState extends State<JoinTrip> {
         )
         .get()
         .then((value) => value.docs.forEach((element) async {
-              // _code.text == element["code"].toString();
-
-              varable = element["code"].toString();
-              print(varable);
               element["trip_id"].toString();
               myTripId = element["trip_id"].toString();
-              print(myTripId);
+              // print(myTripId);
 
               CollectionReference userRef =
                   FirebaseFirestore.instance.collection("users");
@@ -66,6 +75,22 @@ class _JoinTripState extends State<JoinTrip> {
                   joinUser = doc.id;
                 });
               });
+            }));
+  }
+
+  UsersTrip() {
+    userRef1
+        .where("trip_id", isEqualTo: myTripId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              // names = element["Name"];
+              names.add(element["Name"]);
+              emails.add(element["Email"]);
+
+              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+              print(names);
+              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             }));
   }
 
@@ -116,6 +141,9 @@ class _JoinTripState extends State<JoinTrip> {
             ),
             ElevatedButton(
               onPressed: () async {
+                UsersTrip();
+                GetThePar();
+
                 try {
                   FirebaseFirestore.instance
                       .collection("code")
@@ -128,7 +156,7 @@ class _JoinTripState extends State<JoinTrip> {
                               GetThePar();
                               element["trip_id"].toString();
                               myTripId = element["trip_id"].toString();
-                              print(myTripId);
+                              // print(myTripId);
 
                               CollectionReference userRef = FirebaseFirestore
                                   .instance
@@ -151,27 +179,23 @@ class _JoinTripState extends State<JoinTrip> {
                               };
 
                               db3.doc(joinUser).update(mytripdoc);
-                              Map<String, dynamic> UserNameEmail = {
-                                name: email
-                              };
-                              print(
-                                  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                              print(UserNameEmail);
-                              print(
-                                  "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                              CollectionReference parti = FirebaseFirestore
+
+                              // ____________________________________________participants____________________________________
+
+                              DocumentReference parti = FirebaseFirestore
                                   .instance
-                                  .collection("participants");
+                                  .collection("participants")
+                                  .doc("$partDocument");
 
                               Map<String, dynamic> PartiField = {
                                 "trip_id": myTripId,
-                                "info": UserNameEmail
+                                // "info": UserNameEmail,
+                                "participants name ": names,
+                                "participants emails": emails
                               };
-                              parti
-                                  .add(PartiField)
-                                  .then((DocumentReference doc) {
-                                // tripDoc = doc.id.toString();
-                              });
+
+                              parti.update(PartiField);
+
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

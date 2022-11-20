@@ -35,10 +35,9 @@ class _CreateTripState extends State<CreateTrip> {
   String? tripId;
 
   // ______________________________________________participant function __________________________________________
-  List info = [];
 
-  dynamic name;
-  String? email;
+  List name = [];
+  List email = [];
   GetThePar() {
     CollectionReference userRef1 =
         FirebaseFirestore.instance.collection("users");
@@ -47,25 +46,14 @@ class _CreateTripState extends State<CreateTrip> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        email = element["Email"];
-        name = element["Name"];
+        name.add(element["Name"]);
+        email.add(element["Email"]);
 
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         print(email);
         print(name);
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
       });
-    });
-    Map<String, dynamic> UserNameEmail = {name: email};
-    CollectionReference parti =
-        FirebaseFirestore.instance.collection("participants");
-
-    Map<String, dynamic> PartiField = {
-      "trip_id": tripDoc,
-      "info": UserNameEmail
-    };
-    parti.add(PartiField).then((DocumentReference doc) {
-      // tripDoc = doc.id.toString();
     });
   }
   // _____________________________________________________________________________________________________________________
@@ -154,6 +142,7 @@ class _CreateTripState extends State<CreateTrip> {
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
       });
     });
+    GetThePar();
   }
 
   @override
@@ -496,7 +485,17 @@ class _CreateTripState extends State<CreateTrip> {
                     db3.doc(userDocName).update(mytripdoc);
 
                     // _____________________________________partcipant _________________________________________________________________
-                    GetThePar();
+                    CollectionReference parti =
+                        FirebaseFirestore.instance.collection("participants");
+
+                    Map<String, dynamic> PartiField = {
+                      "trip_id": tripDoc,
+                      "participants emails": email,
+                      "participants name": name,
+                    };
+                    parti.add(PartiField).then((DocumentReference doc) {
+                      tripDoc = doc.id.toString();
+                    });
 
                     // _________________________________________________________________________________________________________________
 

@@ -23,6 +23,19 @@ class _TripPageState extends State<TripPage> {
   int _selectedPage = 0;
   final currentUser = FirebaseAuth.instance;
   bool showSpinner = false;
+  String? userTripId;
+  // GetCurrentTripid() {
+  //   FirebaseFirestore.instance
+  //       .collection("users")
+  //       .where("uid", isEqualTo: currentUser.currentUser!.uid)
+  //       .get()
+  //       .then((value) => value.docs.forEach((element) {
+  //             userTripId = element["trip_id"].toString();
+  //             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  //             print("value of current user trip-id variable: $userTripId");
+  //             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  //           }));
+  // }
 
   @override
   Widget build(BuildContext context) {
