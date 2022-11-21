@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 
 // ignore: must_be_immutable
 class RegularTextFeild extends StatelessWidget {
@@ -26,20 +27,20 @@ class RegularTextFeild extends StatelessWidget {
       decoration: InputDecoration(
           hintText: "$hintText",
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: primary_color),
           ),
           suffixIcon: Image(
             image: AssetImage("$myAssetImage"),
-            color: Colors.green,
+            color: primary_color,
             width: 30,
             height: 30,
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: primary_color),
             borderRadius: BorderRadius.circular(30),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: primary_color),
           ),
           label: Padding(
               padding: EdgeInsets.only(left: 30),

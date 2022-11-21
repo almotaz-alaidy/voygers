@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 
 class Bills extends StatefulWidget {
   const Bills({super.key});
@@ -22,7 +23,7 @@ class _BillsState extends State<Bills> {
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
@@ -45,14 +46,14 @@ class _BillsState extends State<Bills> {
               controller: bill_name,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green),
+                  borderSide: BorderSide(color: primary_color),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green),
+                  borderSide: BorderSide(color: primary_color),
                 ),
                 icon: Icon(
                   Icons.trip_origin_rounded,
-                  color: Colors.green,
+                  color: primary_color,
                 ),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
@@ -61,7 +62,7 @@ class _BillsState extends State<Bills> {
                   padding: EdgeInsets.only(left: 30),
                   child: Text(
                     "Bill Name",
-                    style: TextStyle(color: Colors.green),
+                    style: TextStyle(color: primary_color),
                   ),
                 ),
               ),
@@ -73,11 +74,11 @@ class _BillsState extends State<Bills> {
               controller: amount,
               decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green),
+                  borderSide: BorderSide(color: primary_color),
                 ),
                 icon: Icon(
                   Icons.people,
-                  color: Colors.green,
+                  color: primary_color,
                 ),
                 border:
                     OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
@@ -86,7 +87,7 @@ class _BillsState extends State<Bills> {
                   padding: EdgeInsets.only(left: 30),
                   child: Text(
                     "Amount",
-                    style: TextStyle(color: Colors.green),
+                    style: TextStyle(color: primary_color),
                   ),
                 ),
               ),
@@ -112,7 +113,7 @@ class _BillsState extends State<Bills> {
                 }
               },
               child: Text("Upload"),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              style: ElevatedButton.styleFrom(backgroundColor: primary_color),
             )
           ],
         ),

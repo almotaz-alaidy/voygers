@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 
 import '../compononet/catagory/catagoryList.dart';
 
@@ -28,7 +29,7 @@ class _ParticipantsState extends State<Participants> {
             ),
           ),
           elevation: 0,
-          backgroundColor: Colors.green,
+          backgroundColor: primary_color,
           actions: <Widget>[
             IconButton(
               onPressed: () => Navigator.pop(context, "trip_page"),

@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
@@ -38,7 +41,7 @@ class _SigupScreenState extends State<SigupScreen> {
           children: [
             Container(
               width: MediaQuery.of(context).size.width,
-              color: Colors.green,
+              color: primary_color,
               height: 300,
               child: Column(
                 children: [
@@ -47,18 +50,20 @@ class _SigupScreenState extends State<SigupScreen> {
                   ),
                   Text(
                     "Voyager",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(color: Colors.white),
+                    style: GoogleFonts.aclonica(
+                        textStyle: TextStyle(
+                      fontSize: 40,
+                      color: Colors.white,
+                    )),
                   ),
                   SizedBox(height: 30),
                   Text(
                     "JOIN VOYAGER FAMILY",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5!
-                        .copyWith(color: Colors.white),
+                    style: GoogleFonts.aclonica(
+                        textStyle: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white30,
+                            fontWeight: FontWeight.w100)),
                   ),
                 ],
               ),
@@ -109,7 +114,7 @@ class _SigupScreenState extends State<SigupScreen> {
                               obscureText: showPassword,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green),
+                                  borderSide: BorderSide(color: primary_color),
                                 ),
                                 suffixIcon: IconButton(
                                   onPressed: () {
@@ -121,13 +126,14 @@ class _SigupScreenState extends State<SigupScreen> {
                                     showPassword
                                         ? Icons.visibility_off
                                         : Icons.visibility,
+                                    color: primary_color,
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green),
+                                  borderSide: BorderSide(color: primary_color),
                                 ),
                                 border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.green),
+                                  borderSide: BorderSide(color: primary_color),
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 label: Padding(
@@ -147,14 +153,62 @@ class _SigupScreenState extends State<SigupScreen> {
                           SizedBox(
                             height: 20,
                           ),
-                          ElevatedButton.icon(
-                            icon: Image.asset(
-                              "images/calendar.gif",
-                              width: 25,
-                              height: 25,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: TextFormField(
+                              cursorColor: primary_color,
+                              controller: _phone,
+                              decoration: InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: primary_color),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: primary_color),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: primary_color),
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                label: Padding(
+                                  padding: EdgeInsets.only(left: 30),
+                                  child: Text(
+                                    "Phone Number",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                                prefix: Container(
+                                  height: 30,
+                                  child: TextButton(
+                                      onPressed: () async {
+                                        final code = await countryPicker
+                                            .showPicker(context: context);
+
+                                        if (code != null) {
+                                          print(code.dialCode);
+                                          Code = code.dialCode.toString();
+                                          phonenumber = Code + _phone.text;
+                                          print(phonenumber);
+                                        }
+                                        ;
+                                      },
+                                      child: Text(
+                                        Code,
+                                        style: TextStyle(color: primary_color),
+                                      )),
+                                ),
+                              ),
                             ),
+                          ),
+                          ElevatedButton.icon(
+                            icon: Icon(Icons.calendar_month),
+
+                            // Image.asset(
+                            //   "images/calendar.gif",
+                            //   width: 25,
+                            //   height: 25,
+                            // ),
                             style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green),
+                                backgroundColor: primary_color),
                             onPressed: (() async {
                               DateTime? dateTime = await showDatePicker(
                                 context: context,
@@ -170,36 +224,25 @@ class _SigupScreenState extends State<SigupScreen> {
                                 });
                               }
                             }),
-                            label: Text("date of birthe"),
+                            label: Text(
+                              "Date of Birth",
+                              style: GoogleFonts.aclonica(
+                                  textStyle: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              )),
+                            ),
                           ),
                           SizedBox(
                             height: 20,
                           ),
-                          TextField(
-                            controller: _phone,
-                            decoration: InputDecoration(
-                              prefix: TextButton(
-                                  onPressed: () async {
-                                    final code = await countryPicker.showPicker(
-                                        context: context);
 
-                                    if (code != null) {
-                                      print(code.dialCode);
-                                      Code = code.dialCode.toString();
-                                      phonenumber = Code + _phone.text;
-                                      print(phonenumber);
-                                    }
-                                    ;
-                                  },
-                                  child: Text(Code)),
-                            ),
-                          ),
                           // Container(
                           //   decoration: BoxDecoration(
                           //       borderRadius: BorderRadius.circular(
                           //         2,
                           //       ),
-                          //       color: Colors.green),
+                          //       color: primary_color),
                           //   child: InternationalPhoneNumberInput(
                           //     onInputChanged: (value) {
                           //       phonenumber = value.toString();
@@ -215,17 +258,19 @@ class _SigupScreenState extends State<SigupScreen> {
                                 left: 30, right: 30, top: 20, bottom: 20),
                             child: DropdownButtonFormField(
                                 decoration: InputDecoration(
-                                  focusColor: Colors.green,
-                                  fillColor: Colors.green,
-                                  hoverColor: Colors.green,
+                                  focusColor: primary_color,
+                                  fillColor: primary_color,
+                                  hoverColor: primary_color,
+                                  isCollapsed: true,
                                   helperText: "Select Your Gender",
                                 ),
                                 autovalidateMode: AutovalidateMode.disabled,
                                 disabledHint: Text("data"),
-                                iconEnabledColor: Colors.green,
-                                focusColor: Colors.green,
+                                iconEnabledColor: primary_color,
+                                focusColor: primary_color,
                                 autofocus: true,
-                                dropdownColor: Colors.green,
+                                dropdownColor: primary_color,
+                                iconDisabledColor: primary_color,
                                 icon: Icon(Icons.sort),
                                 hint: Text("Please Select from This"),
                                 value: Gender,
@@ -254,13 +299,10 @@ class _SigupScreenState extends State<SigupScreen> {
                                 ),
                               ),
                               child: ElevatedButton.icon(
-                                  icon: Image.asset(
-                                    "images/sign-up.png",
-                                    width: 25,
-                                    height: 25,
-                                  ),
+                                  icon: Lottie.asset("images/panda.json",
+                                      width: 50, height: 50),
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green),
+                                      backgroundColor: primary_color),
                                   onPressed: () async {
                                     if (mykey.currentState!.validate()) {
                                       try {
@@ -309,7 +351,11 @@ class _SigupScreenState extends State<SigupScreen> {
                                   },
                                   label: Text(
                                     "SignUp",
-                                    style: TextStyle(color: Colors.white),
+                                    style: GoogleFonts.aclonica(
+                                        textStyle: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                    )),
                                   ))),
                           Padding(
                             padding: const EdgeInsets.only(left: 50),
@@ -325,8 +371,11 @@ class _SigupScreenState extends State<SigupScreen> {
                                   },
                                   child: Text(
                                     "Log in",
-                                    style: TextStyle(
-                                        color: Colors.green, fontSize: 20),
+                                    style: GoogleFonts.aclonica(
+                                        textStyle: TextStyle(
+                                      fontSize: 20,
+                                      color: primary_color,
+                                    )),
                                   ),
                                 ),
                               ],

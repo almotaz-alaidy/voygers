@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:voygares/compononet/colors.dart';
 
 import 'bottom_appbar.dart';
 
@@ -21,7 +22,7 @@ class _GenerateCodeState extends State<GenerateCode> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.green,
+          backgroundColor: primary_color,
           title: Text(
             "Let The Fun Start",
             style: TextStyle(
@@ -46,13 +47,13 @@ class _GenerateCodeState extends State<GenerateCode> {
                   },
                   icon: Icon(
                     Icons.generating_tokens,
-                    color: Colors.green,
+                    color: primary_color,
                   ),
                   label: Text(
                     "Generate",
                     style: TextStyle(
                       fontSize: 50,
-                      color: Colors.green,
+                      color: primary_color,
                     ),
                   )),
               TextButton.icon(
@@ -67,13 +68,13 @@ class _GenerateCodeState extends State<GenerateCode> {
                   },
                   icon: Icon(
                     Icons.copy,
-                    color: Colors.green,
+                    color: primary_color,
                   ),
                   label: Text(
                     "copy",
                     style: TextStyle(
                       fontSize: 50,
-                      color: Colors.green,
+                      color: primary_color,
                     ),
                   )),
               TextButton.icon(
@@ -107,11 +108,11 @@ class _GenerateCodeState extends State<GenerateCode> {
                 },
                 icon: Icon(
                   Icons.done_sharp,
-                  color: Colors.green,
+                  color: primary_color,
                 ),
                 label: Text(
                   "Done",
-                  style: TextStyle(fontSize: 30, color: Colors.green),
+                  style: TextStyle(fontSize: 30, color: primary_color),
                 ),
               )
             ],
