@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/compononet/show_dialog.dart';
 import 'package:voygares/screens/google_maps.dart';
 import 'package:voygares/wedget/regulartextfeid.dart';
@@ -150,7 +151,7 @@ class _CreateTripState extends State<CreateTrip> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Create Trip"),
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () {
@@ -213,14 +214,14 @@ class _CreateTripState extends State<CreateTrip> {
             ListTile(
               leading: Image(
                 image: AssetImage("images/public-relations.png"),
-                color: Colors.green,
+                color: primary_color,
                 height: 25,
                 width: 25,
               ),
               title: Text("Show trip"),
               subtitle: Text("Public / Private"),
               trailing: Switch(
-                  activeColor: Colors.green,
+                  activeColor: primary_color,
                   value: _public,
                   onChanged: ((value) {
                     setState(() {
@@ -233,7 +234,7 @@ class _CreateTripState extends State<CreateTrip> {
             ),
             ListTile(
               leading: Image(
-                color: Colors.green,
+                color: primary_color,
                 image: AssetImage("images/female only.png"),
                 height: 25,
                 width: 25,
@@ -241,7 +242,7 @@ class _CreateTripState extends State<CreateTrip> {
               title: Text("Gender Allowed"),
               subtitle: Text("Females only"),
               trailing: Switch(
-                  activeColor: Colors.green,
+                  activeColor: primary_color,
                   value: only_females,
                   onChanged: ((value) {
                     setState(() {
@@ -269,7 +270,7 @@ class _CreateTripState extends State<CreateTrip> {
                                         )
                                       : Image.asset(
                                           "images/upload.png",
-                                          color: Colors.green,
+                                          color: primary_color,
                                         ),
                                   onPressed: () {
                                     _pickImage1();
@@ -293,7 +294,7 @@ class _CreateTripState extends State<CreateTrip> {
               trailing: IconButton(
                 icon: Image.asset(
                   "images/celender.png",
-                  color: Colors.green,
+                  color: primary_color,
                   width: 30,
                   height: 30,
                 ),
@@ -325,7 +326,7 @@ class _CreateTripState extends State<CreateTrip> {
                   },
                   icon: Image.asset(
                     "images/location.png",
-                    color: Colors.green,
+                    color: primary_color,
                     width: 30,
                     height: 30,
                   ),
@@ -337,7 +338,7 @@ class _CreateTripState extends State<CreateTrip> {
                             context: context,
                             builder: (context) {
                               return AlertDialog(
-                                backgroundColor: Colors.green,
+                                backgroundColor: primary_color,
                                 title: Image.asset(
                                   "images/tools.png",
                                   width: 30,
@@ -424,7 +425,7 @@ class _CreateTripState extends State<CreateTrip> {
                     },
                     icon: Image.asset(
                       "images/tools.png",
-                      color: Colors.green,
+                      color: primary_color,
                       width: 30,
                       height: 30,
                     )),
@@ -515,7 +516,7 @@ class _CreateTripState extends State<CreateTrip> {
                   },
                   child: Text("Generate Code"),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: primary_color,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                 )

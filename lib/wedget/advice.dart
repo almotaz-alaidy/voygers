@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:voygares/compononet/colors.dart';
 
 import '../compononet/catagory/catagoryList.dart';
 
@@ -21,7 +22,7 @@ class _AdviceState extends State<Advice> {
       width: double.infinity,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: primary_color,
         border: GradientBoxBorder(
           gradient: LinearGradient(
             colors: [

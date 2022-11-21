@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 
 class customTextfeild extends StatelessWidget {
   customTextfeild({required this.controller, required this.text});
@@ -15,18 +16,18 @@ class customTextfeild extends StatelessWidget {
             return "Required field";
           }
         },
-        cursorColor: Colors.green,
+        cursorColor: primary_color,
         enabled: true,
         controller: controller,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: primary_color),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: primary_color),
           ),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.green),
+            borderSide: BorderSide(color: primary_color),
             borderRadius: BorderRadius.circular(30),
           ),
           label: Padding(
@@ -39,6 +40,5 @@ class customTextfeild extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 
 class History extends StatefulWidget {
   const History({super.key});
@@ -21,7 +22,7 @@ class _HistoryState extends State<History> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),

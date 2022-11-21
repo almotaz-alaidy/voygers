@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:voygares/screens/forgetpas.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -56,7 +59,7 @@ class _SignInState extends State<SignIn> {
           child: Stack(
             children: [
               Container(
-                color: Colors.green,
+                color: primary_color,
                 height: 500,
               ),
               Container(
@@ -70,7 +73,11 @@ class _SignInState extends State<SignIn> {
                     ),
                     Text(
                       "Voyager",
-                      style: TextStyle(fontSize: 30, color: Colors.white),
+                      style: GoogleFonts.aclonica(
+                          textStyle: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                      )),
                     ),
                     SizedBox(
                       height: 50,
@@ -123,7 +130,7 @@ class _SignInState extends State<SignIn> {
                                 decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.green),
+                                          BorderSide(color: primary_color),
                                     ),
                                     suffixIcon: IconButton(
                                       onPressed: () {
@@ -132,7 +139,7 @@ class _SignInState extends State<SignIn> {
                                         });
                                       },
                                       icon: Icon(
-                                        color: Colors.green,
+                                        color: primary_color,
                                         showPassword
                                             ? Icons.visibility_off
                                             : Icons.visibility,
@@ -140,12 +147,12 @@ class _SignInState extends State<SignIn> {
                                     ),
                                     border: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.green),
+                                          BorderSide(color: primary_color),
                                       borderRadius: BorderRadius.circular(30),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide:
-                                          BorderSide(color: Colors.green),
+                                          BorderSide(color: primary_color),
                                     ),
                                     label: Padding(
                                         padding: EdgeInsets.only(left: 30),
@@ -165,10 +172,18 @@ class _SignInState extends State<SignIn> {
                                 ));
                               },
                               child: Padding(
-                                padding: const EdgeInsets.only(left: 250),
-                                child: Text(
-                                  "Forgot password?",
-                                  style: TextStyle(color: Colors.green),
+                                padding: const EdgeInsets.only(left: 240),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Forgot password?",
+                                      style: GoogleFonts.aclonica(
+                                          textStyle: TextStyle(
+                                        fontSize: 13,
+                                        color: primary_color,
+                                      )),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -183,13 +198,10 @@ class _SignInState extends State<SignIn> {
                                 ),
                               ),
                               child: ElevatedButton.icon(
-                                icon: Image.asset(
-                                  "images/data-protection.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
+                                icon: Lottie.asset("images/panda.json",
+                                    width: 50, height: 50),
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.green),
+                                    backgroundColor: primary_color),
                                 onPressed: () async {
                                   if (mykey.currentState!.validate()) {
                                     try {
@@ -219,7 +231,11 @@ class _SignInState extends State<SignIn> {
                                 },
                                 label: Text(
                                   "Login",
-                                  style: TextStyle(color: Colors.white),
+                                  style: GoogleFonts.aclonica(
+                                      textStyle: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                  )),
                                 ),
                               ),
                             ),
@@ -228,6 +244,7 @@ class _SignInState extends State<SignIn> {
                             ),
                             Text(
                               "__________________OR__________________",
+                              style: TextStyle(color: primary_color),
                             ),
                             SizedBox(
                               height: 10,
@@ -239,13 +256,20 @@ class _SignInState extends State<SignIn> {
                                 height: 25,
                               ),
                               style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.green),
+                                  backgroundColor: primary_color),
                               onPressed: () async {
                                 UserCredential myGoogle =
                                     await signInWithGoogle();
                                 Navigator.pushNamed(context, "main_page");
                               },
-                              label: Text("Login with Google"),
+                              label: Text(
+                                "Login with Google",
+                                style: GoogleFonts.aclonica(
+                                    textStyle: TextStyle(
+                                  fontSize: 10,
+                                  color: Colors.white,
+                                )),
+                              ),
                             ),
                             Padding(
                               padding:
@@ -262,8 +286,11 @@ class _SignInState extends State<SignIn> {
                                     },
                                     child: Text(
                                       "Sign up",
-                                      style: TextStyle(
-                                          color: Colors.green, fontSize: 20),
+                                      style: GoogleFonts.aclonica(
+                                          textStyle: TextStyle(
+                                        fontSize: 20,
+                                        color: primary_color,
+                                      )),
                                     ),
                                   ),
                                 ],

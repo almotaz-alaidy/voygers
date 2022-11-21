@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/wedget/advice.dart';
 
 import '../compononet/catagory/catagoryList.dart';
@@ -36,7 +37,7 @@ class _StructureScreenState extends State<StructureScreen> {
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(
@@ -50,7 +51,7 @@ class _StructureScreenState extends State<StructureScreen> {
         ],
       ),
       drawer: Drawer(
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         child: Stack(
           children: [
             Padding(
@@ -69,6 +70,13 @@ class _StructureScreenState extends State<StructureScreen> {
                         return Container(
                             child: DrawerHeader(
                           child: Column(children: [
+                            Container(
+                              width: 80,
+                              height: 80,
+                              child: CircleAvatar(
+                                  backgroundImage:
+                                      NetworkImage(x['profile image'])),
+                            ),
                             Text(x['Email']),
                             Text(x['Name']),
                             Text(x['phone'])
@@ -128,7 +136,7 @@ class _StructureScreenState extends State<StructureScreen> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            backgroundColor: Colors.green,
+                            backgroundColor: primary_color,
                             title: Text(
                               "Are you Sure you want to end trip?",
                               style: TextStyle(color: Colors.white),
@@ -204,7 +212,7 @@ class _StructureScreenState extends State<StructureScreen> {
                             width: double.infinity,
                             padding: const EdgeInsets.all(8.0),
                             decoration: BoxDecoration(
-                              color: Colors.green,
+                              color: primary_color,
                               border: GradientBoxBorder(
                                 gradient: LinearGradient(
                                   colors: [

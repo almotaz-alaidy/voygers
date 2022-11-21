@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:voygares/compononet/colors.dart';
 import '../model/api.dart';
 import '../model/imag.dart';
 import '../wedget/button.dart';
@@ -157,14 +158,14 @@ class _Uplode_screenState extends State<Uplode_screen> {
             ),
           )
         ],
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         title: Text("image"),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         child: Image(
           image: AssetImage("images/upload.png"),
-          color: Colors.green,
+          color: primary_color,
         ),
         onPressed: () {
           showDialog(

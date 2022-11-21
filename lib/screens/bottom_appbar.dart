@@ -3,6 +3,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/screens/home_screen.dart';
 import 'package:voygares/screens/share.dart';
 
@@ -60,7 +61,7 @@ class _TripPageState extends State<TripPage> {
           const TabItem(icon: Icons.share, title: 'share'),
           // const TabItem(icon: Icons.person, title: 'wether'),
         ],
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         activeColor: Color.fromARGB(255, 247, 249, 247),
         initialActiveIndex: 0,
         onTap: (int i) {

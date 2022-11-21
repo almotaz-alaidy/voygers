@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/screens/login_screen.dart';
 
 class Comment_on_trip extends StatefulWidget {
@@ -44,7 +45,7 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
@@ -106,7 +107,7 @@ class _Comment_on_tripState extends State<Comment_on_trip> {
                 }
               },
               child: Text("Upload Comment"),
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              style: ElevatedButton.styleFrom(backgroundColor: primary_color),
             )
           ],
         ),

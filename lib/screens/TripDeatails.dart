@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 
 import 'login_screen.dart';
 
@@ -42,7 +43,7 @@ class _TripDetailsState extends State<TripDetails> {
           style: TextStyle(
               fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),

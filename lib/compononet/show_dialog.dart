@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/screens/bottom_appbar.dart';
 
 import '../screens/TripCreate.dart';
@@ -24,7 +25,7 @@ class _GenerateMyCodeState extends State<GenerateMyCode> {
         "Generate Your code ",
         style: TextStyle(color: Colors.white, fontSize: 25),
       ),
-      backgroundColor: Colors.green,
+      backgroundColor: primary_color,
       content: Container(
         decoration: BoxDecoration(),
         width: 300,
@@ -67,7 +68,7 @@ class _GenerateMyCodeState extends State<GenerateMyCode> {
                 },
                 icon: Icon(
                   Icons.generating_tokens,
-                  color: Colors.green,
+                  color: primary_color,
                 ),
                 label: Text(
                   "Code",
@@ -110,7 +111,7 @@ class _GenerateMyCodeState extends State<GenerateMyCode> {
               },
               icon: Icon(
                 Icons.done_sharp,
-                color: Colors.green,
+                color: primary_color,
               ),
               label: Text(
                 "Done",

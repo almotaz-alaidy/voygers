@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:voygares/screens/login_screen.dart';
 
@@ -44,8 +46,14 @@ class _ForgotpasswordState extends State<Forgotpassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rest Password"),
-        backgroundColor: Colors.green,
+        title: Text(
+          "Rest Password",
+          style: GoogleFonts.aclonica(
+              textStyle: TextStyle(
+            color: Colors.white,
+          )),
+        ),
+        backgroundColor: primary_color,
       ),
       body: Form(
         key: myGlobalKey,
@@ -63,7 +71,11 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 padding: EdgeInsets.symmetric(horizontal: 30),
                 child: Text(
                   "Enter Your Email To Reset Password",
-                  style: Theme.of(context).textTheme.headline5,
+                  style: GoogleFonts.aclonica(
+                      textStyle: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                  )),
                 ),
               ),
               SizedBox(
@@ -81,7 +93,7 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                   height: 25,
                   color: Colors.white,
                 ),
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                style: ElevatedButton.styleFrom(backgroundColor: primary_color),
                 onPressed: () {
                   if (myGlobalKey.currentState!.validate()) {
                     try {
@@ -101,7 +113,10 @@ class _ForgotpasswordState extends State<Forgotpassword> {
                 },
                 label: Text(
                   "Reset Password",
-                  style: TextStyle(color: Colors.white),
+                  style: GoogleFonts.aclonica(
+                      textStyle: TextStyle(
+                    color: Colors.white,
+                  )),
                 ),
               ),
             ],

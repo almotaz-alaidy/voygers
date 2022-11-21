@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:voygares/compononet/colors.dart';
 
 late String docForloc;
 
@@ -51,7 +52,7 @@ class _Google_MapsState extends State<Google_Maps> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Google Maps"),
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         actions: [
           TextButton(
             onPressed: () {

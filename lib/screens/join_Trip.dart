@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/compononet/customtextfeild.dart';
 import 'package:voygares/screens/TripCreate.dart';
 
@@ -106,7 +107,7 @@ class _JoinTripState extends State<JoinTrip> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: primary_color,
         title: Text(
           "joining the trip ",
           style: TextStyle(
@@ -207,7 +208,7 @@ class _JoinTripState extends State<JoinTrip> {
               },
               child: Text("Join"),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+                backgroundColor: primary_color,
               ),
             )
           ],
