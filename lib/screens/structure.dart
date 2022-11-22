@@ -10,6 +10,7 @@ import 'package:voygares/compononet/colors.dart';
 import '../compononet/catagory/catagoryList.dart';
 import 'Main_Page.dart';
 import 'bottom_appbar.dart';
+import 'login_screen.dart';
 
 bool? endTrip;
 
@@ -26,6 +27,9 @@ class _StructureScreenState extends State<StructureScreen> {
   String phoneNum = "";
   String name = "";
   int i = 0;
+  List tools1 = [];
+  CollectionReference toolsInTrip =
+      FirebaseFirestore.instance.collection("tools per trip");
   CollectionReference commentDb =
       FirebaseFirestore.instance.collection("comments");
   // _______________________________________end trip______________________________________________________
@@ -103,9 +107,74 @@ class _StructureScreenState extends State<StructureScreen> {
     super.initState();
   }
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      endDrawer: Container(
+        width: 200,
+        height: 500,
+        child: Drawer(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(1000),
+              topLeft: Radius.circular(1000),
+            ),
+          ),
+          child: Stack(
+            children: [
+              Positioned(
+                left: 123,
+                top: 30,
+                right: 20,
+                child: Text(
+                  "Tools",
+                  style: GoogleFonts.aclonica(
+                      textStyle: TextStyle(
+                    fontSize: 20,
+                    color: primary_color,
+                    fontWeight: FontWeight.bold,
+                  )),
+                ),
+              ),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection("tools per trip")
+                    .where("trip_id", isEqualTo: userTripId)
+                    .snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshots) {
+                  if (snapshots.hasData) {
+                    return ListView.builder(
+                        // shrinkWrap: true,
+                        itemCount: snapshots.data.docs.length,
+                        itemBuilder: (context, i) {
+                          QueryDocumentSnapshot x = snapshots.data!.docs[i];
+
+                          tools1.add(x['tool'][i]);
+
+                          return Container(
+                            color: primary_color,
+                            child: ListTile(
+                              title: Text(
+                                x['tool'].toString(),
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              subtitle: Text("add"),
+                            ),
+                          );
+                        });
+                  }
+
+                  return Container(
+                    child: Text(""),
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -121,9 +190,14 @@ class _StructureScreenState extends State<StructureScreen> {
         backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
-            onPressed: () => Navigator.pop(
-              context,
-            ),
+            onPressed: () {
+              setState(() {
+                _scaffoldKey.currentState!.openEndDrawer();
+              });
+            },
+            // onPressed: () => Navigator.pop(
+            //   context,
+            // ),
             icon: Lottie.asset("images/panda.json"),
           )
         ],

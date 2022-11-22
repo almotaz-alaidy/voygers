@@ -104,7 +104,10 @@ class _MainPageState extends State<MainPage> {
       body: Stack(
         children: [
           Image(
-            image: AssetImage("images/food.png"),
+            image: AssetImage(
+              "images/food.png",
+            ),
+            color: primary_color,
           ),
           Column(
             children: [
