@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'package:voygares/compononet/colors.dart';
 import 'login_screen.dart';
 
@@ -39,17 +41,18 @@ class _TripDetailsState extends State<TripDetails> {
         centerTitle: true,
         title: Text(
           "voygers",
-          style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+          style: GoogleFonts.aclonica(
+              textStyle: TextStyle(
+            fontSize: 35,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          )),
         ),
         backgroundColor: primary_color,
         actions: <Widget>[
           IconButton(
             onPressed: () => Navigator.pop(context, "trip_page"),
-            icon: Icon(
-              Icons.app_registration,
-              color: Colors.white,
-            ),
+            icon: Lottie.asset("images/panda.json"),
           )
         ],
       ),
@@ -72,28 +75,82 @@ class _TripDetailsState extends State<TripDetails> {
                         children: [
                           Center(
                               child: Text(
-                                  "trip name: ${snapshot.data!.get("tripName")}")),
+                            " ${snapshot.data!.get("tripName")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 35,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          Lottie.asset("images/panda.json",
+                              width: 100, height: 100),
+                          Center(
+                              child: Text(
+                            "trip capacity: ${snapshot.data!.get("cap")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          Center(
+                              child: Text(
+                            "trip cost: ${snapshot.data!.get("cost")} JD",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          Center(
+                              child: Text(
+                            "trip discripition: ${snapshot.data!.get("disc")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          Center(
+                              child: Text(
+                            "allowed female?  ${snapshot.data!.get("only females")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          Center(
+                              child: Text(
+                            " privacy  ${snapshot.data!.get("privacy")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          Center(
+                              child: Text(
+                            "trip date: ${snapshot.data!.get("date")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          SizedBox(
+                            height: 100,
+                          ),
                           Center(
                               child: Image.network(
                                   "${snapshot.data!.get("adsImage")}")),
-                          Center(
-                              child: Text(
-                                  "trip capacity: ${snapshot.data!.get("cap")}")),
-                          Center(
-                              child: Text(
-                                  "trip cost: ${snapshot.data!.get("cost")}")),
-                          Center(
-                              child: Text(
-                                  "trip discripition: ${snapshot.data!.get("disc")}")),
-                          Center(
-                              child: Text(
-                                  "allowed female?  ${snapshot.data!.get("only females")}")),
-                          Center(
-                              child: Text(
-                                  " privacy  ${snapshot.data!.get("privacy")}")),
-                          Center(
-                              child: Text(
-                                  "trip date: ${snapshot.data!.get("date")}")),
                         ],
                       );
                     },

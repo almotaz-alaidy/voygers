@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:voygares/compononet/colors.dart';
 
 import '../compononet/catagory/catagoryList.dart';
 
@@ -22,21 +25,19 @@ class _ParticipantsState extends State<Participants> {
           centerTitle: true,
           title: Text(
             "voygers",
-            style: TextStyle(
-              fontSize: 30,
+            style: GoogleFonts.aclonica(
+                textStyle: TextStyle(
+              fontSize: 35,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
-            ),
+            )),
           ),
           elevation: 0,
-          backgroundColor: Colors.green,
+          backgroundColor: primary_color,
           actions: <Widget>[
             IconButton(
-              onPressed: () => Navigator.pop(context, "trip_page"),
-              icon: Icon(
-                Icons.app_registration,
-                color: Colors.white,
-              ),
-            )
+                onPressed: () => Navigator.pop(context, "trip_page"),
+                icon: Lottie.asset("images/panda.json"))
           ],
         ),
         body: Container(
@@ -57,14 +58,20 @@ class _ParticipantsState extends State<Participants> {
                       QueryDocumentSnapshot x = snapshot.data!.docs[index];
 
                       return Container(
+                        color: primary_color.withOpacity(0.5),
                         child: Column(children: [
-                          Text(
-                            x['Email']["email"].toString(),
-                            style: TextStyle(fontSize: 30),
-                          ),
-                          Text(
-                            x['Name']["name"].toString(),
-                            style: TextStyle(fontSize: 30),
+                          ListTile(
+                            leading: Image(
+                              image: AssetImage("images/food.png"),
+                              color: primary_color,
+                            ),
+                            title: Text(
+                              x['Name']["name"].toString(),
+                              style: TextStyle(fontSize: 30),
+                            ),
+                            subtitle: Text(
+                              x['Email']["email"].toString(),
+                            ),
                           ),
                         ]),
                       );

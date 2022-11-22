@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../services.dart';
 
@@ -33,10 +34,12 @@ class CategoryCard extends StatelessWidget {
               ),
               Text(
                 product.title,
-                style: const TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600),
+                style: GoogleFonts.aclonica(
+                    textStyle: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                )),
               ),
               const SizedBox(
                 height: 10,

@@ -110,8 +110,12 @@ class _StructureScreenState extends State<StructureScreen> {
         centerTitle: true,
         title: Text(
           "voygers",
-          style: TextStyle(
-              fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+          style: GoogleFonts.aclonica(
+              textStyle: TextStyle(
+            fontSize: 35,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          )),
         ),
         elevation: 0,
         backgroundColor: primary_color,
@@ -120,10 +124,7 @@ class _StructureScreenState extends State<StructureScreen> {
             onPressed: () => Navigator.pop(
               context,
             ),
-            icon: Icon(
-              Icons.app_registration,
-              color: Colors.white,
-            ),
+            icon: Lottie.asset("images/panda.json"),
           )
         ],
       ),
@@ -131,6 +132,7 @@ class _StructureScreenState extends State<StructureScreen> {
         backgroundColor: primary_color,
         child: Stack(
           children: [
+            // Image(image: AssetImage("images/food.png")),
             Padding(
               padding: const EdgeInsets.only(top: 30),
               child: StreamBuilder<QuerySnapshot>(
@@ -365,25 +367,23 @@ class _StructureScreenState extends State<StructureScreen> {
                                     FittedBox(
                                       child: Text(
                                         commentInfo[i]['subject'],
-                                        style: GoogleFonts.amiri(
-                                          textStyle: const TextStyle(
-                                            fontSize: 30.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                        style: GoogleFonts.aclonica(
+                                            textStyle: TextStyle(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        )),
                                         maxLines: 1,
                                       ),
                                     ),
                                     Text(
                                       commentInfo[i]['comment'],
-                                      style: GoogleFonts.amiri(
-                                        textStyle: const TextStyle(
-                                          fontSize: 20.0,
-                                          // fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                      style: GoogleFonts.aclonica(
+                                          textStyle: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      )),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),

@@ -105,9 +105,9 @@ class _TripPageState extends State<TripPage> {
       ),
       bottomNavigationBar: ConvexAppBar(
         items: [
-          const TabItem(icon: Icons.home, title: 'Home'),
-          const TabItem(icon: Icons.people, title: 'profile'),
-          const TabItem(icon: Icons.share, title: 'share'),
+          const TabItem(icon: Icons.home, title: ''),
+          const TabItem(icon: Icons.person, title: ''),
+          const TabItem(icon: Icons.share, title: ''),
           // const TabItem(icon: Icons.person, title: 'wether'),
         ],
         backgroundColor: primary_color,

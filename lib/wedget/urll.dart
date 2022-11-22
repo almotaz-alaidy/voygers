@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 late Uri _url;
@@ -18,15 +19,28 @@ class Contact_widget extends StatelessWidget {
         Open();
       },
       child: Container(
-        color: col,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(80),
+          color: col,
+        ),
         child: ListTile(
           title: Text(
             "$title",
-            style: TextStyle(color: Colors.white),
+            style: GoogleFonts.aclonica(
+                textStyle: TextStyle(
+              fontSize: 35,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
           ),
           subtitle: Text(
             "$subTitle",
-            style: TextStyle(color: Colors.white),
+            style: GoogleFonts.aclonica(
+                textStyle: TextStyle(
+              fontSize: 10,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            )),
           ),
           leading: icon,
         ),
