@@ -5,7 +5,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart';
+import 'package:voygares/compononet/colors.dart';
 
 import '../model/api.dart';
 import 'bottom_appbar.dart';
@@ -152,7 +154,7 @@ class _ProfileState extends State<Profile> {
           if (snapshot.hasData) {
             return Scaffold(
                 appBar: AppBar(
-                  backgroundColor: Colors.green,
+                  backgroundColor: primary_color,
                 ),
                 body: ListView.builder(
                     itemCount: snapshot.data!.docs.length,
@@ -171,10 +173,10 @@ class _ProfileState extends State<Profile> {
                                               vertical: 30, horizontal: 30),
                                           child: CircleAvatar(
                                             radius: 71,
-                                            backgroundColor: Colors.green,
+                                            backgroundColor: primary_color,
                                             child: CircleAvatar(
                                               radius: 65,
-                                              backgroundColor: Colors.green,
+                                              backgroundColor: primary_color,
                                               backgroundImage: logic1 == null
                                                   ? null
                                                   : NetworkImage(
@@ -187,7 +189,7 @@ class _ProfileState extends State<Profile> {
                                             left: 110,
                                             child: RawMaterialButton(
                                               elevation: 10,
-                                              fillColor: Colors.green,
+                                              fillColor: primary_color,
                                               child: Icon(Icons.add_a_photo),
                                               padding: EdgeInsets.all(15.0),
                                               shape: CircleBorder(),
@@ -212,21 +214,18 @@ class _ProfileState extends State<Profile> {
                                                                 onTap:
                                                                     SelectProfileImage,
                                                                 splashColor:
-                                                                    Colors
-                                                                        .green,
+                                                                    primary_color,
                                                                 child: Row(
                                                                   children: [
                                                                     Padding(
                                                                       padding:
                                                                           const EdgeInsets.all(
                                                                               8.0),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .image,
-                                                                        color: Colors
-                                                                            .green,
-                                                                      ),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .image,
+                                                                          color:
+                                                                              primary_color),
                                                                     ),
                                                                     Text(
                                                                       'choose image ',
@@ -245,21 +244,18 @@ class _ProfileState extends State<Profile> {
                                                                 onTap:
                                                                     uploedProfileImage,
                                                                 splashColor:
-                                                                    Colors
-                                                                        .green,
+                                                                    primary_color,
                                                                 child: Row(
                                                                   children: [
                                                                     Padding(
                                                                       padding:
                                                                           const EdgeInsets.all(
                                                                               8.0),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .upload,
-                                                                        color: Colors
-                                                                            .green,
-                                                                      ),
+                                                                      child: Icon(
+                                                                          Icons
+                                                                              .upload,
+                                                                          color:
+                                                                              primary_color),
                                                                     ),
                                                                     Text(
                                                                       'uoloed image',
@@ -302,13 +298,22 @@ class _ProfileState extends State<Profile> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text("Edit Name"),
+                                                title: Text(
+                                                  "Edit Name",
+                                                  style: GoogleFonts.aclonica(
+                                                      textStyle: TextStyle(
+                                                    fontSize: 20,
+                                                    color: primary_color,
+                                                    fontWeight: FontWeight.bold,
+                                                  )),
+                                                ),
                                                 actions: [
                                                   Container(
                                                     child: TextFormField(
                                                       controller:
                                                           nameControllertoEdit,
                                                       decoration: InputDecoration(
+
                                                           // counterText: x["Name"],
                                                           //  hintText: "${x['Name']}",
                                                           ),
@@ -324,8 +329,25 @@ class _ProfileState extends State<Profile> {
                                                     children: [
                                                       Center(
                                                         child: ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                                  backgroundColor:
+                                                                      primary_color),
                                                           onPressed: updatename,
-                                                          child: Text("Edit"),
+                                                          child: Text(
+                                                            "Edit",
+                                                            style: GoogleFonts
+                                                                .aclonica(
+                                                                    textStyle:
+                                                                        TextStyle(
+                                                              fontSize: 10,
+                                                              color:
+                                                                  Colors.white,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            )),
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
@@ -342,7 +364,7 @@ class _ProfileState extends State<Profile> {
                                     ),
 
                                     ListTile(
-                                      leading: Icon(Icons.person),
+                                      leading: Icon(Icons.email),
                                       title: Text("${x['Email']}"),
                                     ),
 
@@ -351,7 +373,7 @@ class _ProfileState extends State<Profile> {
                                     ),
 
                                     ListTile(
-                                      leading: Icon(Icons.person),
+                                      leading: Icon(Icons.phone),
                                       title: Text("${x['phone']}"),
                                       trailing: IconButton(
                                         icon: Icon(Icons.edit),
@@ -363,7 +385,15 @@ class _ProfileState extends State<Profile> {
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
-                                                title: Text("Edit phone"),
+                                                title: Text(
+                                                  "Edit phone",
+                                                  style: GoogleFonts.aclonica(
+                                                      textStyle: TextStyle(
+                                                    fontSize: 20,
+                                                    color: primary_color,
+                                                    fontWeight: FontWeight.bold,
+                                                  )),
+                                                ),
                                                 actions: [
                                                   Container(
                                                     child: TextFormField(
@@ -376,10 +406,25 @@ class _ProfileState extends State<Profile> {
                                                   ),
                                                   Center(
                                                     child: ElevatedButton(
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              backgroundColor:
+                                                                  primary_color),
                                                       onPressed: () {
                                                         updatephone();
                                                       },
-                                                      child: Text("Edit phone"),
+                                                      child: Text(
+                                                        "Edit phone",
+                                                        style: GoogleFonts
+                                                            .aclonica(
+                                                                textStyle:
+                                                                    TextStyle(
+                                                          fontSize: 10,
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        )),
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
@@ -394,7 +439,9 @@ class _ProfileState extends State<Profile> {
                                     ),
 
                                     ListTile(
-                                      leading: Icon(Icons.mail),
+                                      leading: Icon(x['gender'] == 'Female'
+                                          ? Icons.female
+                                          : Icons.male),
                                       title: Text("${x['gender']}"),
                                     )
                                   ]))));
