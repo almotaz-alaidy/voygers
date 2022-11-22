@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:voygares/compononet/colors.dart';
+import '../compononet/catagory/catagoryList.dart';
 import '../model/api.dart';
 import '../model/imag.dart';
 import '../wedget/button.dart';
@@ -220,7 +221,10 @@ class _Uplode_screenState extends State<Uplode_screen> {
       body: Padding(
         padding: const EdgeInsets.only(top: 50),
         child: StreamBuilder<QuerySnapshot>(
-          stream: userImage.snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection("images")
+              .where("trip_id", isEqualTo: userTripId)
+              .snapshots(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
               return ListView.separated(
@@ -245,10 +249,11 @@ class _Uplode_screenState extends State<Uplode_screen> {
                   );
                 },
               );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
             }
-            return Center(
-              child: Container(),
-            );
           },
         ),
       ),

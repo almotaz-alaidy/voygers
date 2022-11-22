@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:voygares/compononet/colors.dart';
+import 'package:voygares/screens/TripCreate.dart';
 import 'package:voygares/screens/home_screen.dart';
 import 'package:voygares/screens/share.dart';
 
@@ -13,6 +14,7 @@ import 'mtProfile.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 String? logic1;
+String? creater;
 
 class TripPage extends StatefulWidget {
   const TripPage({Key? key}) : super(key: key);
@@ -32,18 +34,65 @@ class _TripPageState extends State<TripPage> {
   final currentUser = FirebaseAuth.instance;
   bool showSpinner = false;
   String? userTripId;
-  // GetCurrentTripid() {
-  //   FirebaseFirestore.instance
-  //       .collection("users")
-  //       .where("uid", isEqualTo: currentUser.currentUser!.uid)
-  //       .get()
-  //       .then((value) => value.docs.forEach((element) {
-  //             userTripId = element["trip_id"].toString();
-  //             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  //             print("value of current user trip-id variable: $userTripId");
-  //             print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  //           }));
-  // }
+
+  // ______________________________________________________end trip visiability___________________________________
+
+  GetCreaterField() {
+    CollectionReference userRef1 =
+        FirebaseFirestore.instance.collection("users");
+    userRef1
+        .where("uid", isEqualTo: myUser.currentUser!.uid)
+        .get()
+        .then((value) {
+      value.docs.forEach((element) {
+        creater = element["creator"];
+        if (creater == "1") {
+          endTrip = true;
+          print("sssssssssssssssss$endTrip");
+        } else {
+          endTrip = false;
+        }
+
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        print(creater);
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+      });
+    });
+  }
+
+  // ______________________________________________________________________________________________________________________________
+  // _____________________________________________end trip_________________________________________________________________________
+  GetTripIdCurrentUser() {
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+    FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: currentUser.currentUser!.uid)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              print(element["trip_id"].toString());
+              logic1 = element["trip_id"].toString();
+            }));
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+    print("value of logic variable: $logic1");
+  }
+
+  // ______________________________________________________________________________________________________________________________
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    GetCreaterField();
+    if (creater == "1") {
+      endTrip = true;
+      print("sssssssssssssssss$endTrip");
+    } else {
+      endTrip = false;
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,19 +115,13 @@ class _TripPageState extends State<TripPage> {
         initialActiveIndex: 0,
         onTap: (int i) {
           setState(() {
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-            FirebaseFirestore.instance
-                .collection("users")
-                .where("uid", isEqualTo: currentUser.currentUser!.uid)
-                .get()
-                .then((value) => value.docs.forEach((element) {
-                      print(element["trip_id"].toString());
-                      logic1 = element["trip_id"].toString();
-                    }));
-            print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-            print("value of logic variable: $logic1");
+            GetTripIdCurrentUser();
+            if (creater == "1") {
+              endTrip = true;
+              print("sssssssssssssssss$endTrip");
+            } else {
+              endTrip = false;
+            }
             _selectedPage = i;
           });
         },

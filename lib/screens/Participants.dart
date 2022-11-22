@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:voygares/compononet/colors.dart';
 
 import '../compononet/catagory/catagoryList.dart';
 
@@ -29,7 +28,7 @@ class _ParticipantsState extends State<Participants> {
             ),
           ),
           elevation: 0,
-          backgroundColor: primary_color,
+          backgroundColor: Colors.green,
           actions: <Widget>[
             IconButton(
               onPressed: () => Navigator.pop(context, "trip_page"),
@@ -43,7 +42,6 @@ class _ParticipantsState extends State<Participants> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          // child: Text("${[mm].toString()}"),
           child: Padding(
             padding: const EdgeInsets.only(top: 50),
             child: StreamBuilder<QuerySnapshot>(
@@ -57,13 +55,19 @@ class _ParticipantsState extends State<Participants> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       QueryDocumentSnapshot x = snapshot.data!.docs[index];
+
                       return Container(
-                          child: DrawerHeader(
                         child: Column(children: [
-                          Text(x['participants name '].toString()),
-                          Text(x['participants emails'].toString()),
+                          Text(
+                            x['Email']["email"].toString(),
+                            style: TextStyle(fontSize: 30),
+                          ),
+                          Text(
+                            x['Name']["name"].toString(),
+                            style: TextStyle(fontSize: 30),
+                          ),
                         ]),
-                      ));
+                      );
                     },
                   );
                 }

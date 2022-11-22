@@ -36,9 +36,9 @@ class _CreateTripState extends State<CreateTrip> {
   String? tripId;
 
   // ______________________________________________participant function __________________________________________
+  String? name;
+  String? email;
 
-  List name = [];
-  List email = [];
   GetThePar() {
     CollectionReference userRef1 =
         FirebaseFirestore.instance.collection("users");
@@ -47,8 +47,8 @@ class _CreateTripState extends State<CreateTrip> {
         .get()
         .then((value) {
       value.docs.forEach((element) {
-        name.add(element["Name"]);
-        email.add(element["Email"]);
+        name = element["Name"];
+        email = element["Email"];
 
         print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         print(email);
@@ -57,7 +57,8 @@ class _CreateTripState extends State<CreateTrip> {
       });
     });
   }
-  // _____________________________________________________________________________________________________________________
+  // _______________________________________________________________________________________________________________________
+  // ________________________________select image___________________________________________________________________________
 
   Future _pickImage1() async {
     try {
@@ -72,6 +73,7 @@ class _CreateTripState extends State<CreateTrip> {
       print('Failed to pick image: $e');
     }
   }
+  // __________________________________________________________________________________________________________________________
 
   TextEditingController trip_name = TextEditingController();
   TextEditingController trip_capacity = TextEditingController();
@@ -81,7 +83,7 @@ class _CreateTripState extends State<CreateTrip> {
   TextEditingController needed_tools = TextEditingController();
 
   String? uidUser;
-  // _________________________________________________________________
+  // _______________________________________uploed image__________________________________________
   Future uploadimage() async {
     if (image == null) return Text("no image selected");
 
@@ -445,6 +447,8 @@ class _CreateTripState extends State<CreateTrip> {
                         "only females": only_females.toString(),
                         "adsImage": imageUrl.toString(),
                       };
+
+                      // _____________________________________________update trip collection _________________________________________
                       CollectionReference userRef =
                           FirebaseFirestore.instance.collection("users");
                       userRef
@@ -461,6 +465,7 @@ class _CreateTripState extends State<CreateTrip> {
                       });
 
                       tripUdate.doc(tripDoc).update(trip_info);
+                      // _________________________________________________________________________________________________
 
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("trip created succecfully")));
@@ -486,17 +491,19 @@ class _CreateTripState extends State<CreateTrip> {
                     db3.doc(userDocName).update(mytripdoc);
 
                     // _____________________________________partcipant _________________________________________________________________
+
+                    Map participantName = {"name": name};
+                    Map participantEmail = {"email": email};
+
                     CollectionReference parti =
                         FirebaseFirestore.instance.collection("participants");
 
                     Map<String, dynamic> PartiField = {
                       "trip_id": tripDoc,
-                      "participants emails": email,
-                      "participants name": name,
+                      "Name": participantName,
+                      "Email": participantEmail,
                     };
-                    parti.add(PartiField).then((DocumentReference doc) {
-                      tripDoc = doc.id.toString();
-                    });
+                    parti.add(PartiField);
 
                     // _________________________________________________________________________________________________________________
 
@@ -507,7 +514,7 @@ class _CreateTripState extends State<CreateTrip> {
                     Map<String, dynamic> mytripdoc2 = {"trip_id": tripDoc};
                     db4.doc(docFortools).update(mytripdoc2);
                     // __________________________________________________________________________________________________________________
-                    // __________________________add trip-id to tools per loc collection _____________________________________________________
+                    // __________________________add trip-id to loc collection  _____________________________________________________
 
                     CollectionReference db5 =
                         await FirebaseFirestore.instance.collection("loc");
