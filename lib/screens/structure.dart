@@ -4,11 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
 import 'package:voygares/compononet/colors.dart';
-import 'package:voygares/wedget/advice.dart';
-
 import '../compononet/catagory/catagoryList.dart';
+import 'Main_Page.dart';
+import 'bottom_appbar.dart';
+
+bool? endTrip;
 
 class StructureScreen extends StatefulWidget {
   const StructureScreen({super.key});
@@ -25,6 +28,80 @@ class _StructureScreenState extends State<StructureScreen> {
   int i = 0;
   CollectionReference commentDb =
       FirebaseFirestore.instance.collection("comments");
+  // _______________________________________end trip______________________________________________________
+  AddEndTripField() {
+    DocumentReference tripDb =
+        FirebaseFirestore.instance.collection("trips").doc(logic1);
+
+    Map<String, dynamic> tripEnd = {
+      "ended trip": "true",
+    };
+    tripDb.update(tripEnd);
+    print("added sucessfulle");
+  }
+
+  List UsersListdocuments = [];
+  String? userdocument;
+
+  DeleteUsersTripId() {
+    CollectionReference usersDb =
+        FirebaseFirestore.instance.collection("users");
+    usersDb.where("trip_id", isEqualTo: logic1).get().then(
+        (QuerySnapshot snapshot) =>
+            snapshot.docs.forEach((DocumentSnapshot doc) {
+              UsersListdocuments.add(doc.id);
+              print(
+                  "5555555555555555555555555555555555555 ${UsersListdocuments} 55555555555555555555555555555555555555555555555");
+              for (var i = 0; i < UsersListdocuments.length; i++) {
+                userdocument = UsersListdocuments[i];
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(userdocument)
+                    .update({
+                  "old_trip": logic1,
+                });
+                print("old trip added ");
+                print(
+                    "________________________________________________________________________________");
+
+                print("trip_id is deleted");
+              }
+              for (var i = 0; i < UsersListdocuments.length; i++) {
+                userdocument = UsersListdocuments[i];
+                FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(userdocument)
+                    .update({
+                  "trip_id": null,
+                });
+                print("old trip added ");
+                print(
+                    "________________________________________________________________________________");
+
+                print("trip_id is deleted");
+              }
+            }));
+
+    // then((value) => value.docs.forEach((element) {
+    //   element["trip_id"];
+    // }));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    CollectionReference usersDb =
+        FirebaseFirestore.instance.collection("users");
+    usersDb.where("trip_id", isEqualTo: logic1).get().then(
+        (QuerySnapshot snapshot) =>
+            snapshot.docs.forEach((DocumentSnapshot doc) {
+              UsersListdocuments.add(doc.id);
+              print(
+                  "5555555555555555555555555555555555555 ${UsersListdocuments} 55555555555555555555555555555555555555555555555");
+            }));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +151,21 @@ class _StructureScreenState extends State<StructureScreen> {
                               width: 80,
                               height: 80,
                               child: CircleAvatar(
-                                  backgroundImage:
-                                      NetworkImage(x['profile image'])),
+                                radius: 71,
+                                backgroundColor: Colors.green,
+                                child: CircleAvatar(
+                                  radius: 65,
+                                  backgroundColor:
+                                      Color.fromRGBO(76, 175, 80, 1),
+                                  backgroundImage: logic1 == null
+                                      ? null
+                                      : NetworkImage("${x['profile image']}"),
+                                ),
+                              ),
+
+                              //  CircleAvatar(
+                              //     backgroundImage:
+                              //         NetworkImage(x['profile image'])),
                             ),
                             Text(x['Email']),
                             Text(x['Name']),
@@ -128,49 +218,90 @@ class _StructureScreenState extends State<StructureScreen> {
             ),
             Positioned(
               top: 350,
-              child: TextButton.icon(
-                onPressed: () {
-                  setState(() {
-                    Navigator.pop(context);
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            backgroundColor: primary_color,
-                            title: Text(
-                              "Are you Sure you want to end trip?",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            content: Row(children: [
-                              TextButton(
-                                onPressed: () {},
-                                child: Text(
-                                  "Yes",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+              child: Visibility(
+                // visible: creater == 1 ? true : false,
+                visible: endTrip!,
+                child: TextButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      Navigator.pop(context);
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              backgroundColor: primary_color,
+                              title: Text(
+                                "Are you Sure you want to end trip?",
+                                style: TextStyle(color: Colors.white),
                               ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  "No",
-                                  style: TextStyle(color: Colors.white),
+                              content: Row(children: [
+                                TextButton(
+                                  onPressed: () async {
+                                    // __________________________end trip  putton____________________________________________________________________
+                                    AddEndTripField();
+                                    DeleteUsersTripId();
+
+                                    Navigator.pop(context);
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          backgroundColor: primary_color,
+                                          title: Text(
+                                            "hve fun ",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          // content: TextButton(
+                                          //   onPressed: () {
+                                          //     Navigator.pushReplacement(
+                                          //         context,
+                                          //         MaterialPageRoute(
+                                          //           builder: (context) =>
+                                          //               MainPage(),
+                                          //         ));
+                                          //   },
+                                          //   child: Text(
+                                          //     "press to enjoy in another trip",
+                                          //     style: TextStyle(
+                                          //         color: Colors.white),
+                                          //   ),
+                                          // ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    "Yes",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
-                              )
-                            ]),
-                          );
-                        });
-                  });
-                },
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  "End trip",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 245, 206, 252), fontSize: 25),
+                                // __________________________________________________________________________________________________________________________________
+
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    "No",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                )
+                              ]),
+                            );
+                          });
+                    });
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                    "End trip",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 245, 206, 252),
+                        fontSize: 25),
+                  ),
                 ),
               ),
             ),
@@ -284,26 +415,6 @@ class _StructureScreenState extends State<StructureScreen> {
                 },
               ),
 
-              // CarouselSlider.builder(
-              //   itemCount: 4,
-              //   itemBuilder: (BuildContext context, index, int pageViewIndex) {
-              //     return Advice(i: index);
-              //   },
-              //   options: CarouselOptions(
-              //     height: 150,
-              //     aspectRatio: 16 / 9,
-              //     viewportFraction: 0.8,
-              //     initialPage: 0,
-              //     enableInfiniteScroll: true,
-              //     reverse: false,
-              //     autoPlay: true,
-              //     autoPlayInterval: const Duration(seconds: 10),
-              //     autoPlayAnimationDuration: const Duration(seconds: 5),
-              //     autoPlayCurve: Curves.easeIn,
-              //     enlargeCenterPage: true,
-              //     scrollDirection: Axis.horizontal,
-              //   ),
-              // ),
               SizedBox(
                 height: 30,
               ),

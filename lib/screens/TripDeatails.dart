@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:voygares/compononet/colors.dart';
-
 import 'login_screen.dart';
 
 class TripDetails extends StatefulWidget {
@@ -99,10 +98,14 @@ class _TripDetailsState extends State<TripDetails> {
                       );
                     },
                   ));
-                } else
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
+                } else {
+                  return Text("ssssssss");
+                }
               },
               future: tripDetails.get()),
         ),

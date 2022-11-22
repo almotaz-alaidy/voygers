@@ -1,13 +1,9 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:voygares/firebase_options.dart';
 import 'package:voygares/screens/TripCreate.dart';
-import 'package:voygares/screens/home_screen.dart';
 import 'package:voygares/screens/welcom.dart';
-import 'package:voygares/utils/binding/HomeBinding.dart';
 import 'screens/History.dart';
 import 'screens/Main_Page.dart';
 import 'screens/SignUp.dart';
@@ -61,6 +57,43 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return StreamBuilder<User?>(
+//       stream: FirebaseAuth.instance.authStateChanges(),
+//       builder: (context, snapshot) {
+//         if (ConnectionState == ConnectionState.waiting) {
+//           return Text("loeding.....");
+//         }
+//         if (snapshot.hasData) {
+//           return MainPage();
+//         } else {
+//           return AnimatedSplashScreen(
+//             splashIconSize: 100,
+//             centered: true,
+//             animationDuration: Duration(seconds: 1),
+//             duration: 3000,
+//             splash: Column(
+//               children: [
+//                 Image(height: 80, image: AssetImage("images/5.png")),
+//                 Text(
+//                   "VOYGARES",
+//                   style: TextStyle(fontSize: 15),
+//                 )
+//               ],
+//             ),
+//             nextScreen: WelcomeScreen(),
+//             splashTransition: SplashTransition.fadeTransition,
+//           );
+//         }
+//       },
+//     );
+//   }
+// }
 // void main() {
 //   runApp(WeatherApp());
 // }

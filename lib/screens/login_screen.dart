@@ -210,8 +210,8 @@ class _SignInState extends State<SignIn> {
 
                                       UserCredential muUser =
                                           await auth.signInWithEmailAndPassword(
-                                              email: _email.text,
-                                              password: _pass.text);
+                                              email: _email.text.trim(),
+                                              password: _pass.text.trim());
                                       Navigator.pushNamed(context, "main_page");
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -223,7 +223,7 @@ class _SignInState extends State<SignIn> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                          content: Text("something went wrong"),
+                                          content: Text(e.toString()),
                                         ),
                                       );
                                     }

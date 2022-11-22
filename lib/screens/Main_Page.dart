@@ -3,18 +3,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:lottie/lottie.dart';
 import 'package:voygares/compononet/colors.dart';
-import 'package:voygares/screens/home_screen.dart';
 import 'package:voygares/utils/binding/HomeBinding.dart';
 
 import '../compononet/catagory/catagoryList.dart';
 import 'TripCreate.dart';
 import 'bottom_appbar.dart';
+import 'login_screen.dart';
 
 String? logic;
 
@@ -92,7 +91,11 @@ class _MainPageState extends State<MainPage> {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () => Navigator.pop(context, "login_screen"),
+            onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SignIn(),
+                )),
             icon: Lottie.asset("images/panda.json", width: 80, height: 80),
           )
         ],
@@ -182,22 +185,6 @@ class _MainPageState extends State<MainPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    // Container(
-                                                    //   width: 300,
-                                                    //   height: 250,
-                                                    //   decoration: BoxDecoration(
-                                                    //       borderRadius:
-                                                    //           BorderRadius.circular(
-                                                    //               20)),
-                                                    //   child: Image(
-                                                    //     image: NetworkImage(
-                                                    //       "${trip_info[i]['adsImage']}",
-                                                    //     ),
-                                                    //     fit: BoxFit.fitHeight,
-                                                    //     width: 300,
-                                                    //     height: 250,
-                                                    //   ),
-                                                    // ),
                                                     Positioned(
                                                       top: 20,
                                                       right: 10,
@@ -340,137 +327,6 @@ class _MainPageState extends State<MainPage> {
                           SizedBox(
                             height: 50,
                           ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(horizontal: 30),
-                          //   child: Wrap(
-                          //     direction: Axis.vertical,
-                          //     children: [
-                          //       ElevatedButton.icon(
-                          //         icon: Image.asset(
-                          //           "images/bus3.png",
-                          //           color: Colors.white,
-                          //           width: 30,
-                          //           height: 30,
-                          //         ),
-                          //         style: ElevatedButton.styleFrom(
-                          //             shape: RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.circular(20)),
-                          //             backgroundColor: primary_color),
-                          //         onPressed: () async {
-                          //           // _________________________________________logic test to make sure thate the  user cretae just one trip _________
-                          //           print(
-                          //               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-                          //           FirebaseFirestore.instance
-                          //               .collection("users")
-                          //               .where("uid",
-                          //                   isEqualTo: currentUser.currentUser!.uid)
-                          //               .get()
-                          //               .then((value) => value.docs.forEach((element) {
-                          //                     print(element["trip_id"].toString());
-                          //                     logic = element["trip_id"].toString();
-                          //                   }));
-                          //           print(
-                          //               "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-                          //           print("value of logic variable: $logic");
-                          //           // ____________________________________________________________________________________________________________________
-
-                          //           if (logic == "null") {
-                          //             Navigator.pushReplacement(context,
-                          //                 MaterialPageRoute(
-                          //               builder: (context) {
-                          //                 return CreateTrip();
-                          //               },
-                          //             ));
-                          //           } else {
-                          //             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //                 content:
-                          //                     Text("you have already created trip")));
-                          //           }
-                          //         },
-                          //         label: Text(
-                          //           "Create a Trip",
-                          //           style: TextStyle(color: Colors.white, fontSize: 25),
-                          //         ),
-                          //       ),
-                          //       SizedBox(
-                          //         height: 20,
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left: 15),
-                          //         child: ElevatedButton.icon(
-                          //           style: ElevatedButton.styleFrom(
-                          //               shape: RoundedRectangleBorder(
-                          //                   borderRadius: BorderRadius.circular(20)),
-                          //               backgroundColor: primary_color),
-                          //           icon: Image.asset(
-                          //             "images/united.png",
-                          //             color: Colors.white,
-                          //             width: 30,
-                          //             height: 30,
-                          //           ),
-                          //           onPressed: () async {
-                          //             print(
-                          //                 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-                          //             FirebaseFirestore.instance
-                          //                 .collection("users")
-                          //                 .where("uid",
-                          //                     isEqualTo: currentUser.currentUser!.uid)
-                          //                 .get()
-                          //                 .then((value) => value.docs.forEach((element) {
-                          //                       print(element["trip_id"].toString());
-                          //                       logic = element["trip_id"].toString();
-                          //                     }));
-                          //             print(
-                          //                 "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-                          //             print("value of logic variable: $logic");
-                          //             GetCurrentTripid();
-                          //             // ____________________________________________________________________________________________________________________
-
-                          //             if (logic == "null") {
-                          //               Navigator.pushNamed(context, "join_trip");
-                          //             } else {
-                          //               Navigator.pushReplacement(context,
-                          //                   MaterialPageRoute(
-                          //                 builder: (context) {
-                          //                   return TripPage();
-                          //                 },
-                          //               ));
-                          //               ScaffoldMessenger.of(context).showSnackBar(
-                          //                   SnackBar(
-                          //                       content: Text(
-                          //                           "you have already joined trip")));
-                          //             }
-
-                          //             // CollectionReference userRef = FirebaseFirestore
-                          //             //     .instance
-                          //             //     .collection("users");
-                          //             // userRef
-                          //             //     .where("uid",
-                          //             //         isEqualTo: myUser.currentUser!.uid)
-                          //             //     .get()
-                          //             //     .then((QuerySnapshot snapshot) {
-                          //             //   snapshot.docs.forEach((DocumentSnapshot doc) {
-                          //             //     print(doc.id);
-                          //             //     userDocName = doc.id;
-                          //             //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                          //             //     print(userDocName);
-                          //             //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                          //             //   });
-                          //             // });
-                          //           },
-                          //           label: Text(
-                          //             "Join a Trip",
-                          //             style: TextStyle(color: Colors.white, fontSize: 25),
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           SizedBox(
                             height: 7,
                           ),
@@ -609,23 +465,6 @@ class _MainPageState extends State<MainPage> {
                                             content: Text(
                                                 "you have already joined trip")));
                                   }
-
-                                  // CollectionReference userRef = FirebaseFirestore
-                                  //     .instance
-                                  //     .collection("users");
-                                  // userRef
-                                  //     .where("uid",
-                                  //         isEqualTo: myUser.currentUser!.uid)
-                                  //     .get()
-                                  //     .then((QuerySnapshot snapshot) {
-                                  //   snapshot.docs.forEach((DocumentSnapshot doc) {
-                                  //     print(doc.id);
-                                  //     userDocName = doc.id;
-                                  //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                                  //     print(userDocName);
-                                  //     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                                  //   });
-                                  // });
                                 },
                                 label: Text(
                                   "Join a Trip",

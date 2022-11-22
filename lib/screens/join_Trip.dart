@@ -18,28 +18,17 @@ class _JoinTripState extends State<JoinTrip> {
   String? logic;
   String? joinUser;
   String? myTripId;
-  // String? varable;
-  List names = [];
-  List emails = [];
   // _______________________________participants______________________________________________________________________
-  List info = [];
+
   CollectionReference userRef1 = FirebaseFirestore.instance.collection("users");
   CollectionReference partRef =
       FirebaseFirestore.instance.collection("participants");
 
-  dynamic name;
-  String? email;
   String? partDocument;
-  GetThePar() {
-    userRef1
-        .where("uid", isEqualTo: myUser.currentUser!.uid)
-        .get()
-        .then((value) {
-      value.docs.forEach((element) {
-        email = element["Email"];
-        name = element["Name"];
-      });
-    });
+
+  // _________________________________________________get the document in participant ___________________________
+
+  GetTipId() {
     partRef.where("trip_id", isEqualTo: myTripId).get().then(
         (QuerySnapshot snapshot) =>
             snapshot.docs.forEach((DocumentSnapshot doc) {
@@ -51,9 +40,22 @@ class _JoinTripState extends State<JoinTrip> {
             }));
   }
 
-  // ___________________________________________________________________________________________________________________
+  // ______________________________emal and name of current user to put it inside the list _____________________________
+  String? theNme;
+  String? theEmail;
 
-  // ___________________________________________________________________________________________________________________
+  GetNameEmail() {
+    userRef1
+        .where("uid", isEqualTo: myUser.currentUser!.uid)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              theNme = element["Name"];
+              theEmail = element["Email"];
+            }));
+  }
+
+  // ___________________________________________________________________________________________________________________________
+
   Test() {
     FirebaseFirestore.instance
         .collection("code")
@@ -61,44 +63,38 @@ class _JoinTripState extends State<JoinTrip> {
           "code",
         )
         .get()
-        .then((value) => value.docs.forEach((element) async {
+        .then(
+          (value) => value.docs.forEach(
+            (element) async {
               element["trip_id"].toString();
               myTripId = element["trip_id"].toString();
-              // print(myTripId);
+              print(myTripId);
 
               CollectionReference userRef =
                   FirebaseFirestore.instance.collection("users");
               userRef
                   .where("uid", isEqualTo: myUser.currentUser!.uid)
                   .get()
-                  .then((QuerySnapshot snapshot) {
-                snapshot.docs.forEach((DocumentSnapshot doc) {
-                  joinUser = doc.id;
-                });
-              });
-            }));
-  }
-
-  UsersTrip() {
-    userRef1
-        .where("trip_id", isEqualTo: myTripId)
-        .get()
-        .then((value) => value.docs.forEach((element) {
-              // names = element["Name"];
-              names.add(element["Name"]);
-              emails.add(element["Email"]);
-
-              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-              print(names);
-              print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            }));
+                  .then(
+                (QuerySnapshot snapshot) {
+                  snapshot.docs.forEach(
+                    (DocumentSnapshot doc) {
+                      joinUser = doc.id;
+                    },
+                  );
+                },
+              );
+            },
+          ),
+        );
   }
 
   @override
   void initState() {
     // TODO: implement initState
     Test();
+    GetNameEmail();
+    GetTipId();
 
     super.initState();
   }
@@ -142,9 +138,6 @@ class _JoinTripState extends State<JoinTrip> {
             ),
             ElevatedButton(
               onPressed: () async {
-                UsersTrip();
-                GetThePar();
-
                 try {
                   FirebaseFirestore.instance
                       .collection("code")
@@ -154,10 +147,10 @@ class _JoinTripState extends State<JoinTrip> {
                       .get()
                       .then((value) => value.docs.forEach((element) async {
                             if (_code.text == element["code"].toString()) {
-                              GetThePar();
                               element["trip_id"].toString();
                               myTripId = element["trip_id"].toString();
-                              // print(myTripId);
+                              GetTipId();
+                              GetNameEmail();
 
                               CollectionReference userRef = FirebaseFirestore
                                   .instance
@@ -181,21 +174,22 @@ class _JoinTripState extends State<JoinTrip> {
 
                               db3.doc(joinUser).update(mytripdoc);
 
-                              // ____________________________________________participants____________________________________
+                              // ____________________________________________participants_____________________________________________
 
-                              DocumentReference parti = FirebaseFirestore
+                              Map participantName = {"name": theNme};
+                              Map participantEmail = {"email": theEmail};
+
+                              CollectionReference parti = FirebaseFirestore
                                   .instance
-                                  .collection("participants")
-                                  .doc("$partDocument");
+                                  .collection("participants");
 
-                              Map<String, dynamic> PartiField = {
+                              Map<String, dynamic> PartiField = await {
+                                "Name": participantName,
+                                "Email": participantEmail,
                                 "trip_id": myTripId,
-                                // "info": UserNameEmail,
-                                "participants name ": names,
-                                "participants emails": emails
                               };
 
-                              parti.update(PartiField);
+                              await parti.add(PartiField);
 
                               Navigator.pushReplacement(
                                   context,
