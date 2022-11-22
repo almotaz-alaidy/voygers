@@ -375,6 +375,14 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(
                     height: 7,
                   ),
+                  ElevatedButton(
+                    onPressed: (() {
+                      
+                      Get.to(HomeScreen(), binding: HomeBinding());
+                      // GetMaterialApp();
+                    }),
+                    child: Text("data"),
+                  )
                 ],
               ),
             ),

@@ -18,7 +18,7 @@ import 'screens/login_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     routes: {
       "main_page": (context) => MainPage(),
       "create_trip": (context) => CreateTrip(),
