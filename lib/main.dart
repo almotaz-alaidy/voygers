@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:voygares/firebase_options.dart';
 import 'package:voygares/screens/TripCreate.dart';
 import 'package:voygares/screens/welcom.dart';
@@ -15,7 +16,7 @@ import 'screens/login_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     routes: {
       "main_page": (context) => MainPage(),
       "create_trip": (context) => CreateTrip(),
@@ -57,60 +58,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<User?>(
-//       stream: FirebaseAuth.instance.authStateChanges(),
-//       builder: (context, snapshot) {
-//         if (ConnectionState == ConnectionState.waiting) {
-//           return Text("loeding.....");
-//         }
-//         if (snapshot.hasData) {
-//           return MainPage();
-//         } else {
-//           return AnimatedSplashScreen(
-//             splashIconSize: 100,
-//             centered: true,
-//             animationDuration: Duration(seconds: 1),
-//             duration: 3000,
-//             splash: Column(
-//               children: [
-//                 Image(height: 80, image: AssetImage("images/5.png")),
-//                 Text(
-//                   "VOYGARES",
-//                   style: TextStyle(fontSize: 15),
-//                 )
-//               ],
-//             ),
-//             nextScreen: WelcomeScreen(),
-//             splashTransition: SplashTransition.fadeTransition,
-//           );
-//         }
-//       },
-//     );
-//   }
-// }
-// void main() {
-//   runApp(WeatherApp());
-// }
-
-// class WeatherApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       initialRoute: '/',
-//       getPages: [
-//         GetPage(
-//           name: '/',
-//           page: () => HomeScreen(),
-//           binding: HomeBinding(),
-//         )
-//       ],
-//     );
-//   }
-// }

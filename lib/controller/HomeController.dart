@@ -42,7 +42,8 @@ class HomeController extends GetxController {
   }
 
   void getTopFiveCities() {
-    List<String> cities = ['amman', 'amman', 'amman', 'amman', 'amman'];
+    List<String> cities = ['irbid', 'aqaba', 'jarasa', 'petra', 'mafraq'];
+
     cities.forEach((c) {
       WeatherService(city: '$c').getCurrentWeatherData(onSuccess: (data) {
         dataList.add(data);

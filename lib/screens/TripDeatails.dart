@@ -95,6 +95,9 @@ class _TripDetailsState extends State<TripDetails> {
                               fontWeight: FontWeight.bold,
                             )),
                           )),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Center(
                               child: Text(
                             "trip cost: ${snapshot.data!.get("cost")} JD",
@@ -105,9 +108,12 @@ class _TripDetailsState extends State<TripDetails> {
                               fontWeight: FontWeight.bold,
                             )),
                           )),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Center(
                               child: Text(
-                            "trip discripition: ${snapshot.data!.get("disc")}",
+                            "trip discripition:",
                             style: GoogleFonts.aclonica(
                                 textStyle: TextStyle(
                               fontSize: 15,
@@ -115,6 +121,19 @@ class _TripDetailsState extends State<TripDetails> {
                               fontWeight: FontWeight.bold,
                             )),
                           )),
+                          Center(
+                              child: Text(
+                            "${snapshot.data!.get("disc")}",
+                            style: GoogleFonts.aclonica(
+                                textStyle: TextStyle(
+                              fontSize: 15,
+                              color: primary_color,
+                              fontWeight: FontWeight.bold,
+                            )),
+                          )),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Center(
                               child: Text(
                             "allowed female?  ${snapshot.data!.get("only females")}",
@@ -125,6 +144,9 @@ class _TripDetailsState extends State<TripDetails> {
                               fontWeight: FontWeight.bold,
                             )),
                           )),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Center(
                               child: Text(
                             " privacy  ${snapshot.data!.get("privacy")}",
@@ -135,6 +157,9 @@ class _TripDetailsState extends State<TripDetails> {
                               fontWeight: FontWeight.bold,
                             )),
                           )),
+                          SizedBox(
+                            height: 10,
+                          ),
                           Center(
                               child: Text(
                             "trip date: ${snapshot.data!.get("date")}",
@@ -146,7 +171,7 @@ class _TripDetailsState extends State<TripDetails> {
                             )),
                           )),
                           SizedBox(
-                            height: 100,
+                            height: 30,
                           ),
                           Center(
                               child: Image.network(

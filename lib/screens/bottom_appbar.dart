@@ -91,6 +91,8 @@ class _TripPageState extends State<TripPage> {
       endTrip = false;
     }
 
+    HomeScreen();
+
     super.initState();
   }
 
@@ -108,7 +110,6 @@ class _TripPageState extends State<TripPage> {
           const TabItem(icon: Icons.home, title: ''),
           const TabItem(icon: Icons.person, title: ''),
           const TabItem(icon: Icons.share, title: ''),
-          // const TabItem(icon: Icons.person, title: 'wether'),
         ],
         backgroundColor: primary_color,
         activeColor: Color.fromARGB(255, 247, 249, 247),
@@ -122,6 +123,7 @@ class _TripPageState extends State<TripPage> {
             } else {
               endTrip = false;
             }
+
             _selectedPage = i;
           });
         },

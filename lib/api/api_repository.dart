@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ApiRepository {
   final String? url;
@@ -18,8 +20,9 @@ class ApiRepository {
         onSuccess(response.data);
       }
     }).catchError((error) {
-      if (onError != null) {
-        onError(error);
+      if (onError == null) {
+        onError!(error);
+        print("_______________________________________________________");
       }
     });
   }

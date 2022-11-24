@@ -11,6 +11,7 @@ import 'package:voygares/compononet/colors.dart';
 
 import '../model/api.dart';
 import 'bottom_appbar.dart';
+import 'login_screen.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -443,7 +444,25 @@ class _ProfileState extends State<Profile> {
                                           ? Icons.female
                                           : Icons.male),
                                       title: Text("${x['gender']}"),
-                                    )
+                                    ),
+                                    SizedBox(
+                                      height: 6,
+                                    ),
+
+                                    ListTile(
+                                      //
+                                      title: Text("logout"),
+                                      trailing: IconButton(
+                                          onPressed: () {
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      SignIn(),
+                                                ));
+                                          },
+                                          icon: Icon(Icons.logout)),
+                                    ),
                                   ]))));
                     }));
           } else {

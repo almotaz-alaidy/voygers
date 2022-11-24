@@ -13,6 +13,7 @@ import 'package:voygares/utils/binding/HomeBinding.dart';
 import '../compononet/catagory/catagoryList.dart';
 import 'TripCreate.dart';
 import 'bottom_appbar.dart';
+import 'home_screen.dart';
 import 'login_screen.dart';
 
 String? logic;
@@ -97,7 +98,7 @@ class _MainPageState extends State<MainPage> {
                   builder: (context) => SignIn(),
                 )),
             icon: Lottie.asset("images/panda.json", width: 80, height: 80),
-          )
+          ),
         ],
       ),
       backgroundColor: primary_color,
