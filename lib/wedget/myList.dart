@@ -58,7 +58,8 @@ class MyList extends GetView<HomeController> {
                     SizedBox(
                       width: 50,
                       height: 50,
-                      child: LottieBuilder.asset(Images.cloudyAnim),
+                      child: Image.network(
+                          "https://toppng.com/uploads/preview/clouds-sun-and-rain-drops-weather-icon-115330395929z6pn6pvwa.png"),
                     ),
                     Text(
                       (data != null) ? '${data.weather![0].description}' : '',

@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:voygares/compononet/colors.dart';
+import 'package:voygares/screens/Main_Page.dart';
 import '../compononet/catagory/catagoryList.dart';
 import '../model/api.dart';
 import '../model/imag.dart';
@@ -65,7 +66,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> videoInfo = {
       "video": url,
-      "trip_id": tripDoc,
+      "trip_id": logic,
     };
     db.collection("video").add(videoInfo).then((DocumentReference doc) {
       docForvideo = doc.id.toString();
@@ -132,7 +133,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> imageInfo = {
       "image": url,
-      "trip_id": tripDoc,
+      "trip_id": logic,
     };
     db.collection("images").add(imageInfo).then((DocumentReference doc) {
       docForimage = doc.id.toString();
@@ -173,6 +174,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
             context: context,
             builder: (context) {
               return AlertDialog(
+                backgroundColor: primary_color,
                 content: Container(
                   height: 700,
                   width: 700,

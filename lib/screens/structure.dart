@@ -2,15 +2,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:http/http.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:voygares/compononet/colors.dart';
 import '../compononet/catagory/catagoryList.dart';
-import 'Main_Page.dart';
+import '../utils/binding/HomeBinding.dart';
 import 'bottom_appbar.dart';
-import 'login_screen.dart';
+import 'home_screen.dart';
+import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
 bool? endTrip;
 
@@ -22,6 +24,15 @@ class StructureScreen extends StatefulWidget {
 }
 
 class _StructureScreenState extends State<StructureScreen> {
+  final Uri _url = Uri.parse('https://mail.google.com/mail/u/0/#sent');
+
+  Future<void> _launchUrl() async {
+    if (!await launchUrl(_url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
+  // ____________________________________________________________________________________________
   final currentUser = FirebaseAuth.instance;
   String email = "";
   String phoneNum = "";
@@ -54,6 +65,7 @@ class _StructureScreenState extends State<StructureScreen> {
         (QuerySnapshot snapshot) =>
             snapshot.docs.forEach((DocumentSnapshot doc) {
               UsersListdocuments.add(doc.id);
+
               print(
                   "5555555555555555555555555555555555555 ${UsersListdocuments} 55555555555555555555555555555555555555555555555");
               for (var i = 0; i < UsersListdocuments.length; i++) {
@@ -85,10 +97,6 @@ class _StructureScreenState extends State<StructureScreen> {
                 print("trip_id is deleted");
               }
             }));
-
-    // then((value) => value.docs.forEach((element) {
-    //   element["trip_id"];
-    // }));
   }
 
   @override
@@ -154,13 +162,15 @@ class _StructureScreenState extends State<StructureScreen> {
                           tools1.add(x['tool'][i]);
 
                           return Container(
-                            color: primary_color,
-                            child: ListTile(
-                              title: Text(
+                            width: 10,
+                            height: 50,
+                            // color: primary_color,
+                            child: Center(
+                              child: Text(
                                 x['tool'].toString(),
-                                style: TextStyle(color: Colors.black),
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 15),
                               ),
-                              subtitle: Text("add"),
                             ),
                           );
                         });
@@ -294,6 +304,23 @@ class _StructureScreenState extends State<StructureScreen> {
             ),
             Positioned(
               top: 350,
+              child: TextButton.icon(
+                  icon: Icon(
+                    Icons.snowing,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Get.to(HomeScreen(), binding: HomeBinding());
+                  },
+                  label: Text(
+                    "weather",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 245, 206, 252),
+                        fontSize: 25),
+                  )),
+            ),
+            Positioned(
+              top: 500,
               child: Visibility(
                 // visible: creater == 1 ? true : false,
                 visible: endTrip!,
@@ -381,8 +408,39 @@ class _StructureScreenState extends State<StructureScreen> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 100,
+            Positioned(
+              top: 400,
+              child: TextButton.icon(
+                  icon: Icon(
+                    Icons.send_rounded,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    _launchUrl();
+                  },
+                  label: Text(
+                    "send trip info",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 245, 206, 252),
+                        fontSize: 25),
+                  )),
+            ),
+            Positioned(
+              top: 450,
+              child: TextButton.icon(
+                  icon: Icon(
+                    Icons.call,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    UrlLauncher.launch("tel://911");
+                  },
+                  label: Text(
+                    "emergency call",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 245, 206, 252),
+                        fontSize: 25),
+                  )),
             ),
           ],
         ),

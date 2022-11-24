@@ -261,28 +261,42 @@ class _CreateTripState extends State<CreateTrip> {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
+                            backgroundColor: primary_color,
                             content: Row(
                               children: [
-                                IconButton(
+                                TextButton.icon(
+                                  label: Text(
+                                    "select",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                   icon: image != null
                                       ? Image.file(
                                           image!,
-                                          width: 200,
-                                          height: 200,
+                                          width: 50,
+                                          height: 50,
                                         )
                                       : Image.asset(
                                           "images/upload.png",
-                                          color: primary_color,
+                                          height: 50,
+                                          width: 50,
+                                          color: Colors.white,
                                         ),
                                   onPressed: () {
                                     _pickImage1();
                                   },
                                 ),
-                                IconButton(
+                                TextButton.icon(
+                                    label: Text(
+                                      "uploed",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                     onPressed: () {
                                       uploadimage();
                                     },
-                                    icon: Icon(Icons.update_disabled)),
+                                    icon: Icon(
+                                      Icons.install_mobile_sharp,
+                                      color: Colors.white,
+                                    )),
                               ],
                             ),
                           );

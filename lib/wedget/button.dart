@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../compononet/colors.dart';
+
 class ButtonWidget extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -14,7 +16,9 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
-        style: ElevatedButton.styleFrom(),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: primary_color,
+        ),
         child: buildContent(),
         onPressed: onClicked,
       );
