@@ -186,7 +186,9 @@ class _TripDetailsState extends State<TripDetails> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return Text("ssssssss");
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
               },
               future: tripDetails.get()),

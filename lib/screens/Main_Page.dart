@@ -43,6 +43,7 @@ class _MainPageState extends State<MainPage> {
   String? uidUser;
 
   CollectionReference trip = FirebaseFirestore.instance.collection("trips");
+  CollectionReference code = FirebaseFirestore.instance.collection("code");
 
   CollectionReference userDb = FirebaseFirestore.instance.collection("users");
   FirebaseAuth myUser = FirebaseAuth.instance;
@@ -276,6 +277,20 @@ class _MainPageState extends State<MainPage> {
                                                 ),
                                                 Text(
                                                   " ${trip_info[i]['cost']} JOD",
+                                                  style: GoogleFonts.aclonica(
+                                                    textStyle: const TextStyle(
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: primary_color,
+                                                    ),
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                Text(
+                                                  " trip code :  ${trip_info[i]['generated_code']}",
                                                   style: GoogleFonts.aclonica(
                                                     textStyle: const TextStyle(
                                                       fontSize: 20.0,

@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:voygares/compononet/colors.dart';
 
+import 'TripCreate.dart';
 import 'bottom_appbar.dart';
+
+String? generated_code;
 
 class GenerateCode extends StatefulWidget {
   const GenerateCode({super.key});
@@ -17,7 +20,6 @@ class GenerateCode extends StatefulWidget {
 }
 
 class _GenerateCodeState extends State<GenerateCode> {
-  String generated_code = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,14 +38,12 @@ class _GenerateCodeState extends State<GenerateCode> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                generated_code,
+                generated_code!,
                 style: TextStyle(backgroundColor: Colors.white, fontSize: 30),
               ),
               TextButton.icon(
                   onPressed: () {
-                    setState(() {
-                      generated_code = getBase64RandomString(8);
-                    });
+                    setState(() {});
                   },
                   icon: Icon(
                     Icons.generating_tokens,
@@ -87,8 +87,6 @@ class _GenerateCodeState extends State<GenerateCode> {
                           (DocumentReference doc) => print(
                               'DocumentSnapshot added with ID: ${doc.id}'),
                         );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Code Generated")));
                   } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -118,11 +116,5 @@ class _GenerateCodeState extends State<GenerateCode> {
             ],
           ),
         ));
-  }
-
-  String getBase64RandomString(int length) {
-    var random = Random.secure();
-    var values = List<int>.generate(length, (i) => random.nextInt(255));
-    return base64UrlEncode(values);
   }
 }

@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,14 +9,17 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:voygares/compononet/colors.dart';
 import 'package:voygares/compononet/show_dialog.dart';
+import 'package:voygares/screens/bottom_appbar.dart';
 import 'package:voygares/screens/google_maps.dart';
 import 'package:voygares/wedget/regulartextfeid.dart';
 import '../model/imag.dart';
 import 'package:path/path.dart';
 
+import 'GenerateCode.dart';
+
 FirebaseAuth myUser = FirebaseAuth.instance;
 String? userDocName;
-
+String? generated_code;
 late String tripDoc;
 late String docFortools;
 final currentUser = FirebaseAuth.instance;
@@ -447,6 +452,7 @@ class _CreateTripState extends State<CreateTrip> {
                     )),
                 ElevatedButton(
                   onPressed: () async {
+                    generated_code = getBase64RandomString(8);
                     try {
                       CollectionReference tripUdate =
                           FirebaseFirestore.instance.collection("trips");
@@ -460,6 +466,7 @@ class _CreateTripState extends State<CreateTrip> {
                         "date": _date.toString(),
                         "only females": only_females.toString(),
                         "adsImage": imageUrl.toString(),
+                        "generated code": generated_code.toString(),
                       };
 
                       // _____________________________________________update trip collection _________________________________________
@@ -486,7 +493,98 @@ class _CreateTripState extends State<CreateTrip> {
                       showDialog(
                         context: context,
                         builder: (context) {
-                          return GenerateMyCode(generated_code: "");
+                          return AlertDialog(
+                            backgroundColor: primary_color,
+                            content: Container(
+                              width: 200,
+                              height: 200,
+                              child: Column(children: [
+                                Text(
+                                  generated_code!,
+                                  style: TextStyle(
+                                      backgroundColor: Colors.white,
+                                      fontSize: 30),
+                                ),
+                                TextButton.icon(
+                                    onPressed: () {
+                                      setState(
+                                        () {
+                                          Clipboard.setData(
+                                            ClipboardData(text: generated_code),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.copy,
+                                      color: Colors.white,
+                                    ),
+                                    label: Text(
+                                      "copy",
+                                      style: TextStyle(
+                                        fontSize: 50,
+                                        color: Colors.white,
+                                      ),
+                                    )),
+                                TextButton.icon(
+                                  onPressed: () async {
+                                    FirebaseFirestore db =
+                                        FirebaseFirestore.instance;
+
+                                    Map<String, dynamic> userInfo = {
+                                      "code": generated_code
+                                    };
+                                    db.collection("code").add(userInfo).then(
+                                          (DocumentReference doc) => print(
+                                              'DocumentSnapshot added with ID: ${doc.id}'),
+                                        );
+                                    try {
+                                      CollectionReference tripUdate =
+                                          FirebaseFirestore.instance
+                                              .collection("trips");
+
+                                      Map<String, dynamic> codeFeild = {
+                                        "generated_code":
+                                            generated_code.toString()
+                                      };
+                                      tripUdate.doc(tripDoc).update(codeFeild);
+
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text("Code Generated")));
+                                    } catch (e) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text("Try again!"),
+                                        ),
+                                      );
+                                    }
+
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return TripPage();
+                                        },
+                                      ),
+                                    );
+                                  },
+                                  icon: Icon(
+                                    Icons.done_sharp,
+                                    color: Colors.white,
+                                  ),
+                                  label: Text(
+                                    "Done",
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ),
+                          );
                         },
                       );
                     } catch (e) {
@@ -547,5 +645,11 @@ class _CreateTripState extends State<CreateTrip> {
         ),
       ),
     );
+  }
+
+  String getBase64RandomString(int length) {
+    var random = Random.secure();
+    var values = List<int>.generate(length, (i) => random.nextInt(255));
+    return base64UrlEncode(values);
   }
 }
