@@ -66,7 +66,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> videoInfo = {
       "video": url,
-      "trip_id": logic,
+      "trip_id": userTripId,
     };
     db.collection("video").add(videoInfo).then((DocumentReference doc) {
       docForvideo = doc.id.toString();
@@ -133,7 +133,7 @@ class _Uplode_screenState extends State<Uplode_screen> {
     FirebaseFirestore db = FirebaseFirestore.instance;
     Map<String, dynamic> imageInfo = {
       "image": url,
-      "trip_id": logic,
+      "trip_id": userTripId,
     };
     db.collection("images").add(imageInfo).then((DocumentReference doc) {
       docForimage = doc.id.toString();
