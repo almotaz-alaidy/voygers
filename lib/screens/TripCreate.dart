@@ -532,7 +532,8 @@ class _CreateTripState extends State<CreateTrip> {
                                         FirebaseFirestore.instance;
 
                                     Map<String, dynamic> userInfo = {
-                                      "code": generated_code
+                                      "code": generated_code,
+                                      "trip_id": tripDoc
                                     };
                                     db.collection("code").add(userInfo).then(
                                           (DocumentReference doc) => print(
